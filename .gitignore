@@ -1,0 +1,24 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment configuration
+.env
+**/.env
+*.env
+
+# Frontend / Node
+node_modules/
+dist/
+
+# Large dataset files (>10MB / raw data)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/dwdm_network_traffic_clean.csv
+data/processed/X_train.csv
+data/processed/X_test.csv
+data/processed/y_train.csv
+data/processed/y_test.csv

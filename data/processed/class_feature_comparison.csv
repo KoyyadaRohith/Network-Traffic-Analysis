@@ -1,0 +1,63 @@
+Feature,Normal_Median,Suspicious_Median,Absolute_Difference
+Packet Length Variance,1045.333333,3625073.789,3624028.455667
+Fwd IAT Total,4.0,1764891.5,1764887.5
+Fwd IAT Max,4.0,1762970.0,1762966.0
+Flow IAT Max,170602.5,1876606.5,1706004.0
+Flow Duration,216887.5,1879055.0,1662167.5
+Fwd IAT Std,0.0,932416.5611,932416.5611
+Flow IAT Std,47009.89922000001,932242.91195,885233.01273
+Fwd IAT Mean,4.0,490552.29165,490548.29165
+Flow IAT Mean,66314.545455,489330.5,423015.954545
+Bwd IAT Total,49.0,74751.0,74702.0
+Bwd IAT Max,49.0,67540.0,67491.0
+Bwd IAT Std,0.0,33277.78745,33277.78745
+Bwd IAT Mean,49.0,19080.666665,19031.666665
+Total Length of Bwd Packets,62.0,11601.0,11539.0
+Bwd Packet Length Max,20.0,5755.0,5735.0
+Max Packet Length,102.0,5755.0,5653.0
+Bwd Packet Length Std,0.0,2189.772933,2189.772933
+Bwd Packet Length Mean,13.0,1934.5,1921.5
+Avg Bwd Segment Size,13.0,1934.5,1921.5
+Packet Length Std,32.33161507,1903.962654,1871.63103893
+Flow Bytes/s,1789.7488155,160.1011385,1629.6476770000002
+Average Packet Size,78.5,897.6153846,819.1153846
+Packet Length Mean,61.72727273,833.5,771.77272727
+Destination Port,443.0,80.0,363.0
+Init_Win_bytes_backward,0.0,229.0,229.0
+Total Length of Fwd Packets,70.0,26.0,44.0
+Fwd Packet Length Mean,38.65719697,7.0,31.65719697
+Bwd Header Length,64.0,92.0,28.0
+Init_Win_bytes_forward,229.0,256.0,27.0
+Fwd Packet Length Max,42.0,20.0,22.0
+Flow Packets/s,21.83170433,2.5893668175,19.2423375125
+Fwd Header Length,64.0,80.0,16.0
+Fwd Packets/s,11.877366205,1.6728212550000001,10.204544949999999
+Min Packet Length,6.0,0.0,6.0
+Bwd Packet Length Min,6.0,0.0,6.0
+Fwd Packet Length Min,6.0,0.0,6.0
+Fwd Packet Length Std,0.0,5.656854249,5.656854249
+Fwd IAT Min,3.0,8.0,5.0
+Bwd Packets/s,3.0006088259999997,0.07294874400000001,2.9276600819999996
+act_data_pkt_fwd,1.0,3.0,2.0
+Total Fwd Packets,2.0,4.0,2.0
+Total Backward Packets,2.0,4.0,2.0
+Bwd IAT Min,3.0,4.0,1.0
+Flow IAT Min,3.0,4.0,1.0
+Down/Up Ratio,1.0,0.0,1.0
+ACK Flag Count,0.0,1.0,1.0
+URG Flag Count,0.0,0.0,0.0
+PSH Flag Count,0.0,0.0,0.0
+RST Flag Count,0.0,0.0,0.0
+SYN Flag Count,0.0,0.0,0.0
+FIN Flag Count,0.0,0.0,0.0
+Fwd PSH Flags,0.0,0.0,0.0
+ECE Flag Count,0.0,0.0,0.0
+min_seg_size_forward,20.0,20.0,0.0
+Active Mean,0.0,0.0,0.0
+Active Std,0.0,0.0,0.0
+Active Max,0.0,0.0,0.0
+Active Min,0.0,0.0,0.0
+Idle Mean,0.0,0.0,0.0
+Idle Std,0.0,0.0,0.0
+Idle Max,0.0,0.0,0.0
+Idle Min,0.0,0.0,0.0
