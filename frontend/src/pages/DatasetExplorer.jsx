@@ -361,7 +361,7 @@ export default function DatasetExplorer() {
                   Verified before and after metrics from clean_dataset.py
                 </p>
               </div>
-              <span className="badge badge-purple">Quality Audit</span>
+              <span className="badge badge-purple">Quality Assessment</span>
             </div>
 
             {/* Before vs After Visual Box */}
@@ -701,7 +701,7 @@ export default function DatasetExplorer() {
               FACT_NETWORK_TRAFFIC (Fact Table)
             </div>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: '0 0 6px' }}>
-              Central fact table recording microscopic network traffic flow telemetry.
+              Central fact table recording network traffic flow metrics.
             </p>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>
               Foreign Keys: date_id, network_id, classification_id

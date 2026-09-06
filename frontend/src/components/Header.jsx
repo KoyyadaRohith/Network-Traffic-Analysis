@@ -1,172 +1,79 @@
 import React from 'react';
-import { Search, Bell, Moon, Menu, Database } from 'lucide-react';
+import {
+  Menu,
+  Home,
+  ChevronRight,
+  Search,
+  Bell,
+  Calendar,
+  Layers,
+} from 'lucide-react';
 
-export default function Header({ onToggleSidebar }) {
+export default function Header({ onToggleSidebar, activeTab = 'Dashboard' }) {
   return (
-    <header
-      style={{
-        height: 'var(--header-height)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 32px',
-        borderBottom: '1px solid var(--border-subtle)',
-        background: 'rgba(7, 11, 20, 0.8)',
-        backdropFilter: 'blur(12px)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 30,
-      }}
-    >
-      {/* Left: Mobile Toggle & Search */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, maxWidth: '480px' }}>
+    <header className="top-header">
+      {/* Left: Mobile Toggle & Page Location Breadcrumb */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <button
           onClick={onToggleSidebar}
           className="mobile-menu-btn"
-          style={{
-            background: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: 'var(--radius-sm)',
-            color: 'var(--text-secondary)',
-            padding: '8px',
-            cursor: 'pointer',
-            display: 'none',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
           aria-label="Open sidebar navigation"
         >
-          <Menu size={20} />
+          <Menu size={18} />
         </button>
 
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            width: '100%',
-            background: 'rgba(15, 23, 42, 0.6)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: 'var(--radius-md)',
-            padding: '8px 14px',
-            color: 'var(--text-muted)',
-            transition: 'border-color 0.2s ease',
-          }}
-        >
-          <Search size={18} color="var(--text-muted)" />
-          <input
-            type="text"
-            placeholder="Search anything (flows, ports, protocols)..."
-            style={{
-              background: 'transparent',
-              border: 'none',
-              outline: 'none',
-              color: 'var(--text-primary)',
-              fontSize: '0.875rem',
-              width: '100%',
-            }}
-            readOnly
-          />
+        <div className="header-breadcrumb">
+          <Home size={14} className="breadcrumb-icon" />
+          <ChevronRight size={12} className="breadcrumb-chevron" />
+          <span className="breadcrumb-current">{activeTab}</span>
         </div>
       </div>
 
-      {/* Right: Actions and Student Profile */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-        {/* Warehouse Status Pill */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            background: 'rgba(56, 189, 248, 0.08)',
-            border: '1px solid rgba(56, 189, 248, 0.2)',
-            borderRadius: '9999px',
-            padding: '4px 12px',
-            fontSize: '0.75rem',
-            color: 'var(--color-blue)',
-            fontWeight: '600',
-          }}
-          className="header-pill"
-        >
-          <Database size={13} />
-          <span>MySQL DW: network_traffic_dw</span>
+      {/* Center/Right: Search, Notifications, Student View & Dataset Context */}
+      <div className="header-right-tools">
+        {/* Compact Search Field */}
+        <div className="header-search-wrap">
+          <Search size={14} color="var(--text-muted)" />
+          <input
+            type="text"
+            placeholder="Search anything..."
+            className="header-search-input"
+            readOnly
+          />
+          <kbd className="header-search-kbd">Ctrl K</kbd>
         </div>
 
-        {/* Action icons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <button
-            style={{
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              padding: '8px',
-              color: 'var(--text-secondary)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            title="Dark mode active"
-          >
-            <Moon size={18} />
-          </button>
+        {/* Notification Bell */}
+        <button className="header-icon-btn" aria-label="System notifications">
+          <Bell size={15} color="var(--text-secondary)" />
+          <span className="notification-dot" />
+        </button>
 
-          <button
-            style={{
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              padding: '8px',
-              color: 'var(--text-secondary)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative',
-            }}
-            title="Notifications"
-          >
-            <Bell size={18} />
-            <span
-              style={{
-                position: 'absolute',
-                top: '6px',
-                right: '6px',
-                width: '6px',
-                height: '6px',
-                background: 'var(--color-blue)',
-                borderRadius: '50%',
-              }}
-            />
-          </button>
-        </div>
-
-        {/* User profile */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', paddingLeft: '8px', borderLeft: '1px solid var(--border-subtle)' }}>
-          <div
-            style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, #0284c7, #8b5cf6)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: '700',
-              fontSize: '0.85rem',
-              color: '#ffffff',
-              boxShadow: '0 0 10px rgba(56, 189, 248, 0.3)',
-            }}
-          >
-            ST
+        {/* Dataset / Date Context */}
+        <div className="header-context-pill">
+          <Calendar size={13} color="var(--color-cyan)" />
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: '0.72rem', fontWeight: '700', color: 'var(--text-primary)', lineHeight: 1.1 }}>
+              Jul 07, 2017
+            </span>
+            <span style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>
+              CICIDS2017 Dataset
+            </span>
           </div>
-          <div className="user-text">
-            <div style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-primary)' }}>
-              Student
-            </div>
-            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-              3rd Year CSE
-            </div>
+        </div>
+
+        {/* Student View Avatar Badge */}
+        <div className="student-view-badge">
+          <div className="student-avatar">
+            SV
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: '0.74rem', fontWeight: '700', color: 'var(--text-primary)', lineHeight: 1.1 }}>
+              Student View
+            </span>
+            <span style={{ fontSize: '0.62rem', color: 'var(--color-cyan)', fontWeight: '600' }}>
+              B.Tech Project
+            </span>
           </div>
         </div>
       </div>

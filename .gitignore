@@ -1,20 +1,47 @@
-# Virtual environment
-venv/
-
-# Python cache
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
 
-# Environment configuration
+# Environment / secrets
 .env
+.env.*
+!.env.example
 **/.env
 *.env
 
-# Frontend / Node
+# Node
 node_modules/
-dist/
+frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 
-# Large dataset files (>10MB / raw data)
+# Frontend build
+dist/
+build/
+frontend/dist/
+frontend/build/
+.npm
+.eslintcache
+
+# IDE / OS
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Python generated files
+*.log
+
+# Large raw datasets
+*.pcap
+*.pcapng
 data/raw/*
 !data/raw/.gitkeep
 data/processed/dwdm_network_traffic_clean.csv
@@ -22,3 +49,9 @@ data/processed/X_train.csv
 data/processed/X_test.csv
 data/processed/y_train.csv
 data/processed/y_test.csv
+
+# Temporary / test / cache files
+coverage/
+.pytest_cache/
+
+

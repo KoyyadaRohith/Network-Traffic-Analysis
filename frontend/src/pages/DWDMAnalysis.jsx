@@ -1044,7 +1044,7 @@ export default function DWDMAnalysis() {
               WHERE destination_port = 80
             </div>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '8px' }}>
-              Result: Granular Port 80 telemetry
+              Result: Granular Port 80 metrics
             </div>
           </div>
         </div>

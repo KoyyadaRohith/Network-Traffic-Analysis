@@ -131,7 +131,7 @@ export default function ModelPerformance() {
                 color: 'var(--text-primary)',
               }}
             >
-              ML Model Performance
+              Data Mining — Random Forest Performance
             </h2>
           </div>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', maxWidth: '780px' }}>
@@ -1316,7 +1316,7 @@ export default function ModelPerformance() {
               <strong style={{ color: 'var(--text-primary)' }}>3. Robust Tabular Performance:</strong> Excels on high-dimensional tabular flow features (durations, packet lengths, inter-arrival times) without being sensitive to monotonic feature scaling.
             </div>
             <div>
-              <strong style={{ color: 'var(--text-primary)' }}>4. Native Interpretability:</strong> Mean Decrease in Impurity (Gini importance) provides transparent feature rankings, meeting academic auditing criteria.
+              <strong style={{ color: 'var(--text-primary)' }}>4. Native Interpretability:</strong> Mean Decrease in Impurity (Gini importance) provides transparent feature rankings, meeting academic evaluation criteria.
             </div>
             <div style={{ padding: '10px 12px', borderRadius: '6px', background: 'rgba(255, 255, 255, 0.03)', border: '1px solid var(--border-subtle)', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
               <em>Note: While Random Forest demonstrated 99.99% accuracy on this tabular benchmark, it is not universally optimal for all security tasks—such as payload deep packet inspection (DPI) where recurrent or transformer architectures are preferred.</em>

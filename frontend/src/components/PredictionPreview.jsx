@@ -148,7 +148,7 @@ export default function PredictionPreview({ onPredictionComplete }) {
             </div>
           </div>
           <span className={`badge ${result ? (result.analysis.overall_status === 'SUSPICIOUS' ? 'badge-suspicious' : 'badge-normal') : 'badge-purple'}`}>
-            {result ? result.analysis.overall_status : 'ML Engine Active'}
+            {result ? result.analysis.overall_status : 'Model Ready'}
           </span>
         </div>
 

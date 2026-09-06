@@ -96,7 +96,7 @@ export default function ReportPreview({ report: propReport }) {
                 Traffic Analysis Report
               </h3>
               <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                Executive telemetry & anomaly forensic audit
+                Model evaluation & traffic classification report
               </p>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function ReportPreview({ report: propReport }) {
               Risk: {report.risk_assessment.risk_level}
             </span>
           ) : (
-            <span className="badge badge-info">Forensic Audit</span>
+            <span className="badge badge-info">Evaluation Report</span>
           )}
         </div>
 
@@ -113,13 +113,13 @@ export default function ReportPreview({ report: propReport }) {
         {!report && (
           <div>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '18px' }}>
-              Generates an executive audit of traffic classification, observed packet flow metrics, classifier confidence distributions, and risk indicators based on evaluated traffic records.
+              Generates an evaluation report of traffic classification, observed packet flow metrics, classifier confidence distributions, and traffic indicators based on evaluated traffic records.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '22px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                 <ShieldCheck size={16} color="var(--color-green)" />
-                <span>NetGuard Analytical Risk Level calculation</span>
+                <span>Academic Traffic Classification & Risk Metric calculation</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                 <Activity size={16} color="var(--color-blue)" />
@@ -138,7 +138,7 @@ export default function ReportPreview({ report: propReport }) {
                 onClick={handleLoadDemoReport}
               >
                 <Sparkles size={14} color="var(--color-blue)" />
-                Preview Sample Audit Report
+                Preview Sample Evaluation Report
               </button>
               <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textAlign: 'center' }}>
                 Run an evaluation in Traffic Prediction to generate a live report.
@@ -163,7 +163,7 @@ export default function ReportPreview({ report: propReport }) {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '12px' }}>
                 <div>
                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: '700' }}>
-                    Audit Overview
+                    Evaluation Overview
                   </span>
                   <div style={{ fontSize: '1.2rem', fontWeight: '800', color: '#ffffff' }}>
                     {Number(report.overview.total_records).toLocaleString()} Flow Records
@@ -292,7 +292,7 @@ export default function ReportPreview({ report: propReport }) {
               </div>
             </div>
 
-            {/* Section 5: Telemetry Observations */}
+            {/* Section 5: Classification Observations */}
             <div style={{ marginBottom: '16px' }}>
               <div style={{ fontSize: '0.72rem', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px' }}>
                 Factual Observations:

@@ -29,14 +29,14 @@ export default function AnalysisSummary({ summary }) {
                 Analysis Summary
               </h3>
               <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                Automated DWDM warehouse telemetry findings
+                Automated DWDM warehouse analytical findings
               </p>
             </div>
           </div>
-          <span className="badge badge-suspicious">High Threat Index</span>
+          <span className="badge badge-suspicious">High Suspicious Ratio</span>
         </div>
 
-        {/* Dynamic Telemetry Narrative */}
+        {/* Dynamic Analytical Narrative */}
         <p style={{ fontSize: '0.88rem', color: 'var(--text-primary)', lineHeight: 1.6, marginBottom: '16px' }}>
           {isSuspiciousDominant
             ? `Traffic classification is currently dominated by suspicious DDoS flows in the selected dataset (${suspPct}% volume). Port 80 HTTP traffic forms the principal vector of anomaly density.`

@@ -1,213 +1,113 @@
+import React from 'react';
 import {
   LayoutDashboard,
+  Database,
   BarChart3,
   BrainCircuit,
   FileText,
-  Database,
-  Settings,
-  Shield,
-  Activity,
-  GitFork,
-  X
+  X,
+  Network,
+  Disc,
 } from 'lucide-react';
 
 export default function Sidebar({ isOpen, onClose, activeTab = 'Dashboard', onSelectTab }) {
   const navItems = [
     { name: 'Dashboard', icon: LayoutDashboard },
-    { name: 'Traffic Analytics', icon: BarChart3 },
-    { name: 'Dataset', icon: Database },
-    { name: 'Model Performance', icon: BrainCircuit },
-    { name: 'DWDM Analysis', icon: GitFork },
-    { name: 'Prediction', icon: Activity },
-    { name: 'Report', icon: FileText },
+    { name: 'Data Warehouse', icon: Database },
+    { name: 'OLAP Analysis', icon: BarChart3 },
+    { name: 'Data Mining', icon: BrainCircuit },
+    { name: 'Report Analysis', icon: FileText },
   ];
-
 
   return (
     <>
       {/* Mobile Backdrop */}
       {isOpen && (
-        <div 
+        <div
           onClick={onClose}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(0, 0, 0, 0.65)',
-            backdropFilter: 'blur(4px)',
-            zIndex: 40,
-          }}
+          className="sidebar-backdrop"
           aria-hidden="true"
         />
       )}
 
-      <aside
-        style={{
-          width: 'var(--sidebar-width)',
-          height: '100vh',
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          zIndex: 50,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          background: 'linear-gradient(180deg, #0a0f1d 0%, #070b14 100%)',
-          borderRight: '1px solid var(--border-subtle)',
-          padding: '24px 16px',
-          transform: isOpen ? 'translateX(0)' : undefined,
-          transition: 'transform 0.3s ease',
-        }}
-        className={`sidebar ${isOpen ? 'open' : ''}`}
-      >
+      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div>
-          {/* Brand Header */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 8px 24px', borderBottom: '1px solid var(--border-subtle)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #2563eb, #8b5cf6)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 0 15px rgba(56, 189, 248, 0.3)',
-                }}
-              >
-                <Shield size={22} color="#ffffff" />
+          {/* Top Brand */}
+          <div className="sidebar-brand-wrap">
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '9px' }}>
+              <div className="sidebar-brand-icon">
+                <Network size={17} color="var(--color-cyan)" />
               </div>
               <div>
-                <h1 style={{ fontSize: '1.25rem', fontWeight: '800', letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #f8fafc, #94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  NetGuard
+                <h1 className="sidebar-brand-title">
+                  CYBERFLOW<br />
+                  <span>INTELLIGENCE</span>
                 </h1>
-                <div style={{ fontSize: '0.7rem', color: 'var(--color-blue)', fontWeight: '600', letterSpacing: '0.04em' }}>
-                  SOC ANALYTICS
+                <div className="sidebar-brand-subtitle">
+                  Network Traffic Analytics
+                </div>
+                <div className="sidebar-brand-tag">
+                  DWDM • CICIDS2017
                 </div>
               </div>
             </div>
 
-            {/* Mobile close button */}
+            {/* Mobile Close Button */}
             <button
               onClick={onClose}
               className="mobile-close-btn"
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--text-secondary)',
-                cursor: 'pointer',
-                display: 'none',
-              }}
               aria-label="Close sidebar"
             >
-              <X size={20} />
+              <X size={17} />
             </button>
           </div>
 
-          <div style={{ padding: '8px 8px 16px', fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '600' }}>
-            DWDM Project • 3rd Year CSE
-          </div>
-
-          {/* Navigation Items */}
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          {/* Navigation Items (No Numbers) */}
+          <nav className="sidebar-nav">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.name;
-              const isDisabled = item.disabled;
 
               return (
                 <button
                   key={item.name}
                   onClick={() => {
-                    if (!isDisabled && onSelectTab) {
+                    if (onSelectTab) {
                       onSelectTab(item.name);
                       if (onClose) onClose();
                     }
                   }}
-                  disabled={isDisabled}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    width: '100%',
-                    padding: '12px 14px',
-                    borderRadius: 'var(--radius-md)',
-                    border: 'none',
-                    fontSize: '0.875rem',
-                    fontWeight: isActive ? '600' : '500',
-                    color: isActive ? '#ffffff' : isDisabled ? 'var(--text-muted)' : 'var(--text-secondary)',
-                    background: isActive
-                      ? 'linear-gradient(90deg, rgba(37, 99, 235, 0.25) 0%, rgba(139, 92, 246, 0.1) 100%)'
-                      : 'transparent',
-                    borderLeft: isActive ? '3px solid var(--color-blue)' : '3px solid transparent',
-                    cursor: isDisabled ? 'not-allowed' : 'pointer',
-                    opacity: isDisabled ? 0.6 : 1,
-                    textAlign: 'left',
-                    transition: 'all 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive && !isDisabled) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                      e.currentTarget.style.color = 'var(--text-primary)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive && !isDisabled) {
-                      e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = 'var(--text-secondary)';
-                    }
-                  }}
+                  className={`sidebar-nav-item ${isActive ? 'active' : ''}`}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <Icon
-                      size={18}
-                      color={isActive ? 'var(--color-blue)' : isDisabled ? 'var(--text-muted)' : 'var(--text-muted)'}
+                      size={16}
+                      className="sidebar-nav-icon"
+                      color={isActive ? 'var(--color-cyan)' : 'var(--text-muted)'}
                     />
-                    <span>{item.name}</span>
+                    <span className="sidebar-nav-label">{item.name}</span>
                   </div>
-
-                  {isDisabled && (
-                    <span style={{ fontSize: '0.65rem', background: 'rgba(255,255,255,0.05)', padding: '2px 6px', borderRadius: '4px', color: 'var(--text-muted)' }}>
-                      Soon
-                    </span>
-                  )}
                 </button>
               );
             })}
           </nav>
         </div>
 
-        {/* System Status Pill at Bottom */}
-        <div
-          style={{
-            background: 'rgba(15, 23, 42, 0.6)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: 'var(--radius-md)',
-            padding: '14px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-          }}
-        >
-          <div
-            style={{
-              width: '10px',
-              height: '10px',
-              borderRadius: '50%',
-              background: 'var(--color-green)',
-              boxShadow: '0 0 10px var(--color-green)',
-              animation: 'pulse 2s infinite',
-            }}
-          />
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '0.78rem', fontWeight: '600', color: 'var(--text-primary)' }}>
-              System Status
+        {/* Sidebar Footer */}
+        <div className="sidebar-footer">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="sidebar-footer-dot">
+              <Disc size={13} color="var(--color-cyan)" />
             </div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-              Online • All DWDM services operational
+            <div>
+              <div className="sidebar-footer-title">
+                CICIDS2017
+              </div>
+              <div className="sidebar-footer-sub">
+                DWDM PROJECT
+              </div>
             </div>
           </div>
-          <Activity size={16} color="var(--color-green)" />
         </div>
       </aside>
     </>

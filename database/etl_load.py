@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import mysql.connector
 from getpass import getpass
@@ -19,14 +20,14 @@ DATE_ID = 20170707
 # MYSQL CONNECTION
 # ============================================================
 
-DB_PASSWORD = getpass("Enter MySQL root password: ")
+DB_PASSWORD = os.environ.get("DB_PASSWORD") or getpass("Enter MySQL root password: ")
 
 DB_CONFIG = {
-    "host": "localhost",
-    "port": 3306,
-    "user": "root",
-    "password": "Lohith@444",
-    "database": "network_traffic_dw"
+    "host": os.environ.get("DB_HOST", "localhost"),
+    "port": int(os.environ.get("DB_PORT", 3306)),
+    "user": os.environ.get("DB_USER", "root"),
+    "password": DB_PASSWORD,
+    "database": os.environ.get("DB_NAME", "network_traffic_dw")
 }
 
 

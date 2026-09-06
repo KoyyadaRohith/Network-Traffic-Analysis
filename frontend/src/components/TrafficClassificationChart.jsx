@@ -1,102 +1,102 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { ShieldAlert, ShieldCheck } from 'lucide-react';
 
-const COLORS = {
-  SUSPICIOUS: '#ef4444',
-  NORMAL: '#10b981',
-};
-
-export default function TrafficClassificationChart({ data, summary, loading }) {
-  if (loading || !data || data.length === 0) {
+export default function TrafficClassificationChart({ summary, loading }) {
+  if (loading) {
     return (
-      <div className="glass-card" style={{ padding: '24px', minHeight: '380px', display: 'flex', flexDirection: 'column' }}>
-        <h3 style={{ fontSize: '1.05rem', fontWeight: '700', marginBottom: '16px' }}>Traffic Classification</h3>
-        <div className="skeleton" style={{ flex: 1, width: '100%', borderRadius: '12px' }} />
+      <div className="analytical-card" style={{ height: '360px', display: 'flex', flexDirection: 'column' }}>
+        <div className="skeleton" style={{ height: '20px', width: '50%', marginBottom: '6px' }} />
+        <div className="skeleton" style={{ height: '14px', width: '70%', marginBottom: '20px' }} />
+        <div className="skeleton" style={{ flex: 1, width: '100%', borderRadius: '50%' }} />
       </div>
     );
   }
 
-  const chartData = data.map((item) => ({
-    name: item.traffic_status,
-    value: item.total_records,
-    percentage: item.percentage,
-    label: item.original_label,
-  }));
+  const normalCount = summary?.normal_records ?? 95096;
+  const suspCount = summary?.suspicious_records ?? 128016;
+  const normalPct = summary?.normal_percentage ?? 42.62;
+  const suspPct = summary?.suspicious_percentage ?? 57.38;
+  const totalRecords = summary?.total_records ?? 223112;
 
-  const total = summary ? Number(summary.total_records).toLocaleString() : '223,112';
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      const d = payload[0].payload;
-      const isSuspicious = d.name === 'SUSPICIOUS';
-      return (
-        <div
-          style={{
-            background: 'rgba(15, 23, 42, 0.92)',
-            border: `1px solid ${isSuspicious ? 'var(--color-red)' : 'var(--color-green)'}`,
-            borderRadius: '8px',
-            padding: '10px 14px',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
-            backdropFilter: 'blur(8px)',
-          }}
-        >
-          <div style={{ fontWeight: '700', color: isSuspicious ? 'var(--color-red)' : 'var(--color-green)', fontSize: '0.85rem' }}>
-            {d.name} ({d.label})
-          </div>
-          <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#ffffff', margin: '4px 0' }}>
-            {Number(d.value).toLocaleString()}
-          </div>
-          <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-            Share: <strong style={{ color: '#ffffff' }}>{d.percentage}%</strong>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  };
+  const chartData = [
+    {
+      name: 'NORMAL',
+      value: Number(normalCount),
+      percentage: normalPct,
+      color: '#22C55E',
+    },
+    {
+      name: 'SUSPICIOUS',
+      value: Number(suspCount),
+      percentage: suspPct,
+      color: '#EF4444',
+    },
+  ];
 
   return (
-    <div className="glass-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-        <div>
-          <h3 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text-primary)' }}>
-            Traffic Classification
-          </h3>
-          <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            Distribution between BENIGN and DDoS anomaly flows
-          </p>
-        </div>
-        <span className="badge badge-info">Donut Analytics</span>
+    <div className="analytical-card traffic-comp-card">
+      <div>
+        <h3 className="analytical-title">
+          Traffic Composition
+        </h3>
+        <p className="analytical-subtitle">
+          Overall distribution of network traffic
+        </p>
       </div>
 
-      {/* Donut Chart with Centered KPI */}
-      <div style={{ position: 'relative', width: '100%', height: '260px' }}>
+      {/* Donut Chart with Center Absolute Text */}
+      <div style={{ position: 'relative', width: '100%', height: '200px', margin: '4px 0' }}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
+            <Tooltip
+              content={({ active, payload }) => {
+                if (active && payload && payload.length) {
+                  const d = payload[0].payload;
+                  return (
+                    <div
+                      style={{
+                        backgroundColor: '#07151E',
+                        border: '1px solid #1C3B4A',
+                        borderRadius: '6px',
+                        padding: '8px 12px',
+                        fontSize: '0.78rem',
+                        boxShadow: '0 6px 20px rgba(0, 0, 0, 0.8)',
+                      }}
+                    >
+                      <div style={{ fontWeight: '700', color: d.color }}>
+                        {d.name}
+                      </div>
+                      <div style={{ fontSize: '0.95rem', fontWeight: '800', color: '#F5F7FA', marginTop: '2px' }}>
+                        {d.value.toLocaleString()}
+                      </div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                        {d.percentage}% of dataset
+                      </div>
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            />
             <Pie
               data={chartData}
               cx="50%"
               cy="50%"
-              innerRadius={70}
-              outerRadius={95}
+              innerRadius={56}
+              outerRadius={78}
               paddingAngle={4}
               dataKey="value"
+              stroke="#08151E"
+              strokeWidth={2}
             >
-              {chartData.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[entry.name] || '#38bdf8'}
-                  stroke="rgba(0, 0, 0, 0.4)"
-                  strokeWidth={2}
-                />
+              {chartData.map((entry) => (
+                <Cell key={entry.name} fill={entry.color} />
               ))}
             </Pie>
-            <Tooltip content={<CustomTooltip />} />
           </PieChart>
         </ResponsiveContainer>
 
-        {/* Center Text inside Donut */}
+        {/* Center Metric Label */}
         <div
           style={{
             position: 'absolute',
@@ -107,58 +107,56 @@ export default function TrafficClassificationChart({ data, summary, loading }) {
             pointerEvents: 'none',
           }}
         >
-          <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#ffffff', letterSpacing: '-0.02em', lineHeight: 1 }}>
-            {total}
+          <div style={{ fontSize: '1.25rem', fontWeight: '800', color: '#F5F7FA', lineHeight: 1.1 }}>
+            {Number(totalRecords).toLocaleString()}
           </div>
-          <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginTop: '4px', letterSpacing: '0.05em' }}>
+          <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)', letterSpacing: '0.04em', textTransform: 'uppercase', marginTop: '2px' }}>
             Total Records
           </div>
         </div>
       </div>
 
-      {/* Breakdown Legend Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)' }}>
-        {chartData.map((item) => {
-          const isSuspicious = item.name === 'SUSPICIOUS';
-          const Icon = isSuspicious ? ShieldAlert : ShieldCheck;
-          return (
-            <div
-              key={item.name}
-              style={{
-                background: isSuspicious ? 'rgba(239, 68, 68, 0.06)' : 'rgba(16, 185, 129, 0.06)',
-                border: `1px solid ${isSuspicious ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)'}`,
-                borderRadius: 'var(--radius-md)',
-                padding: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-              }}
-            >
-              <div
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '8px',
-                  background: isSuspicious ? 'rgba(239, 68, 68, 0.15)' : 'rgba(16, 185, 129, 0.15)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: isSuspicious ? 'var(--color-red)' : 'var(--color-green)',
-                }}
-              >
-                <Icon size={18} />
-              </div>
-              <div>
-                <div style={{ fontSize: '0.78rem', fontWeight: '600', color: 'var(--text-secondary)' }}>
-                  {item.name}
-                </div>
-                <div style={{ fontSize: '0.95rem', fontWeight: '800', color: '#ffffff' }}>
-                  {Number(item.value).toLocaleString()} <span style={{ fontSize: '0.75rem', fontWeight: '500', color: isSuspicious ? 'var(--color-red)' : 'var(--color-green)' }}>({item.percentage}%)</span>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      {/* Bottom Segment Legend Cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginTop: '4px' }}>
+        <div
+          style={{
+            background: 'rgba(34, 197, 94, 0.05)',
+            border: '1px solid rgba(34, 197, 94, 0.2)',
+            borderRadius: 'var(--radius-sm)',
+            padding: '8px 10px',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#22C55E' }} />
+            <span style={{ fontSize: '0.68rem', fontWeight: '700', color: '#22C55E' }}>NORMAL</span>
+          </div>
+          <div style={{ fontSize: '0.9rem', fontWeight: '800', color: '#F5F7FA', marginTop: '3px' }}>
+            {Number(normalCount).toLocaleString()}
+          </div>
+          <div style={{ fontSize: '0.66rem', color: '#86EFAC' }}>
+            {normalPct}%
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: 'rgba(239, 68, 68, 0.05)',
+            border: '1px solid rgba(239, 68, 68, 0.2)',
+            borderRadius: 'var(--radius-sm)',
+            padding: '8px 10px',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
+            <span style={{ fontSize: '0.68rem', fontWeight: '700', color: '#EF4444' }}>SUSPICIOUS</span>
+          </div>
+          <div style={{ fontSize: '0.9rem', fontWeight: '800', color: '#F5F7FA', marginTop: '3px' }}>
+            {Number(suspCount).toLocaleString()}
+          </div>
+          <div style={{ fontSize: '0.66rem', color: '#FCA5A5' }}>
+            {suspPct}%
+          </div>
+        </div>
       </div>
     </div>
   );
