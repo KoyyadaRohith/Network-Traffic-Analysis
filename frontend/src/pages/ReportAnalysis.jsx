@@ -265,7 +265,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
           flexWrap: 'wrap',
           gap: '10px',
           background: 'linear-gradient(90deg, rgba(168, 85, 247, 0.06) 0%, rgba(245, 158, 11, 0.06) 50%, rgba(0, 217, 255, 0.06) 100%)',
-          border: '1px solid #102430',
+          border: '1px solid var(--border-subtle)',
           borderRadius: 'var(--radius-sm)',
           padding: '10px 16px',
           fontSize: '0.74rem',
@@ -311,7 +311,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
                 fontWeight: '600',
                 color: copied ? '#10B981' : 'var(--text-secondary)',
                 background: 'var(--surface-elevated)',
-                border: '1px solid #102430',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
@@ -393,7 +393,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
         <div
           style={{
             background: 'var(--surface-elevated)',
-            border: '1px solid #102430',
+            border: '1px solid var(--border-subtle)',
             borderRadius: 'var(--radius-sm)',
             padding: '14px 16px',
             fontSize: '0.84rem',
@@ -495,7 +495,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '8px 12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '4px', padding: '8px 12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#10B981' }} />
                   <span style={{ fontSize: '0.78rem', fontWeight: '700', color: '#10B981' }}>NORMAL</span>
@@ -508,7 +508,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
                 </div>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '8px 12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '4px', padding: '8px 12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#EF4444' }} />
                   <span style={{ fontSize: '0.78rem', fontWeight: '700', color: '#EF4444' }}>SUSPICIOUS</span>
@@ -551,7 +551,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '6px 0 10px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '8px 12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '4px', padding: '8px 12px' }}>
               <div>
                 <span style={{ fontSize: '0.78rem', fontWeight: '800', color: 'var(--color-cyan)', fontFamily: 'JetBrains Mono' }}>
                   Port 80 (HTTP / Web)
@@ -566,14 +566,14 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-              <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '8px 10px' }}>
+              <div style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '4px', padding: '8px 10px' }}>
                 <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Port 53 (DNS):</span>
                 <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#F5F7FA', fontFamily: 'JetBrains Mono' }}>
                   30,302 records
                 </div>
               </div>
 
-              <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '8px 10px' }}>
+              <div style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '4px', padding: '8px 10px' }}>
                 <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Port 443 (HTTPS):</span>
                 <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#F5F7FA', fontFamily: 'JetBrains Mono' }}>
                   13,114 records
@@ -626,28 +626,28 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
               margin: '4px 0 10px',
             }}
           >
-            <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
+            <div style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>ACCURACY</div>
               <div style={{ fontSize: '0.85rem', fontWeight: '800', color: 'var(--color-cyan)', fontFamily: 'JetBrains Mono' }}>
                 {accuracy}%
               </div>
             </div>
 
-            <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
+            <div style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>PRECISION</div>
               <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#10B981', fontFamily: 'JetBrains Mono' }}>
                 {precision}%
               </div>
             </div>
 
-            <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
+            <div style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>RECALL</div>
               <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#38BDF8', fontFamily: 'JetBrains Mono' }}>
                 {recall}%
               </div>
             </div>
 
-            <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
+            <div style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>F1 SCORE</div>
               <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#A855F7', fontFamily: 'JetBrains Mono' }}>
                 {f1Score}%
@@ -662,7 +662,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
               gridTemplateColumns: 'repeat(2, 1fr)',
               gap: '8px',
               background: 'var(--surface-elevated)',
-              border: '1px solid #102430',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '4px',
               padding: '10px 12px',
               margin: '4px 0 10px',
@@ -724,7 +724,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   background: 'var(--surface-elevated)',
-                  border: '1px solid #102430',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '4px',
                   padding: '5px 10px',
                   fontSize: '0.74rem',
@@ -1014,7 +1014,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
               fontWeight: '600',
               color: 'var(--text-secondary)',
               background: 'var(--surface-elevated)',
-              border: '1px solid #102430',
+              border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-sm)',
               cursor: 'pointer',
               transition: 'all 0.15s ease',

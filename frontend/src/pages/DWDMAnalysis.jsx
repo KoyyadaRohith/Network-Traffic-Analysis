@@ -593,7 +593,7 @@ export default function DWDMAnalysis() {
                       if (active && payload && payload.length) {
                         const d = payload[0].payload;
                         return (
-                          <div style={{ background: '#0d1322', border: '1px solid var(--border-accent)', padding: '10px 14px', borderRadius: '8px', fontSize: '0.8rem' }}>
+                          <div style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-accent)', padding: '10px 14px', borderRadius: '8px', fontSize: '0.8rem' }}>
                             <div style={{ fontWeight: '700', color: '#fff' }}>{d.name}</div>
                             <div style={{ color: d.color, fontFamily: 'JetBrains Mono, monospace' }}>
                               {d.value.toLocaleString()} flows ({d.percentage}%)
@@ -749,7 +749,7 @@ export default function DWDMAnalysis() {
                   if (active && payload && payload.length) {
                     const d = payload[0].payload;
                     return (
-                      <div style={{ background: '#0d1322', border: '1px solid var(--border-accent)', padding: '10px 14px', borderRadius: '8px', fontSize: '0.8rem' }}>
+                      <div style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-accent)', padding: '10px 14px', borderRadius: '8px', fontSize: '0.8rem' }}>
                         <div style={{ fontWeight: '700', color: '#fff', marginBottom: '4px' }}>{d.port}</div>
                         <div style={{ color: 'var(--color-green)' }}>Normal: {d.Normal.toLocaleString()}</div>
                         <div style={{ color: 'var(--color-purple)' }}>Suspicious: {d.Suspicious.toLocaleString()}</div>
@@ -1110,7 +1110,7 @@ export default function DWDMAnalysis() {
               value={sliceStatus}
               onChange={(e) => setSliceStatus(e.target.value)}
               style={{
-                background: '#0d1322',
+                background: 'var(--surface-elevated)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '8px 12px',
@@ -1134,7 +1134,7 @@ export default function DWDMAnalysis() {
               value={dicePort}
               onChange={(e) => setDicePort(e.target.value)}
               style={{
-                background: '#0d1322',
+                background: 'var(--surface-elevated)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '8px 12px',

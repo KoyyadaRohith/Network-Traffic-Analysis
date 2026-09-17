@@ -573,7 +573,7 @@ export default function DatasetExplorer() {
 
         <div style={{ maxHeight: '380px', overflowY: 'auto', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem', textAlign: 'left' }}>
-            <thead style={{ position: 'sticky', top: 0, background: '#0d1322', color: 'var(--text-muted)', zIndex: 1 }}>
+            <thead style={{ position: 'sticky', top: 0, background: 'var(--surface-elevated)', color: 'var(--text-muted)', zIndex: 1 }}>
               <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
                 <th style={{ padding: '8px 12px', width: '50px' }}>#</th>
                 <th style={{ padding: '8px 12px' }}>Feature Name</th>

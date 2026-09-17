@@ -104,7 +104,7 @@ GROUP BY c.traffic_status;`;
       {error && (
         <div
           style={{
-            backgroundColor: '#0A1218',
+            backgroundColor: 'var(--surface-elevated)',
             border: '1px solid rgba(239, 68, 68, 0.35)',
             borderRadius: 'var(--radius-sm)',
             padding: '14px 18px',
@@ -715,8 +715,8 @@ GROUP BY c.traffic_status;`;
                   display: 'flex',
                   alignItems: 'center',
                   gap: '5px',
-                  background: 'transparent',
-                  border: '1px solid #1C3B4A',
+                  background: 'var(--surface-elevated)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '4px',
                   color: copiedSql ? '#22C55E' : 'var(--text-secondary)',
                   fontSize: '0.7rem',
@@ -738,8 +738,8 @@ GROUP BY c.traffic_status;`;
 
             <pre
               style={{
-                backgroundColor: '#051119',
-                border: '1px solid #102430',
+                backgroundColor: 'var(--surface-elevated)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '12px 14px',
                 fontSize: '0.75rem',
@@ -758,7 +758,7 @@ GROUP BY c.traffic_status;`;
             style={{
               marginTop: '14px',
               paddingTop: '10px',
-              borderTop: '1px solid #102430',
+              borderTop: '1px solid var(--border-subtle)',
               fontSize: '0.74rem',
               color: 'var(--text-muted)',
               lineHeight: 1.45,
@@ -800,8 +800,8 @@ GROUP BY c.traffic_status;`;
                 color: 'var(--text-secondary)',
                 lineHeight: 1.6,
                 margin: 0,
-                background: '#051119',
-                border: '1px solid #102430',
+                background: 'var(--surface-elevated)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '14px',
               }}
@@ -814,8 +814,8 @@ GROUP BY c.traffic_status;`;
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginTop: '14px' }}>
             <div
               style={{
-                background: '#051119',
-                border: '1px solid #102430',
+                background: 'var(--surface-elevated)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '8px 10px',
                 textAlign: 'center',
@@ -826,8 +826,8 @@ GROUP BY c.traffic_status;`;
             </div>
             <div
               style={{
-                background: '#051119',
-                border: '1px solid #102430',
+                background: 'var(--surface-elevated)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '8px 10px',
                 textAlign: 'center',
@@ -838,8 +838,8 @@ GROUP BY c.traffic_status;`;
             </div>
             <div
               style={{
-                background: '#051119',
-                border: '1px solid #102430',
+                background: 'var(--surface-elevated)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '8px 10px',
                 textAlign: 'center',

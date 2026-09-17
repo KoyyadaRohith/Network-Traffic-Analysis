@@ -343,7 +343,7 @@ code, .font-mono {
 [style*="#111111"],
 [style*="#1A1A1A"],
 [style*="#12242E"],
-[style*="#102430"],
+[style*="var(--border-subtle)"],
 [style*="#1C3B4A"],
 [style*="rgba(15, 23, 42"],
 [style*="rgb(15, 23, 42"],
@@ -355,7 +355,7 @@ code, .font-mono {
   background-image: none !important;
 }
 
-[style*="#102430"],
+[style*="var(--border-subtle)"],
 [style*="#153042"],
 [style*="#12242E"],
 [style*="#1C3B4A"],

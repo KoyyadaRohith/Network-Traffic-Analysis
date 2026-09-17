@@ -557,7 +557,7 @@ GROUP BY destination_port;`;
                   alignItems: 'center',
                   gap: '5px',
                   background: 'var(--surface-elevated)',
-                  border: '1px solid #102430',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: 'var(--radius-sm)',
                   padding: '4px 10px',
                   fontSize: '0.74rem',
@@ -805,7 +805,7 @@ GROUP BY destination_port;`;
                               <span>Suspicious Records:</span>
                               <strong>{Number(item.suspiciousRecords || 0).toLocaleString()}</strong>
                             </div>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', color: '#F5F7FA', borderTop: '1px solid #102430', paddingTop: '4px', marginTop: '2px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', color: '#F5F7FA', borderTop: '1px solid var(--border-subtle)', paddingTop: '4px', marginTop: '2px' }}>
                               <span>Total Records:</span>
                               <strong>{Number(item.records).toLocaleString()}</strong>
                             </div>
@@ -883,7 +883,7 @@ GROUP BY destination_port;`;
                           <div
                             style={{
                               background: 'var(--surface-elevated)',
-                              border: '1px solid #102430',
+                              border: '1px solid var(--border-subtle)',
                               borderRadius: '6px',
                               padding: '8px 12px',
                               color: '#F5F7FA',
@@ -1114,7 +1114,7 @@ GROUP BY destination_port;`;
                   style={{
                     background: drilldownPort === p ? 'var(--color-cyan)' : 'var(--surface-elevated)',
                     color: drilldownPort === p ? '#000000' : 'var(--text-secondary)',
-                    border: '1px solid #102430',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '3px',
                     padding: '3px 7px',
                     fontSize: '0.7rem',
@@ -1148,7 +1148,7 @@ GROUP BY destination_port;`;
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   background: 'var(--surface-elevated)',
-                  border: '1px solid #102430',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: 'var(--radius-sm)',
                   padding: '12px 16px',
                   flexWrap: 'wrap',
@@ -1526,7 +1526,7 @@ GROUP BY destination_port;`;
                 alignItems: 'center',
                 gap: '5px',
                 background: 'var(--surface-elevated)',
-                border: '1px solid #102430',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '4px 10px',
                 fontSize: '0.72rem',
@@ -1544,7 +1544,7 @@ GROUP BY destination_port;`;
           <div
             style={{
               background: 'var(--surface-elevated)',
-              border: '1px solid #102430',
+              border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-sm)',
               padding: '12px 14px',
               fontFamily: 'JetBrains Mono, monospace',
@@ -1592,7 +1592,7 @@ GROUP BY destination_port;`;
               alignItems: 'center',
               justifyContent: 'space-between',
               background: 'var(--surface-elevated)',
-              border: '1px solid #102430',
+              border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-sm)',
               padding: '10px 14px',
               fontSize: '0.72rem',

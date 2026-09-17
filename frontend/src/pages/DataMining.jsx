@@ -531,7 +531,7 @@ export default function DataMining() {
           <div style={{ width: '100%', height: '220px', marginTop: '6px' }}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={rocPoints} margin={{ top: 10, right: 20, left: -10, bottom: 5 }}>
-                <CartesianGrid stroke="#102430" strokeDasharray="3 3" />
+                <CartesianGrid stroke="var(--border-subtle)" strokeDasharray="3 3" />
                 <XAxis
                   dataKey="fpr"
                   domain={[0, 1]}
@@ -556,7 +556,7 @@ export default function DataMining() {
                     return (
                       <div
                         style={{
-                          background: '#040D14',
+                          background: 'var(--surface-elevated)',
                           border: '1px solid var(--color-cyan)',
                           borderRadius: '4px',
                           padding: '6px 10px',
@@ -657,7 +657,7 @@ export default function DataMining() {
                   return (
                     <div
                       style={{
-                        background: '#040D14',
+                        background: 'var(--surface-elevated)',
                         border: '1px solid var(--color-cyan)',
                         borderRadius: '6px',
                         padding: '8px 12px',
@@ -758,8 +758,8 @@ export default function DataMining() {
 
           <div
             style={{
-              background: '#040D14',
-              border: '1px solid #102430',
+              background: 'var(--surface-elevated)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-sm)',
               padding: '10px 12px',
               fontSize: '0.76rem',
@@ -914,8 +914,8 @@ export default function DataMining() {
                   fontSize: '0.74rem',
                   fontWeight: '600',
                   color: 'var(--text-muted)',
-                  background: '#040D14',
-                  border: '1px solid #102430',
+                  background: 'var(--surface-elevated)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: 'var(--radius-sm)',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
@@ -965,7 +965,7 @@ export default function DataMining() {
               fontSize: '0.8rem',
               fontWeight: '700',
               color: !file || predictLoading ? 'var(--text-muted)' : '#000000',
-              background: !file || predictLoading ? '#102430' : 'var(--color-cyan)',
+              background: !file || predictLoading ? 'var(--border-subtle)' : 'var(--color-cyan)',
               border: 'none',
               borderRadius: 'var(--radius-sm)',
               cursor: !file || predictLoading ? 'not-allowed' : 'pointer',
@@ -995,7 +995,7 @@ export default function DataMining() {
 
         {/* Prediction Results Display */}
         {predictionResult && (
-          <div style={{ marginTop: '16px', borderTop: '1px solid #102430', paddingTop: '16px' }}>
+          <div style={{ marginTop: '16px', borderTop: '1px solid var(--border-subtle)', paddingTop: '16px' }}>
             <div className="dm-prediction-results-grid">
               <div className="dm-pred-pill">
                 <span className="dm-spec-label">EVALUATED RECORDS</span>
@@ -1195,8 +1195,8 @@ export default function DataMining() {
               alignItems: 'center',
               gap: '8px',
               padding: '10px 12px',
-              background: '#040D14',
-              border: '1px solid #102430',
+              background: 'var(--surface-elevated)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-sm)',
               fontSize: '0.74rem',
               color: 'var(--text-muted)',
@@ -1241,8 +1241,8 @@ export default function DataMining() {
               alignItems: 'center',
               gap: '8px',
               padding: '10px 12px',
-              background: '#040D14',
-              border: '1px solid #102430',
+              background: 'var(--surface-elevated)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-sm)',
               fontSize: '0.74rem',
               color: 'var(--text-muted)',

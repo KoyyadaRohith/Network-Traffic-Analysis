@@ -994,7 +994,7 @@
   align-items: flex-start;
   margin-bottom: 12px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #102430;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .schema-fact-tag {
@@ -1072,7 +1072,7 @@
 .schema-measures-wrap {
   margin-top: 6px;
   padding-top: 8px;
-  border-top: 1px solid #102430;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .schema-measures-label {
@@ -1183,7 +1183,7 @@
   flex-direction: column;
   gap: 5px;
   font-size: 0.72rem;
-  border-top: 1px solid #102430;
+  border-top: 1px solid var(--border-subtle);
   padding-top: 10px;
 }
 
@@ -1410,7 +1410,7 @@
 
 .olap-concept-card {
   background: var(--surface-elevated);
-  border: 1px solid #102430;
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 14px 16px;
   display: flex;
@@ -1496,13 +1496,13 @@
   justify-content: space-between;
   margin-top: 4px;
   padding-top: 8px;
-  border-top: 1px solid #102430;
+  border-top: 1px solid var(--border-subtle);
 }
 
 /* Filter Panel */
 .olap-filter-panel {
   background: var(--surface-elevated);
-  border: 1px solid #102430;
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 18px 20px;
   display: flex;
@@ -1576,7 +1576,7 @@
   flex-wrap: wrap;
   gap: 10px;
   padding-top: 10px;
-  border-top: 1px solid #102430;
+  border-top: 1px solid var(--border-subtle);
   font-size: 0.78rem;
 }
 
@@ -1769,7 +1769,7 @@
   color: var(--text-muted);
   font-weight: 700;
   text-align: left;
-  border-bottom: 1px solid #102430;
+  border-bottom: 1px solid var(--border-subtle);
   font-size: 0.7rem;
   text-transform: uppercase;
 }
@@ -1824,7 +1824,7 @@
   padding: 9px 12px;
   color: var(--text-muted);
   font-weight: 700;
-  border-bottom: 1px solid #102430;
+  border-bottom: 1px solid var(--border-subtle);
   font-size: 0.72rem;
   text-transform: uppercase;
 }
@@ -2112,7 +2112,7 @@
   color: var(--text-muted);
   font-weight: 700;
   text-align: left;
-  border-bottom: 1px solid #102430;
+  border-bottom: 1px solid var(--border-subtle);
   font-size: 0.7rem;
   text-transform: uppercase;
 }
