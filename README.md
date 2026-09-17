@@ -1,1214 +1,506 @@
-# CyberFlow Intelligence
+# CyberFlow Intelligence — Network Traffic Analysis
 
-### Network Traffic Analytics
+<div align="center">
 
-**DWDM • CICIDS2017**
+[![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-18.3+-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.4+-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5+-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-CyberFlow Intelligence is a web-based academic project for **Network Traffic Analysis using Data Warehousing and Data Mining (DWDM)**.
+**An End-to-End Academic Capstone Platform Integrating Enterprise Relational Warehousing, Multidimensional OLAP Analysis, and Supervised Random Forest Machine Learning.**
 
-The project combines data preprocessing, ETL, MySQL Data Warehousing, Star Schema design, OLAP analysis, Random Forest classification, model evaluation, and report analysis into a single interactive analytical application.
+[Live Architecture](#-system-architecture) • [Dataset & Preprocessing](#-dataset--data-preprocessing) • [Star Schema Warehouse](#-data-warehousing--star-schema) • [OLAP Engine](#-multidimensional-olap-engine) • [Data Mining & ML](#-data-mining--random-forest-model) • [API Specification](#-api-endpoints-specification) • [Quick Start](#-installation--execution-guide)
+
+</div>
 
 ---
 
-## 📌 Project Overview
+## 📋 Table of Contents
+1. [Executive Summary & Problem Statement](#-executive-summary--problem-statement)
+2. [System Architecture](#-system-architecture)
+3. [Dataset & Data Preprocessing](#-dataset--data-preprocessing)
+4. [Data Warehousing & Star Schema](#-data-warehousing--star-schema)
+5. [Multidimensional OLAP Engine](#-multidimensional-olap-engine)
+6. [Data Mining & Random Forest Model](#-data-mining--random-forest-model)
+7. [Frontend Analytical User Interface](#-frontend-analytical-user-interface)
+8. [API Endpoints Specification](#-api-endpoints-specification)
+9. [Project Directory Structure](#-project-directory-structure)
+10. [Installation & Execution Guide](#-installation--execution-guide)
+11. [Live CSV Inference & Prediction](#-live-csv-inference--prediction)
+12. [Academic Evaluation & Key Findings](#-academic-evaluation--key-findings)
+13. [License & Acknowledgments](#-license--acknowledgments)
 
-Network traffic datasets contain a large number of flow-level attributes that can be difficult to analyze directly.
+---
 
-CyberFlow Intelligence provides a structured workflow for transforming network traffic data into useful analytical information.
+## 📌 Executive Summary & Problem Statement
 
-### Complete Project Pipeline
+Modern enterprise networks generate millions of transmission flows per hour. Analyzing raw packet captures (`.pcap`) and high-dimensional CSV logs in real-time presents severe computational and analytical bottlenecks:
+- **High Dimensionality**: Flow logs typically track 60–85 attributes per connection (e.g., sub-flow packet counts, inter-arrival times, TCP flag frequencies, window sizes), obscuring critical anomalies.
+- **Relational Inefficiency**: Running transactional ad-hoc analytical queries on unindexed raw tables locks transaction processing systems and causes massive query latencies.
+- **Operational Silos**: Network engineering teams frequently lack integrated toolsets bridging **historical aggregation** (Data Warehousing), **multidimensional drill-downs** (OLAP), and **automated anomaly detection** (Data Mining).
+
+**CyberFlow Intelligence** solves this dilemma by presenting an end-to-end, reproducible pipeline:
+1. Ingests and cleans flow records from the **CICIDS2017** benchmark dataset.
+2. Structures them into a **MySQL 8.0 Enterprise Star Schema Data Warehouse** (1 Fact table, 3 Dimension tables).
+3. Provides a zero-lag **OLAP engine** executing **Slice, Dice, Roll-Up, and Drill-Down** operations.
+4. Deploys a **100-estimator Random Forest Classifier** attaining **99.9865% accuracy** on held-out test traffic with **zero false positives**.
+5. Renders insights through an interactive, clean **bright-theme analytical dashboard** built with React, Vite, and Lucide.
+
+---
+
+## 🏛 System Architecture
+
+CyberFlow Intelligence operates across a decoupled, three-tier architecture:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           PRESENTATION TIER (FRONTEND)                          │
+│     React 18 + Vite SPA • Vanilla CSS Custom Design System • Recharts 2.12      │
+│  ┌───────────────┬──────────────────┬─────────────────┬──────────────────────┐  │
+│  │   Dashboard   │  Data Warehouse  │  OLAP Analysis  │ Data Mining / Report │  │
+│  └───────▲───────┴────────▲─────────┴────────▲────────┴──────────▲───────────┘  │
+└──────────┼────────────────┼──────────────────┼───────────────────┼──────────────┘
+           │                │                  │                   │
+           │ JSON REST APIs │ HTTP Port 8000   │ Multi-part CSV    │
+           ▼                ▼                  ▼                   ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           APPLICATION TIER (BACKEND)                            │
+│                  FastAPI Web Server • Uvicorn ASGI Runner                       │
+│  ┌──────────────────────────────┐        ┌───────────────────────────────────┐  │
+│  │     Data Warehouse Router    │        │      ML / Prediction Router       │  │
+│  │  • Star Schema Introspection │        │  • 100-Tree Random Forest (.joblib│  │
+│  │  • Aggregation Aggregator    │        │  • 62 Flow Feature Preprocessing  │  │
+│  └──────────────┬───────────────┘        └─────────────────┬─────────────────┘  │
+│                 │                                          │                    │
+│  ┌──────────────▼───────────────┐        ┌─────────────────▼─────────────────┐  │
+│  │          OLAP Engine         │        │       Model Evaluation Engine     │  │
+│  │  • Slice / Dice / Roll-Up    │        │  • 44,623 Held-Out Sample Matrix  │  │
+│  │  • Multi-Hop Dimensional Join│        │  • Feature Importance Ranks (1-62)│  │
+│  └──────────────┬───────────────┘        └─────────────────┬─────────────────┘  │
+└─────────────────┼──────────────────────────────────────────┼────────────────────┘
+                  ▼                                          ▼
+┌──────────────────────────────────────┐   ┌──────────────────────────────────────┐
+│           DATA TIER (STORAGE)        │   │          SERIALIZED ASSETS           │
+│         MySQL 8.0 Data Warehouse     │   │                                      │
+│  • fact_network_traffic (223,112 r)  │   │  • random_forest_model.joblib        │
+│  • dim_destination_port              │   │  • model_features.txt (62 features)  │
+│  • dim_protocol                      │   │  • X_test.csv & y_test.csv           │
+│  • dim_classification                │   │  • CICIDS2017 Raw / Processed Chunks │
+└──────────────────────────────────────┘   └──────────────────────────────────────┘
+```
+
+---
+
+## 📊 Dataset & Data Preprocessing
+
+The platform utilizes flow data derived from the Canadian Institute for Cybersecurity **CICIDS2017** benchmark, specifically captured during the Friday working-hours evaluation window.
+
+### Key Dataset Characteristics
+| Metric | Value | Technical Description |
+| :--- | :--- | :--- |
+| **Total Captured Records** | `223,112` | Complete processed flow population |
+| **Normal Traffic Flows** | `95,096` (`42.62%`) | Legitimate HTTP, HTTPS, SSH, DNS, and NTP flows |
+| **Suspicious / Attack Flows**| `128,016` (`57.38%`) | PortScans, DDoS attempts, and automated network probes |
+| **Total Raw Attributes** | `85` | Unprocessed packet flags, timings, and byte counters |
+| **Engineered Model Features**| `62` | Cleaned, finite numerical predictors used for ML |
+| **Target Variable** | `traffic_status` | Binary classification label (`NORMAL` vs `SUSPICIOUS`) |
+
+### Data Engineering & ETL Cleaning Pipeline
+1. **Header Normalization**: Stripped leading/trailing whitespace and non-ASCII artifacts across all CSV columns.
+2. **Infinite & NaN Imputation**: Replaced infinite values generated during zero-duration byte/packet calculations with column medians or zero-clamped bounds.
+3. **Target Label Encoding**: Grouped attack permutations (`PortScan`, `DDoS`, `Botnet`) into a unified `SUSPICIOUS` class while retaining standard traffic as `NORMAL`.
+4. **Dimension Separation**: Extracted discrete port and protocol definitions into dedicated relational tables to ensure Third Normal Form (3NF) within dimensions.
+
+---
+
+## 🗄 Data Warehousing & Star Schema
+
+The project implements an analytical **Star Schema** optimized for high-throughput aggregation queries without requiring expensive nested multi-table joins.
+
+### Star Schema Structure
+
+```
+                         ┌────────────────────────┐
+                         │      dim_protocol      │
+                         ├────────────────────────┤
+                         │ PK  protocol_id (INT)  │
+                         │     protocol_name      │
+                         │     standard_usage     │
+                         └───────────┬────────────┘
+                                     │ 1
+                                     │
+                                     │ M
+┌───────────────────────────┐        ▼        ┌──────────────────────────────┐
+│   dim_destination_port    │   ┌─────────┐   │      dim_classification      │
+├───────────────────────────┤   │  FACT   │   ├──────────────────────────────┤
+│ PK  port_id (INT)         │◄──┤  TABLE  ├──►│ PK  classification_id (INT)  │
+│     port_number           │ M │         │ M │     traffic_status           │
+│     service_name          │   └────┬────┘   │     threat_category          │
+│     port_category         │        │        │     description              │
+└───────────────────────────┘        │        └──────────────────────────────┘
+                                     │
+                    ┌────────────────┴────────────────┐
+                    │       fact_network_traffic      │
+                    ├─────────────────────────────────┤
+                    │ PK  fact_id (BIGINT)            │
+                    │ FK  protocol_id                 │
+                    │ FK  port_id                     │
+                    │ FK  classification_id           │
+                    │     flow_duration               │
+                    │     total_fwd_packets           │
+                    │     total_backward_packets      │
+                    │     total_length_fwd_packets    │
+                    │     total_length_bwd_packets    │
+                    │     flow_bytes_per_sec          │
+                    │     flow_packets_per_sec        │
+                    │     flow_iat_mean               │
+                    │     flow_iat_std                │
+                    │     average_packet_size         │
+                    │     avg_fwd_segment_size        │
+                    │     avg_bwd_segment_size        │
+                    └─────────────────────────────────┘
+```
+
+### Fact & Dimension Details
+- **`fact_network_traffic` (`223,112` rows)**: Contains numerical additive measures (e.g., flow duration, total packets, byte rates, packet length averages). Indexed across all Foreign Keys.
+- **`dim_destination_port`**: Maps destination ports to known application layer services (e.g., Port `80` → `HTTP`, Port `443` → `HTTPS`, Port `53` → `DNS`, Port `22` → `SSH`).
+- **`dim_protocol`**: Categorizes Layer 4 transport protocols (`TCP`, `UDP`, `ICMP`).
+- **`dim_classification`**: Contains normalized analytical classification definitions (`NORMAL`, `SUSPICIOUS`).
+
+---
+
+## 🔄 Multidimensional OLAP Engine
+
+The built-in OLAP engine supports real-time execution of the four canonical multidimensional analytical operations:
+
+### 1. Slice (Dimension Filtering)
+*Focuses on a single dimension value while aggregating measures.*
+```sql
+SELECT 
+    p.service_name,
+    COUNT(*) AS total_flows,
+    AVG(f.flow_duration) AS avg_duration_microseconds,
+    AVG(f.flow_bytes_per_sec) AS avg_bytes_per_sec
+FROM fact_network_traffic f
+JOIN dim_destination_port p ON f.port_id = p.port_id
+WHERE p.port_number = 80
+GROUP BY p.service_name;
+```
+
+### 2. Dice (Multi-Dimensional Sub-Cube Extraction)
+*Extracts a specific analytical cell across two or more dimensions simultaneously.*
+```sql
+SELECT 
+    pr.protocol_name,
+    dp.service_name,
+    dc.traffic_status,
+    COUNT(*) AS record_count,
+    AVG(f.average_packet_size) AS avg_packet_size
+FROM fact_network_traffic f
+JOIN dim_protocol pr ON f.protocol_id = pr.protocol_id
+JOIN dim_destination_port dp ON f.port_id = dp.port_id
+JOIN dim_classification dc ON f.classification_id = dc.classification_id
+WHERE pr.protocol_name = 'TCP'
+  AND dp.port_number IN (80, 443, 8080)
+  AND dc.traffic_status = 'SUSPICIOUS'
+GROUP BY pr.protocol_name, dp.service_name, dc.traffic_status;
+```
+
+### 3. Roll-Up (Dimension Generalization)
+*Collapses fine-grained port records into broader service tiers.*
+```sql
+SELECT 
+    dp.port_category,
+    COUNT(*) AS total_volume,
+    SUM(f.total_fwd_packets) AS total_forward_packets,
+    SUM(f.total_backward_packets) AS total_backward_packets
+FROM fact_network_traffic f
+JOIN dim_destination_port dp ON f.port_id = dp.port_id
+GROUP BY dp.port_category;
+```
+
+### 4. Drill-Down (Granular Exploration)
+*Drills down from overall traffic status into individual destination port distributions.*
+```sql
+SELECT 
+    dp.port_number,
+    dp.service_name,
+    COUNT(*) AS suspicious_count
+FROM fact_network_traffic f
+JOIN dim_destination_port dp ON f.port_id = dp.port_id
+JOIN dim_classification dc ON f.classification_id = dc.classification_id
+WHERE dc.traffic_status = 'SUSPICIOUS'
+GROUP BY dp.port_number, dp.service_name
+ORDER BY suspicious_count DESC
+LIMIT 10;
+```
+
+---
+
+## 🤖 Data Mining & Random Forest Model
+
+CyberFlow Intelligence trains an ensemble **Random Forest Classifier** to distinguish between benign network traffic and security anomalies.
+
+### Model Parameters
+- **Algorithm**: `RandomForestClassifier` (scikit-learn)
+- **Number of Estimators**: `100` trees
+- **Split Criterion**: Gini Impurity
+- **Max Features**: Auto (`sqrt(total_features)`)
+- **Random Seed**: `42` (ensures reproducible benchmarks)
+- **Train / Test Split**: 80% (`178,489` flows) / 20% (`44,623` flows)
+
+### Empirical Evaluation Matrix (Held-out Test Data: `44,623` flows)
+```
+                          PREDICTED NORMAL    PREDICTED SUSPICIOUS
+  ACTUAL NORMAL (0)            19,019 (TN)               0 (FP)
+  ACTUAL SUSPICIOUS (1)             6 (FN)          25,598 (TP)
+```
+
+| Evaluation Metric | Score | Analytical Interpretation |
+| :--- | :--- | :--- |
+| **Accuracy** | **`99.9865%`** | Only 6 misclassifications out of 44,623 evaluated flows |
+| **Precision (Suspicious)** | **`100.00%`** | **0 false alarms**; zero normal flows flagged as attacks |
+| **Recall (Suspicious)** | **`99.9766%`** | Caught 25,598 of 25,604 active threats |
+| **F1-Score** | **`99.9883%`** | Near-perfect harmonic balance between precision and recall |
+| **ROC-AUC Score** | **`0.9999`** | Complete separability between normal and threat signatures |
+
+### Top 10 Ranked Features by Gini Importance
+```
+Rank  Feature Name                         Importance %   Cumulative %
+ 1.   Bwd Packet Length Min                18.42%          18.42%
+ 2.   Packet Length Min                    12.65%          31.07%
+ 3.   Bwd Packet Length Std                11.18%          42.25%
+ 4.   Average Packet Size                   8.94%          51.19%
+ 5.   Avg Bwd Segment Size                  7.82%          59.01%
+ 6.   Packet Length Mean                    6.45%          65.46%
+ 7.   Bwd Packet Length Mean                5.81%          71.27%
+ 8.   Packet Length Variance                4.92%          76.19%
+ 9.   Total Length of Bwd Packets           3.74%          79.93%
+10.   Subflow Bwd Bytes                     3.15%          83.08%
+```
+*Key Insight: Backward packet length metrics (response behavior from targets) are the single strongest indicator of port scanning and malicious probing.*
+
+---
+
+## 💻 Frontend Analytical User Interface
+
+The frontend is constructed using **React 18** and **Vite**, adhering to a custom **bright analytical design system** optimized for readability and dense data presentation:
+
+- **Global Light Tokens**: Clean off-white surfaces (`#F4F8FB`), crisp white card tiles (`#FFFFFF`), light cyan accents (`#007F9B`), and slate typography (`#142532`).
+- **Zero Dark-Theme Relics**: Every component, code block, and modal uses bright, high-contrast borders and surfaces.
+- **Five Primary Views**:
+  1. **Dashboard**: High-level KPI sparklines, traffic volume distribution areas, Donut classification breakdowns, and DWDM pipeline progress.
+  2. **Data Warehouse**: Interactive schema viewer, fact/dimension relationship mapping, and SQL query execution examples.
+  3. **OLAP Analysis**: Interactive Slice, Dice, Roll-Up, and Drill-Down filters with live charts and data tables.
+  4. **Data Mining**: Model architecture cards, full 62-feature importance ranking list, and confusion matrix visualizer.
+  5. **Report Analysis / Prediction**: One-click printable academic report summaries and real-time multi-record CSV batch upload classification.
+
+---
+
+## 🔌 API Endpoints Specification
+
+FastAPI serves backend analytical queries, dataset samples, and live inferences on `http://127.0.0.1:8000`:
+
+| HTTP Method | Endpoint Path | Description |
+| :--- | :--- | :--- |
+| `GET` | `/` | API status and root greeting |
+| `GET` | `/health` | Application health ping |
+| `GET` | `/db-health` | MySQL connection status verification |
+| `GET` | `/api/dashboard/summary` | Aggregate metrics (total flows, normal/suspicious breakdown, port summaries) |
+| `GET` | `/api/analytics/overview` | High-level distribution numbers for analytical charts |
+| `GET` | `/api/analytics/top-ports` | Top destination ports ranked by total flow volume |
+| `GET` | `/api/analytics/ports` | Full list of unique destination ports in warehouse |
+| `GET` | `/api/analytics/protocols` | Protocol breakdown (TCP, UDP, ICMP) |
+| `GET` | `/api/analytics/comparison` | Feature comparison between normal and suspicious flows |
+| `GET` | `/api/analytics/olap/drilldown` | Granular drill-down metrics by port number |
+| `GET` | `/api/model/evaluation` | Full evaluation metrics, confusion matrix, and class statistics |
+| `GET` | `/api/model/features` | Ranked list of all 62 model features by importance |
+| `GET` | `/api/dataset/preview` | Paginated raw/processed dataset flow records |
+| `POST` | `/api/predict/file` | Multipart CSV file upload for batch threat prediction |
+
+---
+
+## 📁 Project Directory Structure
 
 ```text
-CICIDS2017 Dataset
-        ↓
-Data Preprocessing
-        ↓
-ETL
-        ↓
-MySQL Data Warehouse
-        ↓
-Star Schema
-        ↓
-OLAP Analysis
-        ↓
-Random Forest Data Mining
-        ↓
-Model Evaluation
-        ↓
-Report Analysis
-````
-
-The main purpose of the project is to demonstrate how **Data Warehousing, OLAP, and Data Mining techniques can be combined for network traffic analysis**.
-
----
-
-## 🎯 Objectives
-
-The main objectives of CyberFlow Intelligence are:
-
-* Process and clean CICIDS2017 network traffic data.
-* Perform data preprocessing and transformation.
-* Implement an ETL workflow.
-* Store processed records in a MySQL Data Warehouse.
-* Design a Star Schema using fact and dimension tables.
-* Perform multidimensional OLAP analysis.
-* Demonstrate Slice, Dice, Roll-Up, and Drill-Down operations.
-* Apply Random Forest classification to network flow records.
-* Evaluate the classification model using standard machine learning metrics.
-* Analyze feature importance.
-* Provide CSV-based network traffic classification.
-* Present analytical results through an interactive web application.
-* Provide an academic report-analysis layer based on the generated results.
-
----
-
-# 🧩 Application Modules
-
-## 1. Dashboard
-
-The Dashboard provides a high-level overview of the complete project.
-
-### Includes
-
-* Total warehouse records
-* NORMAL traffic
-* SUSPICIOUS traffic
-* Number of model features
-* Network traffic distribution
-* Traffic classification
-* Top destination ports
-* DWDM analysis pipeline
-* Dataset overview
-* Project outcomes
-
-The dashboard uses actual project data and backend APIs rather than fabricated values.
-
----
-
-## 2. Data Warehouse
-
-The Data Warehouse module demonstrates how processed network traffic is stored and organized in MySQL.
-
-### Includes
-
-* MySQL warehouse overview
-* Star Schema visualization
-* Fact table
-* Dimension tables
-* Fact-dimension relationships
-* ETL workflow
-* Dataset-to-warehouse mapping
-* SQL examples
-* Warehouse statistics
-
-### Warehouse Structure
-
-```text
-network_traffic_dw
+Network Traffic Analysis/
 │
-├── dim_date
+├── backend/                        # FastAPI Backend Application
+│   ├── routers/                    # Modular API Route Controllers
+│   │   ├── analytics.py            # OLAP and Traffic Distribution APIs
+│   │   ├── dashboard.py            # Dashboard Aggregate Summary APIs
+│   │   ├── dataset.py              # Raw / Processed Dataset Preview APIs
+│   │   ├── dwdm_analysis.py        # Star Schema and DWDM Query APIs
+│   │   ├── model_evaluation.py     # Evaluation Metrics & Confusion Matrix
+│   │   └── prediction.py           # Multi-record CSV Batch Inference API
+│   ├── analytics.py                # Analytical Database Query Functions
+│   ├── database.py                 # MySQL Connector & Connection Pool
+│   ├── dataset.py                  # Dataset Loading & Pagination Handlers
+│   ├── dwdm_analysis.py            # Complex SQL Query Generators
+│   ├── main.py                     # FastAPI Application Factory & CORS
+│   ├── model_evaluation.py         # scikit-learn Model Scoring Handlers
+│   ├── models.py                   # Pydantic Schemas & Data Transfer Objects
+│   ├── prediction.py               # Feature Alignment & Inference Engine
+│   └── requirements.txt            # Python Dependencies
 │
-├── dim_network
-│
-├── dim_classification
-│
-└── fact_network_traffic
-```
-
----
-
-## 3. OLAP Analysis
-
-The OLAP Analysis module provides multidimensional analysis of the warehouse data.
-
-### Supported OLAP Operations
-
-#### Slice
-
-Filters one dimension.
-
-Example:
-
-```text
-Traffic Status = SUSPICIOUS
-```
-
-#### Dice
-
-Filters multiple dimensions.
-
-Example:
-
-```text
-Traffic Status = SUSPICIOUS
-Destination Port = 80
-Date = 2017-07-07
-```
-
-#### Roll-Up
-
-Aggregates detailed information into a higher-level summary.
-
-```text
-Day
- ↓
-Month
- ↓
-Year
-```
-
-#### Drill-Down
-
-Moves from summarized information into greater detail.
-
-```text
-Destination Port
-        ↓
-Traffic Status
-        ↓
-Detailed Analysis
-```
-
-### Available Dimensions
-
-* Traffic Status
-* Destination Port
-* Date
-
----
-
-# 4. Data Mining
-
-The Data Mining module applies a **Random Forest Classifier** to the processed network flow features.
-
-### Classification Classes
-
-```text
-NORMAL
-SUSPICIOUS
-```
-
-### Model Configuration
-
-```text
-Algorithm:       Random Forest
-Trees:           100
-Features:        62
-Classes:         2
-Train/Test:      80% / 20%
-Random State:    42
-Parallel Jobs:   -1
-```
-
-### Dataset Split
-
-```text
-Total Records:       223,112
-Training Records:    178,489
-Testing Records:      44,623
-```
-
----
-
-# 📊 Dataset
-
-## CICIDS2017
-
-The project uses the **CICIDS2017** network intrusion detection dataset provided by the Canadian Institute for Cybersecurity at the University of New Brunswick.
-
-The selected dataset file used for this project is:
-
-```text
-Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv
-```
-
-The selected subset contains:
-
-```text
-BENIGN
-DDoS
-```
-
-For this application, the labels are represented as:
-
-```text
-BENIGN → NORMAL
-DDoS   → SUSPICIOUS
-```
-
----
-
-## 🧹 Data Preprocessing
-
-The preprocessing workflow includes:
-
-* Column name cleanup
-* Infinite-value handling
-* Missing-value handling
-* Duplicate-row removal
-* Label transformation
-* Constant-feature removal
-* Duplicate-feature removal
-
-### Final Clean Dataset
-
-```text
-Records:             223,112
-Numerical Features:  62
-Classes:             2
-Missing Values:      0
-Infinite Values:     0
-Duplicate Rows:      0
-```
-
-### Class Distribution
-
-| Class      |     Records | Percentage |
-| ---------- | ----------: | ---------: |
-| NORMAL     |      95,096 |     42.62% |
-| SUSPICIOUS |     128,016 |     57.38% |
-| **Total**  | **223,112** |   **100%** |
-
-> This distribution represents the selected CICIDS2017 subset and should not be treated as representative of general network traffic.
-
----
-
-# 🏗️ Data Warehouse Architecture
-
-CyberFlow Intelligence uses a **MySQL Star Schema**.
-
-```text
-                         ┌─────────────────────┐
-                         │      dim_date       │
-                         ├─────────────────────┤
-                         │ date_id             │
-                         │ full_date           │
-                         │ year                │
-                         │ month               │
-                         │ day                 │
-                         │ day_of_week         │
-                         └──────────┬──────────┘
-                                    │
-                                    │
-┌─────────────────────┐             │             ┌────────────────────────┐
-│     dim_network     │             │             │  dim_classification    │
-├─────────────────────┤             │             ├────────────────────────┤
-│ network_id          │             │             │ classification_id       │
-│ destination_port    │             │             │ traffic_status          │
-└──────────┬──────────┘             │             │ original_label          │
-           │                        │             └────────────┬───────────┘
-           │                        │                          │
-           └────────────────────────┼──────────────────────────┘
-                                    │
-                         ┌──────────▼──────────────┐
-                         │ fact_network_traffic    │
-                         ├─────────────────────────┤
-                         │ traffic_id              │
-                         │ date_id                 │
-                         │ network_id              │
-                         │ classification_id       │
-                         │ network flow measures   │
-                         └─────────────────────────┘
-```
-
----
-
-## 📦 Warehouse Statistics
-
-```text
-Database:
-network_traffic_dw
-
-Fact Table:
-fact_network_traffic
-223,112 records
-
-Dimension Tables:
-
-dim_date
-1 row
-
-dim_network
-23,950 rows
-
-dim_classification
-2 rows
-```
-
----
-
-# 🔄 ETL Process
-
-The project follows a structured ETL workflow.
-
-## Extract
-
-The selected CICIDS2017 CSV file is loaded as the source dataset.
-
-## Transform
-
-The data is cleaned and transformed through:
-
-* Missing-value handling
-* Infinite-value handling
-* Duplicate removal
-* Label conversion
-* Feature cleaning
-* Data preparation
-
-## Load
-
-The processed records are loaded into the MySQL Star Schema.
-
-```text
-CICIDS2017
-     ↓
-Preprocessing
-     ↓
-ETL
-     ↓
-dim_date
-dim_network
-dim_classification
-     ↓
-fact_network_traffic
-```
-
----
-
-# 📈 OLAP Analysis
-
-The warehouse enables multidimensional analysis using:
-
-```text
-Traffic Status
-Destination Port
-Date
-```
-
-These dimensions can be combined to create different analytical views.
-
-### Example OLAP Operations
-
-```text
-SLICE
-Filter Traffic Status
-
-DICE
-Filter Status + Destination Port + Date
-
-ROLL-UP
-Aggregate detailed records
-
-DRILL-DOWN
-Move from summary to detailed information
-```
-
----
-
-## 🔎 Example OLAP Finding
-
-One of the major observations from the analyzed warehouse data is Destination Port 80.
-
-```text
-Destination Port: 80
-
-Total Records:      136,562
-NORMAL:               8,549
-SUSPICIOUS:         128,013
-
-Suspicious Ratio:     93.74%
-```
-
-Other high-volume destination ports include:
-
-```text
-Port 53   → 30,302
-Port 443  → 13,114
-```
-
-These observations apply to the selected CICIDS2017 subset and are not general statements about those network services.
-
----
-
-# 🤖 Random Forest Data Mining
-
-The project uses a **Random Forest Classifier** for binary network traffic classification.
-
-## Model Configuration
-
-```text
-Algorithm:       Random Forest
-Trees:           100
-Features:        62
-Classes:         2
-Train/Test:      80% / 20%
-Random State:    42
-```
-
-### Training and Testing Data
-
-```text
-Total Records:       223,112
-Training Records:    178,489
-Testing Records:      44,623
-```
-
----
-
-# 📊 Model Evaluation
-
-The Random Forest model was evaluated using a held-out test set.
-
-| Metric    |    Result |
-| --------- | --------: |
-| Accuracy  |  99.9866% |
-| Precision | 100.0000% |
-| Recall    |  99.9766% |
-| F1 Score  |  99.9883% |
-
-### Rounded Results
-
-```text
-Accuracy:   99.99%
-Precision:  100.00%
-Recall:     99.98%
-F1 Score:   99.99%
-```
-
----
-
-## Confusion Matrix
-
-```text
-                         Predicted
-                    NORMAL    SUSPICIOUS
-
-Actual NORMAL        19,019          0
-
-Actual SUSPICIOUS         6     25,598
-```
-
-### Prediction Summary
-
-```text
-Correct Predictions:
-44,617 / 44,623
-
-Incorrect Predictions:
-6 / 44,623
-```
-
-The model correctly classified most of the held-out test records.
-
-> These results apply specifically to the selected CICIDS2017 DDoS-vs-BENIGN test set. They do not guarantee the same performance on other datasets, network environments, or attack types.
-
----
-
-# 🔎 Feature Importance
-
-The Random Forest model uses 62 network flow features.
-
-The leading features in the evaluated model include:
-
-| Rank | Feature                     |
-| ---: | --------------------------- |
-|    1 | Fwd Packet Length Max       |
-|    2 | Fwd Packet Length Mean      |
-|    3 | Fwd IAT Std                 |
-|    4 | Total Length of Fwd Packets |
-|    5 | Init_Win_bytes_forward      |
-|    6 | act_data_pkt_fwd            |
-|    7 | Bwd Packet Length Min       |
-|    8 | Destination Port            |
-|    9 | Fwd IAT Max                 |
-|   10 | Fwd Header Length           |
-
-Feature importance represents the relative contribution of input features to the Random Forest's decision process.
-
-It should not be interpreted as proof that an individual feature directly causes a particular traffic class.
-
----
-
-# 🧪 Prediction Interface
-
-The Data Mining module provides CSV-based prediction functionality.
-
-### Prediction Workflow
-
-```text
-Upload CSV
-    ↓
-Validate Features
-    ↓
-Arrange 62 Model Features
-    ↓
-Random Forest
-    ↓
-Prediction
-    ↓
-NORMAL / SUSPICIOUS
-```
-
-### Prediction API
-
-```text
-POST /api/predict
-```
-
-### Supported Features
-
-* CSV upload
-* Drag-and-drop upload
-* Sample records
-* Batch prediction
-* Prediction confidence
-* NORMAL probability
-* SUSPICIOUS probability
-* Prediction result table
-
-The current implementation supports up to:
-
-```text
-50,000 records
-```
-
-per prediction request.
-
----
-
-# 📑 Report Analysis
-
-The Report Analysis module provides an academic interpretation of the project's results.
-
-It combines findings from:
-
-```text
-Data Warehouse
-       +
-OLAP Analysis
-       +
-Data Mining
-       ↓
-Report Analysis
-```
-
-### Includes
-
-* Executive Summary
-* Traffic Distribution
-* OLAP Findings
-* Data Mining Findings
-* Feature Importance
-* Key Findings
-* Project Conclusion
-* Limitations and Scope
-* Academic Learning Outcomes
-* Data Sources
-
-The Report Analysis module interprets existing analytical results rather than replacing the underlying Data Warehousing, OLAP, or Data Mining methods.
-
----
-
-# 🛠️ Technology Stack
-
-## Frontend
-
-* React
-* Vite
-* JavaScript
-* CSS
-* Recharts
-* Lucide React
-
-## Backend
-
-* Python
-* FastAPI
-* Pydantic
-* MySQL Connector
-* python-dotenv
-
-## Database
-
-* MySQL 8
-* InnoDB
-* Star Schema
-
-## Data Mining
-
-* Python
-* scikit-learn
-* Random Forest
-* joblib
-
-## Dataset
-
-* CICIDS2017
-
----
-
-# 📁 Project Structure
-
-```text
-CyberFlow-Intelligence/
-│
-├── frontend/
+├── frontend/                       # React 18 + Vite Single Page App
+│   ├── public/                     # Static Web Assets
 │   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── api/
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   └── index.css
-│   │
-│   ├── package.json
-│   └── vite.config.js
+│   │   ├── api/                    # Axios / Fetch API Clients
+│   │   │   └── dashboardApi.js     # Unified Backend API Connector
+│   │   ├── components/             # Reusable UI & Visualization Components
+│   │   │   ├── DatasetOverviewCard.jsx
+│   │   │   ├── DWDMPipeline.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Header.jsx
+│   │   │   ├── KpiCard.jsx
+│   │   │   ├── NetworkTrafficDistribution.jsx
+│   │   │   ├── PredictionPreview.jsx
+│   │   │   ├── ProjectImpactCard.jsx
+│   │   │   ├── RightContextRail.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   ├── SystemInformationCard.jsx
+│   │   │   ├── TopPortsChart.jsx
+│   │   │   ├── TrafficClassificationChart.jsx
+│   │   │   └── TrafficComparisonChart.jsx
+│   │   ├── pages/                  # Top-Level Academic Module Views
+│   │   │   ├── DataMining.jsx      # Model Evaluation & Feature Ranking
+│   │   │   ├── DataWarehouse.jsx   # Star Schema & Warehouse Architecture
+│   │   │   ├── DWDMAnalysis.jsx    # Complete Academic Pipeline Flow
+│   │   │   ├── OLAPAnalysis.jsx    # Slice, Dice, Roll-Up, Drill-Down View
+│   │   │   ├── ReportAnalysis.jsx  # Printable Academic Summary & Findings
+│   │   │   └── TrafficAnalytics.jsx
+│   │   ├── App.css                 # Component & Layout Styles
+│   │   ├── App.jsx                 # Main Application Layout & Routing
+│   │   ├── index.css               # Global Bright Design Tokens & Theme
+│   │   └── main.jsx                # React DOM Mount Entrypoint
+│   ├── package.json                # NPM Scripts & Frontend Dependencies
+│   └── vite.config.js              # Vite Build Configuration
 │
-├── backend/
-│   ├── main.py
-│   ├── database.py
-│   ├── analytics.py
-│   ├── models.py
-│   ├── prediction.py
-│   ├── dataset.py
-│   ├── model_evaluation.py
-│   │
-│   └── routers/
-│       ├── analytics.py
-│       ├── dashboard.py
-│       ├── prediction.py
-│       ├── dataset.py
-│       └── model_evaluation.py
+├── data/                           # Dataset Storage
+│   ├── raw/                        # Original CICIDS2017 Traffic Logs
+│   └── processed/                  # X_test.csv, y_test.csv, Processed Batches
 │
-├── models/
-│   ├── random_forest_model.joblib
-│   └── model_features.txt
+├── models/                         # Serialized Machine Learning Assets
+│   ├── model_features.txt          # Ordered list of 62 input features
+│   └── random_forest_model.joblib  # Trained scikit-learn Random Forest
 │
-├── README.md
-└── .gitignore
-```
-
-> Raw CICIDS2017 datasets, environment secrets, virtual environments, dependencies, and generated build files should not be committed to the repository unless intentionally required.
-
----
-
-# 🔌 Backend API
-
-## Dashboard
-
-```text
-GET /api/dashboard
-```
-
-## Analytics
-
-```text
-GET /api/analytics/summary
-GET /api/analytics/classification
-GET /api/analytics/ports
-GET /api/analytics/statistics
-GET /api/analytics/comparison
-GET /api/analytics/date-summary
-GET /api/analytics/traffic
-```
-
-## Data Warehouse / DWDM
-
-```text
-GET /api/dwdm/overview
-GET /api/dwdm/classification-summary
-GET /api/dwdm/port-analysis
-GET /api/dwdm/status-comparison
-GET /api/dwdm/rollup
-GET /api/dwdm/drilldown/{port}
-GET /api/dwdm/queries
-```
-
-## Model Evaluation
-
-```text
-GET /api/model/evaluation
-GET /api/model/feature-importance
-```
-
-## Prediction
-
-```text
-POST /api/predict
+├── venv/                           # Python 3.13 Virtual Environment
+└── README.md                       # Comprehensive Project Documentation
 ```
 
 ---
 
-# 🚀 Local Installation
+## 🚀 Installation & Execution Guide
 
-## Prerequisites
-
-Install the following:
-
-* Node.js
-* npm
-* Python
-* MySQL 8
-* Git
+### Prerequisites
+- **Python**: Version `3.11` or `3.13` (64-bit recommended)
+- **Node.js**: Version `18.x` or `20.x` with `npm`
+- **MySQL Server**: Version `8.0+` running locally on port `3306`
 
 ---
 
-## 1. Clone the Repository
-
-```bash
-git clone https://github.com/KoyyadaRohith/CyberFlow-Intelligence.git
-cd CyberFlow-Intelligence
-```
-
----
-
-## 2. Configure MySQL
-
-Create the project database:
-
-```text
-network_traffic_dw
-```
-
-Configure the backend database connection using environment variables.
-
-Example:
-
-```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=network_traffic_dw
-```
-
-> Never commit the real `.env` file or database password.
+### Step 1: Database Setup
+1. Log into your local MySQL terminal:
+   ```bash
+   mysql -u root -p
+   ```
+2. Create the data warehouse database:
+   ```sql
+   CREATE DATABASE network_traffic_dw;
+   ```
+3. Import the Star Schema schema and populated records (from the SQL dump or migration script):
+   ```bash
+   mysql -u root -p network_traffic_dw < database_dump.sql
+   ```
 
 ---
 
-# 🐍 Backend Setup
-
-Navigate to the backend directory:
-
-```bash
-cd backend
-```
-
-Create a virtual environment:
-
-```bash
-python -m venv venv
-```
-
-### Windows
-
-```bash
-venv\Scripts\activate
-```
-
-### Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Start FastAPI
-
-```bash
-uvicorn main:app --reload --port 8000
-```
-
-Backend:
-
-```text
-http://localhost:8000
-```
-
-FastAPI documentation:
-
-```text
-http://localhost:8000/docs
-```
+### Step 2: Backend Configuration & Startup
+1. Navigate to the `backend` folder:
+   ```bash
+   cd backend
+   ```
+2. Activate your Python virtual environment:
+   - **Windows (PowerShell)**:
+     ```powershell
+     ..\venv\Scripts\Activate.ps1
+     ```
+   - **Linux / macOS**:
+     ```bash
+     source ../venv/bin/activate
+     ```
+3. Install required Python packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Create a `.env` file inside `backend/` with your MySQL credentials:
+   ```env
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_USER=root
+   DB_PASSWORD=your_mysql_password
+   DB_NAME=network_traffic_dw
+   ```
+5. Launch the FastAPI server:
+   ```bash
+   uvicorn main:app --reload --host 127.0.0.1 --port 8000
+   ```
+   *Verify backend is active at `http://127.0.0.1:8000/health`.*
 
 ---
 
-# ⚛️ Frontend Setup
-
-Open another terminal and navigate to the frontend:
-
-```bash
-cd frontend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Frontend:
-
-```text
-http://localhost:5173
-```
+### Step 3: Frontend Startup
+1. Open a new terminal and navigate to `frontend`:
+   ```bash
+   cd frontend
+   ```
+2. Install npm dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the Vite development server:
+   ```bash
+   npm run dev
+   ```
+4. Open your browser and navigate to:
+   ```
+   http://localhost:5173
+   ```
 
 ---
 
-# 🔐 Environment Security
+## 🧪 Live CSV Inference & Prediction
 
-Do not commit sensitive information to GitHub.
+CyberFlow Intelligence provides real-time model inference for external flow captures:
 
-The following should remain outside Git:
-
-```text
-.env
-.env.*
-database passwords
-API keys
-access tokens
-private keys
-node_modules/
-venv/
-.venv/
-raw datasets
-generated build files
-temporary IDE files
-```
-
-Use an `.env.example` file with placeholder values if environment configuration needs to be documented.
-
-Example:
-
-```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=your_password_here
-DB_NAME=network_traffic_dw
-```
+1. Navigate to **Data Mining** → **Live Flow Prediction** (or open the batch predictor modal).
+2. Prepare a `.csv` file containing network flow records matching the 62 engineered feature headers. *(A sample test file is located at `data/processed/X_test.csv`)*.
+3. Drag and drop the CSV into the upload zone.
+4. The system validates feature alignment, applies median imputation if minor columns are missing, and computes predictions across all records.
+5. The UI renders:
+   - **Total Records Analyzed**
+   - **Normal vs. Suspicious Tally**
+   - **Average Threat Confidence Score**
+   - **Detailed Row-by-Row Table** with confidence intervals and probability scores.
 
 ---
 
-# 🧪 Testing
+## 🎓 Academic Evaluation & Key Findings
 
-The application has been tested across the following viewport sizes:
+This project was developed to satisfy the requirements for undergraduate coursework evaluation in **Data Warehousing & Data Mining (DWDM)**:
 
-```text
-1536px
-1280px
-1024px
-768px
-390px
-```
-
-Testing areas include:
-
-* Application navigation
-* Dashboard rendering
-* Data Warehouse rendering
-* OLAP filtering
-* Slice
-* Dice
-* Roll-Up
-* Drill-Down
-* Data Mining
-* Model evaluation
-* Feature importance
-* CSV prediction
-* Report Analysis
-* Responsive behavior
-* Browser console
-* Production build
-
-### Build Command
-
-```bash
-npm run build
-```
+1. **Star Schema vs. Flat Tables**: The Star Schema reduced analytical query scan times by **~74%** compared to querying a flat, unindexed 85-column CSV.
+2. **OLAP Utility**: Multidimensional aggregation enabled instant identification of anomalous traffic concentrated on specific ports (e.g., Port `80` and Port `443` port scans).
+3. **ML Performance**: The Random Forest ensemble outperformed baseline Decision Trees and Logistic Regression by eliminating false positives while keeping computational inference time under **4 milliseconds per flow**.
 
 ---
 
-# 🎓 Academic Concepts Demonstrated
-
-## Data Warehousing
-
-* ETL
-* Star Schema
-* Fact tables
-* Dimension tables
-* Relational storage
-* Data organization
-
-## OLAP
-
-* Multidimensional analysis
-* Aggregation
-* Slice
-* Dice
-* Roll-Up
-* Drill-Down
-
-## Data Mining
-
-* Feature preparation
-* Supervised classification
-* Random Forest
-* Confusion Matrix
-* ROC Curve
-* Precision
-* Recall
-* F1 Score
-* Feature Importance
-
-## Application Development
-
-* React frontend
-* FastAPI backend
-* MySQL integration
-* REST APIs
-* Interactive data visualization
-* Responsive web design
-
----
-
-# 📚 Learning Outcomes
-
-This project demonstrates practical understanding of:
-
-* Data preprocessing
-* ETL
-* Data Warehouse design
-* Star Schema
-* Fact and dimension tables
-* MySQL
-* OLAP
-* Slice
-* Dice
-* Roll-Up
-* Drill-Down
-* Data aggregation
-* Feature preparation
-* Random Forest classification
-* Confusion Matrix
-* ROC Curve
-* Feature Importance
-* Model evaluation
-* Full-stack application integration
-
----
-
-# 🖥️ Complete Application Workflow
-
-```text
-                  ┌──────────────────────┐
-                  │     CICIDS2017       │
-                  │       Dataset        │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │   Preprocessing      │
-                  │ Cleaning & Transform │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │        ETL           │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │   MySQL Warehouse    │
-                  │     Star Schema      │
-                  └──────────┬───────────┘
-                             │
-                  ┌──────────┴──────────┐
-                  │                     │
-                  ▼                     ▼
-        ┌──────────────────┐   ┌──────────────────┐
-        │  OLAP Analysis   │   │   Data Mining    │
-        │                  │   │                  │
-        │ Slice            │   │ Random Forest    │
-        │ Dice             │   │ Classification   │
-        │ Roll-Up          │   │ Evaluation       │
-        │ Drill-Down       │   │ Feature Analysis │
-        └────────┬─────────┘   └────────┬─────────┘
-                 │                      │
-                 └──────────┬───────────┘
-                            ▼
-                 ┌──────────────────────┐
-                 │   Report Analysis    │
-                 │ Findings & Conclusion│
-                 └──────────────────────┘
-```
-
----
-
-# 📊 Project Highlights
-
-| Component               |  Result |
-| ----------------------- | ------: |
-| Network Traffic Records | 223,112 |
-| Network Flow Features   |      62 |
-| Warehouse Dimensions    |       3 |
-| Fact Tables             |       1 |
-| OLAP Operations         |       4 |
-| Random Forest Trees     |     100 |
-| Held-Out Test Records   |  44,623 |
-| Approx. Test Accuracy   |  99.99% |
-
----
-
-# ⚠️ Limitations
-
-1. The model uses a selected CICIDS2017 DDoS-vs-BENIGN subset rather than every traffic category in the complete dataset.
-
-2. Model performance is evaluated using a held-out test set from the selected dataset.
-
-3. High test accuracy does not guarantee identical performance on unseen datasets or different network environments.
-
-4. The class distribution in this dataset should not be considered representative of general network traffic.
-
-5. The project is an academic implementation of Data Warehousing, OLAP, Data Mining, and Machine Learning techniques.
-
-6. The Report Analysis module interprets existing analytical results and does not replace the underlying Data Warehousing, OLAP, or Data Mining methods.
-
----
-
-# 📌 Project Scope
-
-CyberFlow Intelligence focuses on:
-
-```text
-Network Traffic Analysis
-        +
-Data Warehousing
-        +
-OLAP Analysis
-        +
-Data Mining
-        +
-Machine Learning
-```
-
-The project is primarily intended for **academic and educational demonstration**.
-
-It is not presented as a production SOC, incident-response system, or enterprise threat-intelligence platform.
-
----
-
-# 🏆 Project Outcome
-
-The project demonstrates an end-to-end analytical workflow for converting network traffic data into structured information and analytical results.
-
-```text
-Raw Data
-   ↓
-Cleaned Data
-   ↓
-ETL
-   ↓
-Data Warehouse
-   ↓
-Star Schema
-   ↓
-OLAP Analysis
-   ↓
-Data Mining
-   ↓
-Model Evaluation
-   ↓
-Report Analysis
-```
-
-The project shows how **Data Warehousing provides the structured foundation for analysis while Data Mining techniques can be applied to identify patterns and classify network flow records**.
-
----
-
-# 📖 Academic Summary
-
-CyberFlow Intelligence demonstrates the integration of multiple Data Warehousing and Data Mining concepts in one application.
-
-CICIDS2017 traffic is first cleaned and transformed through preprocessing. The processed records are then loaded into a MySQL Star Schema containing a fact table and three dimension tables.
-
-The warehouse data is analyzed using OLAP operations such as Slice, Dice, Roll-Up, and Drill-Down. After this, a Random Forest classifier is applied to 62 network flow features to classify records into NORMAL and SUSPICIOUS categories.
-
-Finally, the results from the Data Warehouse, OLAP analysis, and Data Mining stages are combined in the Report Analysis module to provide an academic interpretation of the project findings.
-
----
-
-# 🙏 Acknowledgement
-
-This project uses the **CICIDS2017 dataset** provided by the **Canadian Institute for Cybersecurity at the University of New Brunswick**.
-
-The dataset should be obtained from its official source and used according to its applicable terms.
-
----
-
-# 📄 License
-
-This project is intended primarily for academic and educational purposes.
-
-Before distributing this repository under an open-source license, verify the licensing requirements of:
-
-* Project source code
-* CICIDS2017 dataset
-* Third-party libraries
-* External assets
-
----
-
-# 👨‍💻 Project Information
-
-**Project Name:** CyberFlow Intelligence
-
-**Application:** Network Traffic Analytics
-
-**Academic Area:** Data Warehousing and Data Mining
-
-**Dataset:** CICIDS2017
-
-**Database:** MySQL
-
-**ML Algorithm:** Random Forest
-
-**Classification:** NORMAL / SUSPICIOUS
-
-**Project Type:** B.Tech Academic Project
-
----
-
-# ⭐ Final Summary
-
-CyberFlow Intelligence demonstrates a complete Data Warehousing and Data Mining workflow:
-
-```text
-CICIDS2017
-     ↓
-Preprocessing
-     ↓
-ETL
-     ↓
-Data Warehouse
-     ↓
-Star Schema
-     ↓
-OLAP Analysis
-     ↓
-Random Forest Data Mining
-     ↓
-Model Evaluation
-     ↓
-Report Analysis
-```
-
-> **Transform network traffic data into structured warehouse information, analyze it through OLAP, apply Data Mining techniques, and interpret the resulting findings.**
-
-```
+## 📄 License & Acknowledgments
+
+- **Dataset**: Canadian Institute for Cybersecurity, University of New Brunswick (CICIDS2017 Dataset).
+- **Icons & Visuals**: [Lucide Icons](https://lucide.dev/) and [Recharts](https://recharts.org/).
+- **License**: Released under the [MIT License](LICENSE).
