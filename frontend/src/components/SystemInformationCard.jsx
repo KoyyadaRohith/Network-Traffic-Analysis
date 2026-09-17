@@ -33,8 +33,8 @@ export default function SystemInformationCard() {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   padding: '6px 8px',
-                  backgroundColor: '#051119',
-                  border: '1px solid #102430',
+                  backgroundColor: 'var(--surface-elevated)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: 'var(--radius-sm)',
                 }}
               >
@@ -49,7 +49,7 @@ export default function SystemInformationCard() {
                     fontSize: '0.72rem',
                     fontFamily: 'JetBrains Mono, monospace',
                     fontWeight: '600',
-                    color: item.label === 'Database' ? 'var(--color-cyan)' : '#F5F7FA',
+                    color: item.label === 'Database' ? 'var(--color-cyan)' : 'var(--text-primary)',
                   }}
                 >
                   {item.value}
@@ -65,8 +65,8 @@ export default function SystemInformationCard() {
         style={{
           marginTop: '14px',
           padding: '12px 14px',
-          background: 'linear-gradient(180deg, #05131C 0%, #030B10 100%)',
-          border: '1px solid rgba(0, 217, 255, 0.2)',
+          background: 'var(--color-cyan-subtle)',
+          border: '1px solid var(--border-accent)',
           borderRadius: 'var(--radius-sm)',
           position: 'relative',
         }}

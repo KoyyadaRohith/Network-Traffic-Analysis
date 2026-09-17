@@ -1552,13 +1552,13 @@ export default function DWDMAnalysis() {
 
               <pre
                 style={{
-                  background: '#070b14',
-                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  background: 'var(--surface-elevated)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: 'var(--radius-sm)',
                   padding: '12px',
                   fontSize: '0.78rem',
                   fontFamily: 'JetBrains Mono, monospace',
-                  color: '#94a3b8',
+                  color: 'var(--text-primary)',
                   overflowX: 'auto',
                   margin: 0,
                   lineHeight: 1.5,

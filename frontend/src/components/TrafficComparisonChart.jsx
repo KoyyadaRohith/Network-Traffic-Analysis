@@ -26,13 +26,14 @@ export default function TrafficComparisonChart({ comparisonData, loading }) {
     return (
       <div
         style={{
-          backgroundColor: '#0D0D0D',
-          border: '1px solid #222222',
+          backgroundColor: 'var(--surface-card)',
+          border: '1px solid var(--border-main)',
           borderRadius: 'var(--radius-lg)',
           padding: '24px',
           minHeight: '340px',
           display: 'flex',
           flexDirection: 'column',
+          boxShadow: 'var(--shadow-card)',
         }}
       >
         <div className="skeleton" style={{ height: '22px', width: '40%', marginBottom: '8px' }} />
@@ -96,20 +97,20 @@ export default function TrafficComparisonChart({ comparisonData, loading }) {
       return (
         <div
           style={{
-            backgroundColor: '#111111',
-            border: '1px solid #222222',
+            backgroundColor: 'var(--surface-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '6px',
             padding: '10px 14px',
-            boxShadow: '0 6px 16px rgba(0, 0, 0, 0.7)',
+            boxShadow: '0 6px 16px rgba(32, 68, 88, 0.14)',
           }}
         >
           <div style={{ fontWeight: '700', color: d.fill, fontSize: '0.8rem', letterSpacing: '0.04em' }}>
             {d.name}
           </div>
-          <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#F5F5F5', marginTop: '3px', fontFamily: 'JetBrains Mono, monospace' }}>
+          <div style={{ fontSize: '1.1rem', fontWeight: '800', color: 'var(--text-primary)', marginTop: '3px', fontFamily: 'JetBrains Mono, monospace' }}>
             {d.value.toLocaleString(undefined, { maximumFractionDigits: 2 })} {d.unit}
           </div>
-          <div style={{ fontSize: '0.74rem', color: '#A0A0A0', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '2px' }}>
             {currentMetric.label}
           </div>
         </div>
@@ -121,17 +122,18 @@ export default function TrafficComparisonChart({ comparisonData, loading }) {
   return (
     <div
       style={{
-        backgroundColor: '#0D0D0D',
-        border: '1px solid #222222',
+        backgroundColor: 'var(--surface-card)',
+        border: '1px solid var(--border-main)',
         borderRadius: 'var(--radius-lg)',
         padding: '24px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        boxShadow: 'var(--shadow-card)',
         transition: 'border-color 0.2s ease',
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#333333')}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#222222')}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--border-accent)')}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border-main)')}
     >
       {/* Header with Title and Metric Selector Dropdown */}
       <div
@@ -149,20 +151,20 @@ export default function TrafficComparisonChart({ comparisonData, loading }) {
             style={{
               fontSize: '1.05rem',
               fontWeight: '700',
-              color: '#F5F5F5',
+              color: 'var(--color-heading)',
               letterSpacing: '-0.01em',
             }}
           >
             Normal vs Suspicious Traffic
           </h3>
-          <p style={{ fontSize: '0.78rem', color: '#666666', marginTop: '3px' }}>
+          <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '3px' }}>
             Comparison of selected traffic characteristics
           </p>
         </div>
 
         {/* Metric Selector Dropdown */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <label htmlFor="metric-select" style={{ fontSize: '0.75rem', color: '#A0A0A0', fontWeight: '600' }}>
+          <label htmlFor="metric-select" style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: '600' }}>
             Metric:
           </label>
           <select
@@ -170,9 +172,9 @@ export default function TrafficComparisonChart({ comparisonData, loading }) {
             value={selectedMetricKey}
             onChange={(e) => setSelectedMetricKey(e.target.value)}
             style={{
-              backgroundColor: '#111111',
-              color: '#F5F5F5',
-              border: '1px solid #222222',
+              backgroundColor: 'var(--surface-elevated)',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '6px',
               padding: '6px 12px',
               fontSize: '0.8rem',
@@ -182,11 +184,11 @@ export default function TrafficComparisonChart({ comparisonData, loading }) {
               minWidth: '190px',
               transition: 'border-color 0.2s',
             }}
-            onFocus={(e) => (e.target.style.borderColor = '#444444')}
-            onBlur={(e) => (e.target.style.borderColor = '#222222')}
+            onFocus={(e) => (e.target.style.borderColor = 'var(--color-cyan)')}
+            onBlur={(e) => (e.target.style.borderColor = 'var(--border-subtle)')}
           >
             {METRIC_OPTIONS.map((opt) => (
-              <option key={opt.key} value={opt.key} style={{ background: '#111111', color: '#F5F5F5' }}>
+              <option key={opt.key} value={opt.key} style={{ background: '#FFFFFF', color: '#142532' }}>
                 {opt.label}
               </option>
             ))}
@@ -201,20 +203,20 @@ export default function TrafficComparisonChart({ comparisonData, loading }) {
             data={chartData}
             margin={{ top: 20, right: 30, left: 10, bottom: 5 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#1A1A1A" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border-subtle)" vertical={false} />
             <XAxis
               dataKey="name"
-              stroke="#A0A0A0"
+              stroke="var(--text-secondary)"
               fontSize={11}
               fontWeight={700}
               tickLine={false}
-              axisLine={{ stroke: '#222222' }}
+              axisLine={{ stroke: 'var(--border-subtle)' }}
             />
             <YAxis
-              stroke="#666666"
+              stroke="var(--text-muted)"
               fontSize={10}
               tickLine={false}
-              axisLine={{ stroke: '#222222' }}
+              axisLine={{ stroke: 'var(--border-subtle)' }}
               tickFormatter={formatValue}
             />
             <Tooltip content={<CustomTooltip />} />
@@ -236,32 +238,32 @@ export default function TrafficComparisonChart({ comparisonData, loading }) {
         style={{
           marginTop: '16px',
           paddingTop: '16px',
-          borderTop: '1px solid #1A1A1A',
+          borderTop: '1px solid var(--border-subtle)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: '12px',
           fontSize: '0.78rem',
-          color: '#A0A0A0',
+          color: 'var(--text-secondary)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22C55E' }} />
           <span>
-            NORMAL: <strong style={{ color: '#F5F5F5', fontFamily: 'JetBrains Mono, monospace' }}>{normalVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</strong> {currentMetric.unit}
+            NORMAL: <strong style={{ color: 'var(--text-primary)', fontFamily: 'JetBrains Mono, monospace' }}>{normalVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</strong> {currentMetric.unit}
           </span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
           <span>
-            SUSPICIOUS: <strong style={{ color: '#F5F5F5', fontFamily: 'JetBrains Mono, monospace' }}>{suspVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</strong> {currentMetric.unit}
+            SUSPICIOUS: <strong style={{ color: 'var(--text-primary)', fontFamily: 'JetBrains Mono, monospace' }}>{suspVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</strong> {currentMetric.unit}
           </span>
         </div>
 
-        <div style={{ color: '#666666', fontSize: '0.72rem' }}>
-          Selected Feature: <span style={{ color: '#A0A0A0' }}>{currentMetric.label} ({currentMetric.unit})</span>
+        <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem' }}>
+          Selected Feature: <span style={{ color: 'var(--text-secondary)' }}>{currentMetric.label} ({currentMetric.unit})</span>
         </div>
       </div>
     </div>

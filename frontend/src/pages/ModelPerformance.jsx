@@ -827,7 +827,7 @@ export default function ModelPerformance() {
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
                 width: '100%',
-                background: 'rgba(15, 23, 42, 0.8)',
+                background: 'var(--surface-elevated)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-md)',
                 padding: '9px 12px 9px 36px',
@@ -871,7 +871,7 @@ export default function ModelPerformance() {
                       return (
                         <div
                           style={{
-                            background: '#0d1322',
+                            background: 'var(--surface-card)',
                             border: '1px solid var(--border-accent)',
                             padding: '10px 14px',
                             borderRadius: '8px',
@@ -959,11 +959,11 @@ export default function ModelPerformance() {
               overflowY: 'auto',
               border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-md)',
-              background: 'rgba(10, 15, 29, 0.4)',
+              background: 'var(--surface-card)',
             }}
           >
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
-              <thead style={{ position: 'sticky', top: 0, background: '#0a0f1d', zIndex: 2 }}>
+              <thead style={{ position: 'sticky', top: 0, background: 'var(--surface-elevated)', zIndex: 2 }}>
                 <tr style={{ borderBottom: '1px solid var(--border-subtle)', color: 'var(--text-muted)', textAlign: 'left' }}>
                   <th style={{ padding: '10px 14px', width: '70px' }}>Rank</th>
                   <th style={{ padding: '10px 14px' }}>Feature Name</th>
@@ -1063,7 +1063,7 @@ export default function ModelPerformance() {
           {/* Step 1 */}
           <div
             style={{
-              background: 'rgba(15, 23, 42, 0.6)',
+              background: 'var(--surface-elevated)',
               border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-md)',
               padding: '16px',
@@ -1088,7 +1088,7 @@ export default function ModelPerformance() {
           {/* Step 2 */}
           <div
             style={{
-              background: 'rgba(15, 23, 42, 0.6)',
+              background: 'var(--surface-elevated)',
               border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-md)',
               padding: '16px',
@@ -1113,7 +1113,7 @@ export default function ModelPerformance() {
           {/* Step 3 */}
           <div
             style={{
-              background: 'rgba(15, 23, 42, 0.6)',
+              background: 'var(--surface-elevated)',
               border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-md)',
               padding: '16px',
@@ -1138,7 +1138,7 @@ export default function ModelPerformance() {
           {/* Step 4 */}
           <div
             style={{
-              background: 'rgba(15, 23, 42, 0.6)',
+              background: 'var(--surface-elevated)',
               border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-md)',
               padding: '16px',
@@ -1163,7 +1163,7 @@ export default function ModelPerformance() {
           {/* Step 5 */}
           <div
             style={{
-              background: 'rgba(15, 23, 42, 0.6)',
+              background: 'var(--surface-elevated)',
               border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-md)',
               padding: '16px',

@@ -241,7 +241,7 @@ export default function TrafficAnalytics() {
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               style={{
-                background: 'rgba(15, 23, 42, 0.8)',
+                background: 'var(--surface-elevated)',
                 border: '1px solid var(--border-subtle)',
                 color: '#ffffff',
                 padding: '8px 12px',
@@ -267,7 +267,7 @@ export default function TrafficAnalytics() {
               value={portFilter}
               onChange={(e) => setPortFilter(e.target.value)}
               style={{
-                background: 'rgba(15, 23, 42, 0.8)',
+                background: 'var(--surface-elevated)',
                 border: '1px solid var(--border-subtle)',
                 color: '#ffffff',
                 padding: '8px 12px',
@@ -296,7 +296,7 @@ export default function TrafficAnalytics() {
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value)}
               style={{
-                background: 'rgba(15, 23, 42, 0.8)',
+                background: 'var(--surface-elevated)',
                 border: '1px solid var(--border-subtle)',
                 color: '#ffffff',
                 padding: '8px 12px',
@@ -469,7 +469,7 @@ export default function TrafficAnalytics() {
                         return (
                           <div
                             style={{
-                              background: 'rgba(15, 23, 42, 0.95)',
+                              background: 'var(--surface-card)',
                               border: `1px solid ${d.name === 'SUSPICIOUS' ? 'var(--color-red)' : 'var(--color-green)'}`,
                               borderRadius: '8px',
                               padding: '10px 14px',
@@ -572,7 +572,7 @@ export default function TrafficAnalytics() {
                         return (
                           <div
                             style={{
-                              background: 'rgba(15, 23, 42, 0.95)',
+                              background: 'var(--surface-card)',
                               border: '1px solid var(--border-accent)',
                               borderRadius: '8px',
                               padding: '10px 14px',
@@ -904,7 +904,7 @@ export default function TrafficAnalytics() {
         className="glass-card"
         style={{
           padding: '24px',
-          background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.4) 100%)',
+          background: 'var(--surface-card)',
           border: '1px solid rgba(56, 189, 248, 0.2)',
         }}
       >

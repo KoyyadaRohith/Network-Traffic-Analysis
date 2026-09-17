@@ -5,28 +5,28 @@ export default function ProjectImpactCard() {
   const impacts = [
     {
       title: 'Data Warehousing',
-      desc: 'Star Schema design & relational storage',
+      desc: 'Star Schema and relational storage',
       icon: Database,
       accent: '#A855F7',
       badgeBg: 'rgba(168, 85, 247, 0.08)',
     },
     {
-      title: 'OLAP / Analytical Processing',
-      desc: 'Multidimensional slicing, dicing & roll-up',
+      title: 'OLAP Analysis',
+      desc: 'Slice, Dice, Roll-Up and Drill-Down',
       icon: BarChart3,
       accent: '#F59E0B',
       badgeBg: 'rgba(245, 158, 11, 0.08)',
     },
     {
-      title: 'Random Forest Classification',
-      desc: 'Supervised network traffic classification',
+      title: 'Data Mining',
+      desc: 'Random Forest classification',
       icon: BrainCircuit,
       accent: 'var(--color-cyan)',
       badgeBg: 'rgba(0, 217, 255, 0.08)',
     },
     {
-      title: 'Decision Support',
-      desc: 'Traffic pattern discovery & evaluation reporting',
+      title: 'Analytical Reporting',
+      desc: 'Summary of warehouse and model results',
       icon: FileSpreadsheet,
       accent: '#00C8E8',
       badgeBg: 'rgba(0, 200, 232, 0.08)',
@@ -37,10 +37,10 @@ export default function ProjectImpactCard() {
     <div className="analytical-card bottom-grid-card">
       <div style={{ marginBottom: '14px' }}>
         <h3 className="analytical-title">
-          Project Impact
+          DWDM Components
         </h3>
         <p className="analytical-subtitle">
-          Academic learning outcomes
+          Core academic project modules
         </p>
       </div>
 
@@ -54,8 +54,8 @@ export default function ProjectImpactCard() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
-                background: '#051119',
-                border: '1px solid #102430',
+                background: 'var(--surface-elevated)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '9px 12px',
                 transition: 'border-color 0.16s ease, transform 0.16s ease',

@@ -93,7 +93,7 @@ export default function ReportAnalysis() {
 
   // Copy Executive Summary
   const handleCopySummary = () => {
-    const summaryText = `EXECUTIVE SUMMARY — CYBERFLOW INTELLIGENCE
+    const summaryText = `EXECUTIVE SUMMARY — NETWORK TRAFFIC ANALYSIS (DWDM)
 Dataset: CICIDS2017 DDoS-vs-BENIGN subset
 Total Warehouse Records: ${Number(totalRecords).toLocaleString()}
 NORMAL: ${Number(normalRecords).toLocaleString()} (${normalPct}%)
@@ -121,7 +121,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
   // Safe Client-side Download
   const handleDownloadReport = () => {
     const reportObj = {
-      title: 'CyberFlow Intelligence — Report Analysis',
+      title: 'Network Traffic Analysis — DWDM Report Analysis',
       timestamp: new Date().toISOString(),
       dataset: {
         source: 'CICIDS2017 DDoS-vs-BENIGN evaluation subset',
@@ -206,7 +206,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
           </p>
         </div>
 
-        {/* Technical Metadata & AI-Assisted Badge */}
+        {/* Technical Metadata & Analytical Report Badge */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span
@@ -224,10 +224,10 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
                 fontFamily: 'JetBrains Mono, monospace',
                 letterSpacing: '0.04em',
               }}
-              title="Organizing and interpreting existing project results"
+              title="Structured academic evaluation report"
             >
-              <Sparkles size={11} />
-              <span>AI-ASSISTED ANALYSIS</span>
+              <FileText size={11} />
+              <span>ANALYTICAL REPORT</span>
             </span>
 
             <div
@@ -251,9 +251,38 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
             </div>
           </div>
           <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>
-            SYNTHESIS LAYER
+            PROJECT RESULTS
           </span>
         </div>
+      </div>
+
+      {/* DWDM Analytical Synthesis Equation Banner */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '10px',
+          background: 'linear-gradient(90deg, rgba(168, 85, 247, 0.06) 0%, rgba(245, 158, 11, 0.06) 50%, rgba(0, 217, 255, 0.06) 100%)',
+          border: '1px solid #102430',
+          borderRadius: 'var(--radius-sm)',
+          padding: '10px 16px',
+          fontSize: '0.74rem',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          <span style={{ color: '#A855F7', fontWeight: '700' }}>Data Warehouse Findings</span>
+          <span style={{ color: 'var(--text-muted)' }}>+</span>
+          <span style={{ color: '#F59E0B', fontWeight: '700' }}>OLAP Findings</span>
+          <span style={{ color: 'var(--text-muted)' }}>+</span>
+          <span style={{ color: 'var(--color-cyan)', fontWeight: '700' }}>Data Mining Findings</span>
+          <span style={{ color: 'var(--text-muted)' }}>=</span>
+          <span style={{ color: '#10B981', fontWeight: '700' }}>Analytical Report</span>
+        </div>
+        <span style={{ fontSize: '0.66rem', color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>
+          DWDM INTEGRATION
+        </span>
       </div>
 
       {/* ====================================================================
@@ -266,7 +295,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
               EXECUTIVE SUMMARY
             </h2>
             <p className="ra-card-desc">
-              High-level synthesis of network traffic warehouse storage, OLAP operations, and Random Forest classification
+              Consolidated findings from Data Warehouse, OLAP multidimensional analysis, and Random Forest classification
             </p>
           </div>
 
@@ -281,7 +310,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
                 fontSize: '0.74rem',
                 fontWeight: '600',
                 color: copied ? '#10B981' : 'var(--text-secondary)',
-                background: '#040D14',
+                background: 'var(--surface-elevated)',
                 border: '1px solid #102430',
                 borderRadius: 'var(--radius-sm)',
                 cursor: 'pointer',
@@ -363,7 +392,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
         {/* Academic Interpretation Paragraph */}
         <div
           style={{
-            background: '#040D14',
+            background: 'var(--surface-elevated)',
             border: '1px solid #102430',
             borderRadius: 'var(--radius-sm)',
             padding: '14px 16px',
@@ -466,7 +495,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#040D14', border: '1px solid #102430', borderRadius: '4px', padding: '8px 12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '8px 12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#10B981' }} />
                   <span style={{ fontSize: '0.78rem', fontWeight: '700', color: '#10B981' }}>NORMAL</span>
@@ -479,7 +508,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
                 </div>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#040D14', border: '1px solid #102430', borderRadius: '4px', padding: '8px 12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '8px 12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#EF4444' }} />
                   <span style={{ fontSize: '0.78rem', fontWeight: '700', color: '#EF4444' }}>SUSPICIOUS</span>
@@ -522,7 +551,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '6px 0 10px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#040D14', border: '1px solid #102430', borderRadius: '4px', padding: '8px 12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '8px 12px' }}>
               <div>
                 <span style={{ fontSize: '0.78rem', fontWeight: '800', color: 'var(--color-cyan)', fontFamily: 'JetBrains Mono' }}>
                   Port 80 (HTTP / Web)
@@ -537,14 +566,14 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-              <div style={{ background: '#040D14', border: '1px solid #102430', borderRadius: '4px', padding: '8px 10px' }}>
+              <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '8px 10px' }}>
                 <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Port 53 (DNS):</span>
                 <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#F5F7FA', fontFamily: 'JetBrains Mono' }}>
                   30,302 records
                 </div>
               </div>
 
-              <div style={{ background: '#040D14', border: '1px solid #102430', borderRadius: '4px', padding: '8px 10px' }}>
+              <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '8px 10px' }}>
                 <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Port 443 (HTTPS):</span>
                 <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#F5F7FA', fontFamily: 'JetBrains Mono' }}>
                   13,114 records
@@ -597,28 +626,28 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
               margin: '4px 0 10px',
             }}
           >
-            <div style={{ background: '#040D14', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
+            <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>ACCURACY</div>
               <div style={{ fontSize: '0.85rem', fontWeight: '800', color: 'var(--color-cyan)', fontFamily: 'JetBrains Mono' }}>
                 {accuracy}%
               </div>
             </div>
 
-            <div style={{ background: '#040D14', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
+            <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>PRECISION</div>
               <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#10B981', fontFamily: 'JetBrains Mono' }}>
                 {precision}%
               </div>
             </div>
 
-            <div style={{ background: '#040D14', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
+            <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>RECALL</div>
               <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#38BDF8', fontFamily: 'JetBrains Mono' }}>
                 {recall}%
               </div>
             </div>
 
-            <div style={{ background: '#040D14', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
+            <div style={{ background: 'var(--surface-elevated)', border: '1px solid #102430', borderRadius: '4px', padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>F1 SCORE</div>
               <div style={{ fontSize: '0.85rem', fontWeight: '800', color: '#A855F7', fontFamily: 'JetBrains Mono' }}>
                 {f1Score}%
@@ -632,7 +661,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
               gap: '8px',
-              background: '#040D14',
+              background: 'var(--surface-elevated)',
               border: '1px solid #102430',
               borderRadius: '4px',
               padding: '10px 12px',
@@ -694,7 +723,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  background: '#040D14',
+                  background: 'var(--surface-elevated)',
                   border: '1px solid #102430',
                   borderRadius: '4px',
                   padding: '5px 10px',
@@ -808,7 +837,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
               PROJECT CONCLUSION
             </h3>
             <p className="ra-card-desc">
-              Final technical synthesis of data warehousing and data mining integration
+              Final technical summary of data warehousing and data mining integration
             </p>
           </div>
           <span
@@ -984,7 +1013,7 @@ The processed CICIDS2017 traffic was stored in a MySQL Star Schema and analyzed 
               fontSize: '0.74rem',
               fontWeight: '600',
               color: 'var(--text-secondary)',
-              background: '#081622',
+              background: 'var(--surface-elevated)',
               border: '1px solid #102430',
               borderRadius: 'var(--radius-sm)',
               cursor: 'pointer',

@@ -39,15 +39,15 @@ export default function Sidebar({ isOpen, onClose, activeTab = 'Dashboard', onSe
                 <Network size={17} color="var(--color-cyan)" />
               </div>
               <div>
-                <h1 className="sidebar-brand-title">
-                  CYBERFLOW<br />
-                  <span>INTELLIGENCE</span>
+                <h1 className="sidebar-brand-title" style={{ fontSize: '0.88rem', lineHeight: '1.2' }}>
+                  NETWORK TRAFFIC<br />
+                  <span>ANALYSIS</span>
                 </h1>
                 <div className="sidebar-brand-subtitle">
-                  Network Traffic Analytics
+                  Data Warehousing & Data Mining
                 </div>
                 <div className="sidebar-brand-tag">
-                  DWDM • CICIDS2017
+                  CICIDS2017 • MySQL
                 </div>
               </div>
             </div>

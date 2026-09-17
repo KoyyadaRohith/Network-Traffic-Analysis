@@ -51,7 +51,7 @@ export default function DateSummary({ dateData, loading }) {
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <div style={{ fontSize: '1.8rem', fontWeight: '800', color: '#ffffff', letterSpacing: '-0.02em', fontFamily: 'JetBrains Mono, monospace' }}>
+          <div style={{ fontSize: '1.8rem', fontWeight: '800', color: 'var(--text-primary)', letterSpacing: '-0.02em', fontFamily: 'JetBrains Mono, monospace' }}>
             {item.date}
           </div>
           <div style={{ fontSize: '0.85rem', color: 'var(--color-blue)', fontWeight: '600', marginTop: '2px' }}>
@@ -71,7 +71,7 @@ export default function DateSummary({ dateData, loading }) {
             }}
           >
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Year</div>
-            <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#ffffff' }}>{item.year}</div>
+            <div style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--text-primary)' }}>{item.year}</div>
           </div>
 
           <div
@@ -84,7 +84,7 @@ export default function DateSummary({ dateData, loading }) {
             }}
           >
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Month</div>
-            <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#ffffff' }}>{monthName}</div>
+            <div style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--text-primary)' }}>{monthName}</div>
           </div>
 
           <div
@@ -97,7 +97,7 @@ export default function DateSummary({ dateData, loading }) {
             }}
           >
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Day</div>
-            <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#ffffff' }}>{item.day}</div>
+            <div style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--text-primary)' }}>{item.day}</div>
           </div>
 
           <div

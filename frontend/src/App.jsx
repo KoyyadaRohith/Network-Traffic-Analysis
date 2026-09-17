@@ -154,7 +154,7 @@ export default function App() {
               {error && (
                 <div className="error-panel">
                   <AlertTriangle size={36} color="var(--color-red)" style={{ marginBottom: '12px' }} />
-                  <h3 style={{ fontSize: '1.15rem', fontWeight: '700', color: '#FFFFFF', marginBottom: '6px' }}>
+                  <h3 style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '6px' }}>
                     Unable to load dashboard data
                   </h3>
                   <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', maxWidth: '440px', marginBottom: '16px' }}>

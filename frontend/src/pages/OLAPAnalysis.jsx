@@ -243,7 +243,7 @@ GROUP BY destination_port;`;
       label: 'ACTIVE VIEW: BASE WAREHOUSE (Full Cube)',
       color: 'var(--text-muted)',
       bg: 'rgba(255, 255, 255, 0.04)',
-      border: '#1E3B4D',
+      border: 'var(--border-subtle)',
     };
   }, [statusFilter, portFilter, dateFilter]);
 
@@ -556,7 +556,7 @@ GROUP BY destination_port;`;
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '5px',
-                  background: '#040D14',
+                  background: 'var(--surface-elevated)',
                   border: '1px solid #102430',
                   borderRadius: 'var(--radius-sm)',
                   padding: '4px 10px',
@@ -572,7 +572,7 @@ GROUP BY destination_port;`;
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = 'var(--text-secondary)';
-                  e.currentTarget.style.borderColor = '#102430';
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 }}
               >
                 <RotateCcw size={12} />
@@ -765,14 +765,14 @@ GROUP BY destination_port;`;
                 >
                   <XAxis
                     type="number"
-                    stroke="#1E3B4D"
+                    stroke="var(--border-subtle)"
                     tick={{ fill: 'var(--text-muted)', fontSize: 11, fontFamily: 'JetBrains Mono' }}
                     tickFormatter={(val) => (val >= 1000 ? `${(val / 1000).toFixed(0)}k` : val)}
                   />
                   <YAxis
                     type="category"
                     dataKey="name"
-                    stroke="#1E3B4D"
+                    stroke="var(--border-subtle)"
                     tick={{ fill: '#E2E8F0', fontSize: 12, fontWeight: 700, fontFamily: 'JetBrains Mono' }}
                     width={70}
                   />
@@ -783,7 +783,7 @@ GROUP BY destination_port;`;
                       return (
                         <div
                           style={{
-                            background: '#040D14',
+                            background: 'var(--surface-elevated)',
                             border: '1px solid var(--color-cyan)',
                             borderRadius: '6px',
                             padding: '10px 14px',
@@ -882,7 +882,7 @@ GROUP BY destination_port;`;
                         return (
                           <div
                             style={{
-                              background: '#040D14',
+                              background: 'var(--surface-elevated)',
                               border: '1px solid #102430',
                               borderRadius: '6px',
                               padding: '8px 12px',
@@ -1112,7 +1112,7 @@ GROUP BY destination_port;`;
                   key={p}
                   onClick={() => handleSelectDrilldown(p)}
                   style={{
-                    background: drilldownPort === p ? 'var(--color-cyan)' : '#040D14',
+                    background: drilldownPort === p ? 'var(--color-cyan)' : 'var(--surface-elevated)',
                     color: drilldownPort === p ? '#000000' : 'var(--text-secondary)',
                     border: '1px solid #102430',
                     borderRadius: '3px',
@@ -1147,7 +1147,7 @@ GROUP BY destination_port;`;
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  background: '#040D14',
+                  background: 'var(--surface-elevated)',
                   border: '1px solid #102430',
                   borderRadius: 'var(--radius-sm)',
                   padding: '12px 16px',
@@ -1457,7 +1457,7 @@ GROUP BY destination_port;`;
                               ? 'rgba(245, 158, 11, 0.2)'
                               : isDateTotal
                               ? 'rgba(0, 217, 255, 0.15)'
-                              : '#040D14',
+                              : 'var(--surface-elevated)',
                             color: isGrandTotal
                               ? '#F59E0B'
                               : isDateTotal
@@ -1525,7 +1525,7 @@ GROUP BY destination_port;`;
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
-                background: '#040D14',
+                background: 'var(--surface-elevated)',
                 border: '1px solid #102430',
                 borderRadius: 'var(--radius-sm)',
                 padding: '4px 10px',
@@ -1543,7 +1543,7 @@ GROUP BY destination_port;`;
 
           <div
             style={{
-              background: '#040D14',
+              background: 'var(--surface-elevated)',
               border: '1px solid #102430',
               borderRadius: 'var(--radius-sm)',
               padding: '12px 14px',
@@ -1591,7 +1591,7 @@ GROUP BY destination_port;`;
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              background: '#040D14',
+              background: 'var(--surface-elevated)',
               border: '1px solid #102430',
               borderRadius: 'var(--radius-sm)',
               padding: '10px 14px',

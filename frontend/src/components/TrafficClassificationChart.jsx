@@ -55,18 +55,18 @@ export default function TrafficClassificationChart({ summary, loading }) {
                   return (
                     <div
                       style={{
-                        backgroundColor: '#07151E',
-                        border: '1px solid #1C3B4A',
+                        backgroundColor: 'var(--surface-card)',
+                        border: '1px solid var(--border-subtle)',
                         borderRadius: '6px',
                         padding: '8px 12px',
                         fontSize: '0.78rem',
-                        boxShadow: '0 6px 20px rgba(0, 0, 0, 0.8)',
+                        boxShadow: 'var(--shadow-elevated)',
                       }}
                     >
                       <div style={{ fontWeight: '700', color: d.color }}>
                         {d.name}
                       </div>
-                      <div style={{ fontSize: '0.95rem', fontWeight: '800', color: '#F5F7FA', marginTop: '2px' }}>
+                      <div style={{ fontSize: '0.95rem', fontWeight: '800', color: 'var(--text-primary)', marginTop: '2px' }}>
                         {d.value.toLocaleString()}
                       </div>
                       <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
@@ -86,7 +86,7 @@ export default function TrafficClassificationChart({ summary, loading }) {
               outerRadius={78}
               paddingAngle={4}
               dataKey="value"
-              stroke="#08151E"
+              stroke="var(--surface-card)"
               strokeWidth={2}
             >
               {chartData.map((entry) => (

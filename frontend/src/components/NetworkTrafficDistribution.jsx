@@ -139,18 +139,18 @@ export default function NetworkTrafficDistribution({ portsData, loading }) {
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray="3 3" stroke="#12242E" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border-subtle)" vertical={false} />
 
             <XAxis
               dataKey="shortName"
-              stroke="#213E4D"
-              tick={{ fill: '#7F93A3', fontSize: 11 }}
+              stroke="var(--border-subtle)"
+              tick={{ fill: 'var(--text-muted)', fontSize: 11 }}
               tickLine={false}
             />
             <YAxis
-              stroke="#213E4D"
+              stroke="var(--border-subtle)"
               tickFormatter={formatK}
-              tick={{ fill: '#7F93A3', fontSize: 11 }}
+              tick={{ fill: 'var(--text-muted)', fontSize: 11 }}
               tickLine={false}
             />
 
@@ -161,15 +161,15 @@ export default function NetworkTrafficDistribution({ portsData, loading }) {
                   return (
                     <div
                       style={{
-                        backgroundColor: '#07151E',
-                        border: '1px solid #1C3B4A',
+                        backgroundColor: 'var(--surface-card)',
+                        border: '1px solid var(--border-subtle)',
                         borderRadius: '6px',
                         padding: '10px 14px',
-                        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.85)',
+                        boxShadow: 'var(--shadow-elevated)',
                         fontSize: '0.78rem',
                       }}
                     >
-                      <div style={{ fontWeight: '700', color: '#F5F7FA', marginBottom: '6px' }}>
+                      <div style={{ fontWeight: '700', color: 'var(--text-primary)', marginBottom: '6px' }}>
                         {d.name}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#22C55E' }}>

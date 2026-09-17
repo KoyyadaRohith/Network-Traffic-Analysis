@@ -39,8 +39,8 @@ export default function DatasetOverviewCard({ summary }) {
             <div
               key={tile.label}
               style={{
-                background: '#051119',
-                border: '1px solid #102430',
+                background: 'var(--surface-elevated)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '10px 12px',
               }}
@@ -55,7 +55,7 @@ export default function DatasetOverviewCard({ summary }) {
                 style={{
                   fontSize: tile.value.length > 8 ? '0.95rem' : '1.05rem',
                   fontWeight: '800',
-                  color: '#F5F7FA',
+                  color: 'var(--text-primary)',
                   marginTop: '4px',
                   fontFamily: tile.label.includes('Records') || tile.label === 'Features' || tile.label === 'Classes' ? 'JetBrains Mono, monospace' : 'inherit',
                 }}

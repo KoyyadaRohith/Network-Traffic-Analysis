@@ -47,7 +47,7 @@ export default function AnalysisSummary({ summary }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px', marginBottom: '18px' }}>
           <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Dataset</div>
-            <div style={{ fontSize: '0.85rem', fontWeight: '700', color: '#ffffff', marginTop: '2px' }}>CICIDS2017</div>
+            <div style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--text-primary)', marginTop: '2px' }}>CICIDS2017</div>
           </div>
 
           <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
@@ -57,7 +57,7 @@ export default function AnalysisSummary({ summary }) {
 
           <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Analysis Mode</div>
-            <div style={{ fontSize: '0.85rem', fontWeight: '700', color: '#ffffff', marginTop: '2px' }}>Historical DW</div>
+            <div style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--text-primary)', marginTop: '2px' }}>Historical DW</div>
           </div>
         </div>
       </div>

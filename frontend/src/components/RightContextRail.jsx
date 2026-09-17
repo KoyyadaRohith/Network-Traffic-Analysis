@@ -1,189 +1,191 @@
 import React from 'react';
 import {
-  Activity,
+  Database,
   Layers,
   Cpu,
-  FileSpreadsheet,
+  Table2,
+  Sliders,
   GraduationCap,
-  Network,
-  Radio,
-  Share2,
+  BarChart3,
 } from 'lucide-react';
 
 export default function RightContextRail() {
-  const capabilities = [
+  const metadataItems = [
     {
-      title: 'Comprehensive Analytics',
-      desc: 'Multidimensional warehouse metrics',
-      icon: Activity,
+      label: 'Dataset',
+      value: 'CICIDS2017',
+      sub: 'Network Traffic Subset',
+      icon: Database,
+      accent: 'var(--color-cyan)',
+      bg: 'rgba(0, 217, 255, 0.08)',
     },
     {
-      title: 'Multidimensional Analysis',
-      desc: 'OLAP roll-up, drill-down & slice',
-      icon: Layers,
+      label: 'Warehouse',
+      value: 'MySQL',
+      sub: 'Relational Database',
+      icon: Database,
+      accent: '#A855F7',
+      bg: 'rgba(168, 85, 247, 0.08)',
     },
     {
-      title: 'Machine Learning Classification',
-      desc: 'Random Forest on 62 flow attributes',
+      label: 'Schema',
+      value: 'Star Schema',
+      sub: '1 Fact • 3 Dimensions',
+      icon: Table2,
+      accent: '#A855F7',
+      bg: 'rgba(168, 85, 247, 0.08)',
+    },
+    {
+      label: 'OLAP',
+      value: 'Slice • Dice • Roll-Up • Drill-Down',
+      sub: 'Multidimensional Analysis',
+      icon: BarChart3,
+      accent: '#F59E0B',
+      bg: 'rgba(245, 158, 11, 0.08)',
+    },
+    {
+      label: 'Data Mining',
+      value: 'Random Forest',
+      sub: '100 Trees • Supervised',
       icon: Cpu,
+      accent: 'var(--color-cyan)',
+      bg: 'rgba(0, 217, 255, 0.08)',
     },
     {
-      title: 'Report Analysis',
-      desc: 'Structured analytical summaries',
-      icon: FileSpreadsheet,
-    },
-    {
-      title: 'Built for B.Tech Projects',
-      desc: 'Academic DWDM curriculum standard',
-      icon: GraduationCap,
+      label: 'Features',
+      value: '62',
+      sub: 'Extracted Flow Attributes',
+      icon: Sliders,
+      accent: '#22D3EE',
+      bg: 'rgba(34, 211, 238, 0.08)',
     },
   ];
 
   return (
     <aside className="right-context-rail">
-      {/* Brand Header */}
+      {/* Rail Brand & Context Header */}
       <div className="right-rail-header">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
           <div className="right-rail-dot" />
           <span style={{ fontSize: '0.66rem', fontWeight: '700', letterSpacing: '0.08em', color: 'var(--color-cyan)', textTransform: 'uppercase' }}>
-            SYSTEM CONTEXT
+            PROJECT CONTEXT
           </span>
         </div>
 
-        <h2 className="right-rail-title">
-          CYBERFLOW<br />INTELLIGENCE
+        <h2 className="right-rail-title" style={{ fontSize: '0.92rem', lineHeight: '1.2' }}>
+          NETWORK TRAFFIC<br />ANALYSIS
         </h2>
         <div className="right-rail-subtitle">
-          Network Traffic Analytics
+          Data Warehousing & Data Mining
         </div>
         <p className="right-rail-caption">
-          Using Data Warehousing and Data Mining
+          CICIDS2017 • MySQL • Random Forest
         </p>
 
-        {/* Subtle Cyan Divider */}
+        {/* Clean Divider */}
         <div className="right-rail-divider" />
       </div>
 
-      {/* Capabilities List */}
-      <div className="right-rail-capabilities">
-        <div style={{ fontSize: '0.68rem', fontWeight: '700', color: 'var(--text-muted)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '10px' }}>
-          CORE CAPABILITIES
+      {/* Compact Academic Project Metadata Panel */}
+      <div className="right-rail-metadata-panel" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{ fontSize: '0.65rem', fontWeight: '700', color: 'var(--text-muted)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '4px' }}>
+          DWDM SPECIFICATIONS
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {capabilities.map((cap) => {
-            const Icon = cap.icon;
-            return (
-              <div key={cap.title} className="capability-card">
-                <div className="capability-icon-wrap">
-                  <Icon size={14} color="var(--color-cyan)" />
+        {metadataItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <div
+              key={item.label}
+              style={{
+                background: 'var(--surface-card)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: 'var(--radius-sm)',
+                padding: '8px 10px',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '10px',
+                transition: 'border-color 0.15s ease',
+              }}
+            >
+              <div
+                style={{
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '4px',
+                  background: item.bg,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: item.accent,
+                  flexShrink: 0,
+                  marginTop: '1px',
+                }}
+              >
+                <Icon size={13} />
+              </div>
+
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: '0.62rem', fontWeight: '600', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  {item.label}
                 </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div className="capability-title">
-                    {cap.title}
-                  </div>
-                  <div className="capability-desc">
-                    {cap.desc}
-                  </div>
+                <div style={{ fontSize: '0.78rem', fontWeight: '700', color: 'var(--text-primary)', marginTop: '1px', lineHeight: 1.25, wordBreak: 'break-word' }}>
+                  {item.value}
+                </div>
+                <div style={{ fontSize: '0.62rem', color: 'var(--text-secondary)', marginTop: '2px' }}>
+                  {item.sub}
                 </div>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
 
-      {/* Abstract Network/Globe Visual (Decorative) */}
-      <div className="network-globe-container">
-        <div className="globe-overlay" />
-        <svg
-          viewBox="0 0 200 180"
-          className="network-globe-svg"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            {/* Radial Gradient for Glow */}
-            <radialGradient id="globeGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#00D9FF" stopOpacity="0.16" />
-              <stop offset="70%" stopColor="#004A6B" stopOpacity="0.05" />
-              <stop offset="100%" stopColor="#00070E" stopOpacity="0" />
-            </radialGradient>
-            <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#00D9FF" stopOpacity="0.45" />
-              <stop offset="100%" stopColor="#004A6B" stopOpacity="0.1" />
-            </linearGradient>
-          </defs>
-
-          {/* Background Ambient Glow */}
-          <circle cx="100" cy="90" r="72" fill="url(#globeGlow)" />
-
-          {/* Concentric / Spherical Latitudinal Ellipses */}
-          <ellipse cx="100" cy="90" rx="66" ry="66" fill="none" stroke="#103040" strokeWidth="1" strokeDasharray="3 3" />
-          <ellipse cx="100" cy="90" rx="66" ry="24" fill="none" stroke="url(#orbitGrad)" strokeWidth="1" />
-          <ellipse cx="100" cy="90" rx="66" ry="46" fill="none" stroke="#16384C" strokeWidth="0.8" />
-          <ellipse cx="100" cy="90" rx="26" ry="66" fill="none" stroke="#16384C" strokeWidth="0.8" />
-
-          {/* Angled Orbital Ring */}
-          <ellipse
-            cx="100"
-            cy="90"
-            rx="74"
-            ry="28"
-            fill="none"
-            stroke="var(--color-cyan)"
-            strokeWidth="0.9"
-            strokeOpacity="0.5"
-            transform="rotate(-25 100 90)"
-          />
-
-          {/* Network Interconnect Lines */}
-          <line x1="70" y1="65" x2="100" y2="90" stroke="#00D9FF" strokeWidth="0.8" strokeOpacity="0.5" />
-          <line x1="100" y1="90" x2="135" y2="78" stroke="#00D9FF" strokeWidth="0.8" strokeOpacity="0.5" />
-          <line x1="100" y1="90" x2="88" y2="125" stroke="#00D9FF" strokeWidth="0.8" strokeOpacity="0.5" />
-          <line x1="135" y1="78" x2="145" y2="108" stroke="#00D9FF" strokeWidth="0.7" strokeOpacity="0.4" />
-          <line x1="70" y1="65" x2="52" y2="95" stroke="#00D9FF" strokeWidth="0.7" strokeOpacity="0.4" />
-          <line x1="88" y1="125" x2="128" y2="128" stroke="#00D9FF" strokeWidth="0.7" strokeOpacity="0.4" />
-
-          {/* Cyan Network Nodes */}
-          <circle cx="100" cy="90" r="3.5" fill="#00D9FF" />
-          <circle cx="100" cy="90" r="6" fill="none" stroke="#00D9FF" strokeWidth="0.6" strokeOpacity="0.6" />
-
-          <circle cx="70" cy="65" r="2.5" fill="#00C8E8" />
-          <circle cx="135" cy="78" r="2.5" fill="#00C8E8" />
-          <circle cx="88" cy="125" r="2.5" fill="#00C8E8" />
-          <circle cx="145" cy="108" r="2" fill="#38BDF8" opacity="0.8" />
-          <circle cx="52" cy="95" r="2" fill="#38BDF8" opacity="0.8" />
-          <circle cx="128" cy="128" r="2" fill="#38BDF8" opacity="0.8" />
-          <circle cx="60" cy="115" r="1.5" fill="#00D9FF" opacity="0.6" />
-          <circle cx="130" cy="55" r="1.5" fill="#00D9FF" opacity="0.6" />
-
-          {/* Coordinate Marks */}
-          <text x="32" y="38" fill="#486577" fontSize="6" fontFamily="JetBrains Mono, monospace">
-            LAT 38.89° N
-          </text>
-          <text x="120" y="152" fill="#486577" fontSize="6" fontFamily="JetBrains Mono, monospace">
-            CICIDS2017 • FLOWS
-          </text>
-        </svg>
-
-        <div className="globe-caption">
-          <Share2 size={11} color="var(--color-cyan)" />
-          <span>Topological Flow Coordinates</span>
+      {/* Academic Curriculum Callout */}
+      <div
+        style={{
+          marginTop: '12px',
+          background: 'rgba(168, 85, 247, 0.05)',
+          border: '1px solid rgba(168, 85, 247, 0.2)',
+          borderRadius: 'var(--radius-sm)',
+          padding: '10px 12px',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+          <GraduationCap size={14} color="#A855F7" />
+          <span style={{ fontSize: '0.68rem', fontWeight: '700', color: '#A855F7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            Academic B.Tech DWDM
+          </span>
         </div>
+        <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', margin: 0, lineHeight: 1.35 }}>
+          Designed for Data Warehousing & Data Mining coursework evaluation.
+        </p>
       </div>
 
       {/* Right Rail Footer */}
-      <div className="right-rail-footer">
-        <div className="right-rail-divider" style={{ marginBottom: '12px' }} />
+      <div className="right-rail-footer" style={{ marginTop: 'auto', paddingTop: '14px' }}>
+        <div className="right-rail-divider" style={{ marginBottom: '10px' }} />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
-            <div style={{ fontSize: '0.78rem', fontWeight: '800', color: 'var(--text-primary)', letterSpacing: '0.04em' }}>
+            <div style={{ fontSize: '0.75rem', fontWeight: '800', color: 'var(--text-primary)', letterSpacing: '0.03em' }}>
               CICIDS2017
             </div>
-            <div style={{ fontSize: '0.64rem', color: 'var(--text-muted)', letterSpacing: '0.02em' }}>
-              NETWORK TRAFFIC DATASET
+            <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>
+              BENCHMARK DATASET
             </div>
           </div>
-          <span className="badge badge-cyan" style={{ fontSize: '0.62rem', padding: '2px 6px' }}>
+          <span
+            style={{
+              fontSize: '0.60rem',
+              fontWeight: '700',
+              color: 'var(--color-cyan)',
+              background: 'rgba(0, 217, 255, 0.08)',
+              border: '1px solid rgba(0, 217, 255, 0.25)',
+              padding: '2px 6px',
+              borderRadius: '3px',
+              fontFamily: 'JetBrains Mono, monospace',
+            }}
+          >
             VERIFIED
           </span>
         </div>

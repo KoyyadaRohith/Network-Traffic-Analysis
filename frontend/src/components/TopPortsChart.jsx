@@ -146,17 +146,17 @@ export default function TopPortsChart({ portsData, loading, onViewDetails }) {
           >
             <XAxis
               type="number"
-              stroke="#213E4D"
+              stroke="var(--border-subtle)"
               tickFormatter={formatCount}
-              tick={{ fill: '#7F93A3', fontSize: 10 }}
+              tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
               tickLine={false}
             />
             <YAxis
               type="category"
               dataKey="displayName"
               width={90}
-              stroke="#213E4D"
-              tick={{ fill: '#CFD9E0', fontSize: 10 }}
+              stroke="var(--border-subtle)"
+              tick={{ fill: 'var(--text-secondary)', fontSize: 10 }}
               tickLine={false}
             />
             <Tooltip
@@ -166,18 +166,18 @@ export default function TopPortsChart({ portsData, loading, onViewDetails }) {
                   return (
                     <div
                       style={{
-                        backgroundColor: '#07151E',
-                        border: '1px solid #1C3B4A',
+                        backgroundColor: 'var(--surface-card)',
+                        border: '1px solid var(--border-subtle)',
                         borderRadius: '6px',
                         padding: '8px 12px',
                         fontSize: '0.78rem',
-                        boxShadow: '0 6px 20px rgba(0, 0, 0, 0.8)',
+                        boxShadow: 'var(--shadow-elevated)',
                       }}
                     >
                       <div style={{ fontWeight: '700', color: '#F59E0B' }}>
                         Port {d.port} ({d.service})
                       </div>
-                      <div style={{ fontSize: '0.92rem', fontWeight: '800', color: '#F5F7FA', marginTop: '2px' }}>
+                      <div style={{ fontSize: '0.92rem', fontWeight: '800', color: 'var(--text-primary)', marginTop: '2px' }}>
                         {d.total.toLocaleString()} records
                       </div>
                     </div>

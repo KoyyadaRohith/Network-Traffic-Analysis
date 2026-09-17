@@ -143,7 +143,7 @@ export default function PredictionPreview({ onPredictionComplete }) {
                 Traffic Prediction
               </h3>
               <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                Real-time Random Forest inference (62 features)
+                Interactive Random Forest inference (62 features)
               </p>
             </div>
           </div>
@@ -377,11 +377,11 @@ export default function PredictionPreview({ onPredictionComplete }) {
 
               {showTable && (
                 <div style={{ marginTop: '10px', maxHeight: '240px', overflowY: 'auto', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)' }}>
-                  <div style={{ padding: '6px 8px', fontSize: '0.7rem', color: 'var(--text-muted)', background: 'rgba(0,0,0,0.2)', borderBottom: '1px solid var(--border-subtle)' }}>
+                  <div style={{ padding: '6px 8px', fontSize: '0.7rem', color: 'var(--text-muted)', background: 'var(--surface-elevated)', borderBottom: '1px solid var(--border-subtle)' }}>
                     Showing first {Math.min(20, result.predictions.length)} predictions.
                   </div>
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.74rem', textAlign: 'left' }}>
-                    <thead style={{ position: 'sticky', top: 0, background: '#0d1322', color: 'var(--text-muted)' }}>
+                    <thead style={{ position: 'sticky', top: 0, background: 'var(--surface-elevated)', color: 'var(--text-secondary)' }}>
                       <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
                         <th style={{ padding: '6px 8px' }}>#</th>
                         <th style={{ padding: '6px 8px' }}>Prediction</th>
@@ -392,14 +392,14 @@ export default function PredictionPreview({ onPredictionComplete }) {
                     </thead>
                     <tbody>
                       {result.predictions.slice(0, 20).map((row) => (
-                        <tr key={row.row_number} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
+                        <tr key={row.row_number} style={{ borderBottom: '1px solid var(--border-subtle)' }}>
                           <td style={{ padding: '6px 8px', color: 'var(--text-muted)' }}>{row.row_number}</td>
                           <td style={{ padding: '6px 8px' }}>
                             <span style={{ color: row.prediction === 'SUSPICIOUS' ? 'var(--color-red)' : 'var(--color-green)', fontWeight: '700' }}>
                               {row.prediction}
                             </span>
                           </td>
-                          <td style={{ padding: '6px 8px', textAlign: 'right', fontWeight: '600', color: '#ffffff' }}>
+                          <td style={{ padding: '6px 8px', textAlign: 'right', fontWeight: '600', color: 'var(--text-primary)' }}>
                             {(row.confidence * 100).toFixed(1)}%
                           </td>
                           <td style={{ padding: '6px 8px', textAlign: 'right', color: 'var(--color-green)' }}>

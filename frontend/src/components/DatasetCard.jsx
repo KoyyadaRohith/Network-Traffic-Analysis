@@ -11,7 +11,7 @@ export default function DatasetCard({ summary }) {
         padding: '24px',
         position: 'relative',
         overflow: 'hidden',
-        background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 69, 0.4) 100%)',
+        background: 'linear-gradient(135deg, var(--surface-card) 0%, var(--surface-elevated) 100%)',
       }}
     >
       {/* Decorative Network Grid Accent */}
