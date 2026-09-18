@@ -673,6 +673,16 @@ def get_filtered_traffic_analytics(
             "average_flow_packets_per_sec": 40210.45,
         }
 
+    ports_with_pct = []
+    for p in filtered_ports:
+        cnt = p["total_records"]
+        ports_with_pct.append({
+            "destination_port": p["destination_port"],
+            "traffic_status": p["traffic_status"],
+            "total_records": cnt,
+            "percentage": round((cnt / tot) * 100, 2) if tot > 0 else 0.0
+        })
+
     return {
         "filters_applied": {
             "status": status,
@@ -687,7 +697,7 @@ def get_filtered_traffic_analytics(
             "suspicious_percentage": susp_pct
         },
         "classification": classes,
-        "ports": filtered_ports,
+        "ports": ports_with_pct,
         "statistics": stats,
         "available_dates": ["2017-07-07"],
         "available_ports": [80, 443, 53, 8080, 22, 21, 25, 123, 445, 137],
