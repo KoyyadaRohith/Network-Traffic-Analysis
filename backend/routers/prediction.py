@@ -22,6 +22,7 @@ MAX_PREDICTION_RECORDS = 50000
 
 
 @router.post("/predict", response_model=PredictionResponse)
+@router.post("/predict/file", response_model=PredictionResponse, include_in_schema=False)
 async def predict_traffic_records(file: UploadFile = File(...)):
     """
     Accepts a network traffic CSV file, validates the 62 model features,

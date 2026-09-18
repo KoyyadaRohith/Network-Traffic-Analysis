@@ -32,6 +32,7 @@ router = APIRouter(
 
 
 @router.get("/summary", response_model=SummaryResponse)
+@router.get("/overview", response_model=SummaryResponse, include_in_schema=False)
 def get_analytics_summary():
     try:
         return analytics.get_summary()
@@ -54,6 +55,7 @@ def get_analytics_classification():
 
 
 @router.get("/ports", response_model=PortResponse)
+@router.get("/top-ports", response_model=PortResponse, include_in_schema=False)
 def get_analytics_ports():
     try:
         return analytics.get_top_ports()

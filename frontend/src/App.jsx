@@ -39,6 +39,30 @@ const TAB_TO_PATH = {
   'Report Analysis': '/report-analysis',
 };
 
+const DEFAULT_DASHBOARD_DATA = {
+  summary: {
+    total_records: 223112,
+    normal_records: 95096,
+    suspicious_records: 128016,
+    normal_percentage: 42.62,
+    suspicious_percentage: 57.38
+  },
+  ports: {
+    data: [
+      { destination_port: 80, traffic_status: 'SUSPICIOUS', total_records: 128016 },
+      { destination_port: 443, traffic_status: 'NORMAL', total_records: 78540 },
+      { destination_port: 53, traffic_status: 'NORMAL', total_records: 12850 },
+      { destination_port: 8080, traffic_status: 'NORMAL', total_records: 2420 },
+      { destination_port: 22, traffic_status: 'NORMAL', total_records: 1286 },
+      { destination_port: 21, traffic_status: 'NORMAL', total_records: 840 },
+      { destination_port: 25, traffic_status: 'NORMAL', total_records: 620 },
+      { destination_port: 123, traffic_status: 'NORMAL', total_records: 410 },
+      { destination_port: 445, traffic_status: 'NORMAL', total_records: 320 },
+      { destination_port: 137, traffic_status: 'NORMAL', total_records: 136 }
+    ]
+  }
+};
+
 export default function App() {
   // Initialize tab based on URL path or default to Dashboard
   const [activeTab, setActiveTab] = useState(() => {
@@ -46,7 +70,7 @@ export default function App() {
     return PATH_TO_TAB[path] || 'Dashboard';
   });
 
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(DEFAULT_DASHBOARD_DATA);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);

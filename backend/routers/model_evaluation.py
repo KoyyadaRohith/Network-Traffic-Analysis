@@ -31,6 +31,7 @@ def get_model_evaluation():
 
 
 @router.get("/feature-importance", response_model=FeatureImportanceResponse)
+@router.get("/features", response_model=FeatureImportanceResponse, include_in_schema=False)
 def get_feature_importance():
     try:
         return model_evaluation.get_feature_importance_data()
