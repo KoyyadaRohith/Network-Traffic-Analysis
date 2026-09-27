@@ -226,10 +226,45 @@ class PortDrillDownDetail(BaseModel):
     average_flow_packets_per_sec: float
 
 
+class PaginationInfo(BaseModel):
+    page: int
+    page_size: int
+    total_records: int
+    total_pages: int
+    has_next: bool
+    has_prev: bool
+
+
+class FactTrafficRecord(BaseModel):
+    traffic_id: int
+    destination_port: int
+    traffic_status: str
+    original_label: Optional[str] = None
+    date: str
+    flow_duration: float
+    total_fwd_packets: float
+    total_backward_packets: float
+    total_length_fwd_packets: Optional[float] = None
+    total_length_bwd_packets: Optional[float] = None
+    packet_length_mean: float
+    min_packet_length: Optional[float] = None
+    max_packet_length: Optional[float] = None
+    packet_length_std: Optional[float] = None
+    packet_length_variance: Optional[float] = None
+    flow_bytes_per_sec: float
+    flow_packets_per_sec: float
+    all_features: Optional[dict] = None
+
+
 class AppliedFilters(BaseModel):
     status: Optional[str] = None
     destination_port: Optional[int] = None
     date: Optional[str] = None
+    search: Optional[str] = None
+    sort_by: Optional[str] = None
+    sort_order: Optional[str] = None
+    page: Optional[int] = None
+    page_size: Optional[int] = None
 
 
 class TrafficAnalyticsResponse(BaseModel):
@@ -241,6 +276,8 @@ class TrafficAnalyticsResponse(BaseModel):
     available_dates: List[str]
     available_ports: List[int]
     single_date_notice: Optional[str] = None
+    records: Optional[List[FactTrafficRecord]] = None
+    pagination: Optional[PaginationInfo] = None
 
 
 class DatasetFileInfo(BaseModel):
@@ -422,13 +459,15 @@ class DWDMStatusComparisonResponse(BaseModel):
 
 
 class DWDMRollupItem(BaseModel):
-    capture_date: str
-    traffic_status: str
+    capture_date: Optional[str] = None
+    traffic_status: Optional[str] = None
+    destination_port: Optional[str] = None
+    group_key: Optional[str] = None
     record_count: int
     avg_flow_duration: float
     avg_packet_length: float
-    is_date_rollup: int
-    is_status_rollup: int
+    is_date_rollup: Optional[int] = 0
+    is_status_rollup: Optional[int] = 0
     level: str
 
 

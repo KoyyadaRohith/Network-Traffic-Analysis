@@ -4,9 +4,14 @@ import mysql.connector
 from mysql.connector import Error
 from dotenv import load_dotenv
 
-# Load environment variables from .env located in the backend directory
-env_path = Path(__file__).resolve().parent / ".env"
-load_dotenv(dotenv_path=env_path, override=True)
+# Load environment variables from backend/.env or root .env without overriding host variables
+root_env = Path(__file__).resolve().parent.parent / ".env"
+backend_env = Path(__file__).resolve().parent / ".env"
+
+if root_env.exists():
+    load_dotenv(dotenv_path=root_env, override=False)
+if backend_env.exists():
+    load_dotenv(dotenv_path=backend_env, override=False)
 
 
 def get_db_connection():
@@ -14,8 +19,6 @@ def get_db_connection():
     Creates and returns a MySQL database connection using configuration
     from environment variables.
     """
-    load_dotenv(dotenv_path=env_path, override=True)
-
     db_host = os.getenv("DB_HOST", "localhost")
     db_port = int(os.getenv("DB_PORT", "3306"))
     db_user = os.getenv("DB_USER", "root")

@@ -3,11 +3,10 @@
  * Retrieves real project dataset metadata, class distribution, and 62 model features
  */
 
+import { getEndpoints } from './config';
+
 export async function fetchDatasetSummary() {
-  const endpoints = [
-    '/api/dataset/summary',
-    'http://127.0.0.1:8000/api/dataset/summary'
-  ];
+  const endpoints = getEndpoints('/api/dataset/summary');
 
   let lastError = null;
   for (const ep of endpoints) {
@@ -28,10 +27,7 @@ export async function fetchDatasetSummary() {
 }
 
 export async function fetchDatasetClassDistribution() {
-  const endpoints = [
-    '/api/dataset/class-distribution',
-    'http://127.0.0.1:8000/api/dataset/class-distribution'
-  ];
+  const endpoints = getEndpoints('/api/dataset/class-distribution');
 
   let lastError = null;
   for (const ep of endpoints) {
@@ -52,10 +48,7 @@ export async function fetchDatasetClassDistribution() {
 }
 
 export async function fetchDatasetFeatures() {
-  const endpoints = [
-    '/api/dataset/features',
-    'http://127.0.0.1:8000/api/dataset/features'
-  ];
+  const endpoints = getEndpoints('/api/dataset/features');
 
   let lastError = null;
   for (const ep of endpoints) {

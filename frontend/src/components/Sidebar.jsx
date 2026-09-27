@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   LayoutDashboard,
+  Search,
   Database,
   BarChart3,
   BrainCircuit,
@@ -11,12 +12,33 @@ import {
 } from 'lucide-react';
 
 export default function Sidebar({ isOpen, onClose, activeTab = 'Dashboard', onSelectTab }) {
-  const navItems = [
-    { name: 'Dashboard', icon: LayoutDashboard },
-    { name: 'Data Warehouse', icon: Database },
-    { name: 'OLAP Analysis', icon: BarChart3 },
-    { name: 'Data Mining', icon: BrainCircuit },
-    { name: 'Report Analysis', icon: FileText },
+  const navSections = [
+    {
+      group: 'Overview',
+      items: [
+        { name: 'Dashboard', route: '/dashboard', icon: LayoutDashboard },
+        { name: 'Traffic Explorer', route: '/explorer', icon: Search },
+      ],
+    },
+    {
+      group: 'DWDM',
+      items: [
+        { name: 'Data Warehouse', route: '/warehouse', icon: Database },
+        { name: 'OLAP Analysis', route: '/olap', icon: BarChart3 },
+      ],
+    },
+    {
+      group: 'DATA MINING',
+      items: [
+        { name: 'Data Mining', route: '/mining', icon: BrainCircuit },
+      ],
+    },
+    {
+      group: 'RESULTS',
+      items: [
+        { name: 'Analytical Report', route: '/report', icon: FileText },
+      ],
+    },
   ];
 
   return (
@@ -62,34 +84,53 @@ export default function Sidebar({ isOpen, onClose, activeTab = 'Dashboard', onSe
             </button>
           </div>
 
-          {/* Navigation Items (No Numbers) */}
-          <nav className="sidebar-nav">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeTab === item.name;
-
-              return (
-                <button
-                  key={item.name}
-                  onClick={() => {
-                    if (onSelectTab) {
-                      onSelectTab(item.name);
-                      if (onClose) onClose();
-                    }
+          {/* Grouped Navigation Sections */}
+          <nav className="sidebar-nav" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            {navSections.map((section) => (
+              <div key={section.group}>
+                <div
+                  style={{
+                    fontSize: '0.64rem',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    color: 'var(--text-muted)',
+                    padding: '2px 10px 6px',
                   }}
-                  className={`sidebar-nav-item ${isActive ? 'active' : ''}`}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <Icon
-                      size={16}
-                      className="sidebar-nav-icon"
-                      color={isActive ? 'var(--color-cyan)' : 'var(--text-muted)'}
-                    />
-                    <span className="sidebar-nav-label">{item.name}</span>
-                  </div>
-                </button>
-              );
-            })}
+                  {section.group}
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                  {section.items.map((item) => {
+                    const Icon = item.icon;
+                    const isActive = activeTab === item.name || (item.name === 'Analytical Report' && activeTab === 'Report Analysis');
+
+                    return (
+                      <button
+                        key={item.name}
+                        onClick={() => {
+                          if (onSelectTab) {
+                            onSelectTab(item.name);
+                            if (onClose) onClose();
+                          }
+                        }}
+                        className={`sidebar-nav-item ${isActive ? 'active' : ''}`}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <Icon
+                            size={16}
+                            className="sidebar-nav-icon"
+                            color={isActive ? 'var(--color-cyan)' : 'var(--text-muted)'}
+                          />
+                          <span className="sidebar-nav-label">{item.name}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </nav>
         </div>
 

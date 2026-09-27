@@ -7,7 +7,26 @@ logger = logging.getLogger(__name__)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW_CSV_PATH = os.path.join(BASE_DIR, "data", "raw", "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv")
 CLEAN_CSV_PATH = os.path.join(BASE_DIR, "data", "processed", "dwdm_network_traffic_clean.csv")
-FEATURES_PATH = os.path.join(BASE_DIR, "models", "model_features.txt")
+
+def _resolve_features_path():
+    env_dir = os.getenv("MODELS_DIR")
+    if env_dir:
+        p = os.path.join(env_dir, "model_features.txt")
+        if os.path.exists(p):
+            return p
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    p = os.path.join(repo_root, "models", "model_features.txt")
+    if os.path.exists(p):
+        return p
+    cwd_p = os.path.join(os.getcwd(), "models", "model_features.txt")
+    if os.path.exists(cwd_p):
+        return cwd_p
+    sib_p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "model_features.txt")
+    if os.path.exists(sib_p):
+        return sib_p
+    return p
+
+FEATURES_PATH = _resolve_features_path()
 
 
 def get_dataset_summary():

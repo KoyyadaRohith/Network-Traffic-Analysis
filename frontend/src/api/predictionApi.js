@@ -3,10 +3,9 @@
  * Uploads network traffic CSV files for Random Forest inference
  */
 
-const API_ENDPOINTS = [
-  '/api/predict',
-  'http://127.0.0.1:8000/api/predict'
-];
+import { getEndpoints } from './config';
+
+const API_ENDPOINTS = getEndpoints('/api/predict');
 
 export async function predictTraffic(file) {
   if (!file) {

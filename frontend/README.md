@@ -1,6 +1,6 @@
-# CyberFlow Intelligence — Frontend Application
+# Network Traffic Analysis — Frontend Application
 
-This directory contains the single-page application (SPA) client for **CyberFlow Intelligence**, built with React 18, Vite, Recharts, and Vanilla CSS.
+This directory contains the single-page application (SPA) client for **Network Traffic Analysis**, built with React 18, Vite, Recharts, and Vanilla CSS.
 
 For the comprehensive end-to-end documentation including architecture diagrams, Star Schema specifications, OLAP operations, and Random Forest evaluation metrics, please refer to the primary root documentation:
 

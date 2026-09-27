@@ -15,19 +15,24 @@
 .main-wrapper {
   flex: 1;
   margin-left: var(--sidebar-width);
-  margin-right: var(--right-rail-width);
+  margin-right: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-content);
   transition: margin-left 0.25s ease, margin-right 0.25s ease;
+  width: calc(100% - var(--sidebar-width));
+}
+
+.main-wrapper.with-right-rail {
+  margin-right: var(--right-rail-width);
   width: calc(100% - var(--sidebar-width) - var(--right-rail-width));
 }
 
 .content-area {
   padding: 24px 28px;
   flex: 1;
-  max-width: 1540px;
+  max-width: 1600px;
   margin: 0 auto;
   width: 100%;
 }
@@ -85,7 +90,7 @@
   font-size: 0.86rem;
   font-weight: 800;
   letter-spacing: 0.04em;
-  color: var(--text-primary);
+  color: var(--color-heading);
   line-height: 1.15;
   margin: 0;
 }
@@ -365,7 +370,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 40;
+  z-index: 60;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -373,6 +378,21 @@
   border-left: 1px solid var(--border-subtle);
   padding: 20px 16px;
   overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.45);
+}
+
+.right-context-rail.open {
+  transform: translateX(0);
+}
+
+.right-rail-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 8, 16, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 55;
 }
 
 .right-rail-dot {
@@ -386,7 +406,7 @@
 .right-rail-title {
   font-size: 0.95rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-heading);
   line-height: 1.15;
   letter-spacing: 0.04em;
   margin: 0;
@@ -428,7 +448,7 @@
   font-size: 1.85rem;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: var(--text-primary);
+  color: var(--color-heading);
   line-height: 1.15;
 }
 
@@ -567,7 +587,7 @@
 .analytical-title {
   font-size: 0.98rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--color-heading);
   margin: 0;
   line-height: 1.2;
 }
@@ -689,7 +709,7 @@
 .overview-title {
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--color-heading);
   margin-bottom: 6px;
 }
 
@@ -745,24 +765,16 @@
    RESPONSIVE BREAKPOINTS (Desktop 1536/1280, Tablet 1024/768, Mobile 390)
    ============================================================ */
 
-/* Large Desktop (>= 1281px): Full 3-Zone Layout */
-@media (min-width: 1281px) {
-  .right-context-rail {
-    display: flex;
+/* Desktop Context Rail Behavior */
+@media (max-width: 1440px) {
+  .main-wrapper.with-right-rail {
+    margin-right: 0;
+    width: calc(100% - var(--sidebar-width));
   }
 }
 
 /* Standard Laptop / Smaller Desktop (1025px - 1280px) */
 @media (max-width: 1280px) {
-  .main-wrapper {
-    margin-right: 0;
-    width: calc(100% - var(--sidebar-width));
-  }
-
-  .right-context-rail {
-    display: none;
-  }
-
   .dashboard-analytical-grid {
     grid-template-columns: 1.4fr 1fr;
   }
@@ -1008,7 +1020,7 @@
 .schema-fact-title {
   font-size: 1.1rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-heading);
   font-family: 'JetBrains Mono', monospace;
   margin: 2px 0 0;
 }
@@ -1166,7 +1178,7 @@
 .table-detail-title {
   font-size: 0.95rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-heading);
   font-family: 'JetBrains Mono', monospace;
   margin: 4px 0 4px;
 }
@@ -1608,7 +1620,7 @@
 .olap-chart-title {
   font-size: 0.95rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-heading);
   margin: 0 0 2px 0;
   letter-spacing: -0.01em;
 }
@@ -1663,7 +1675,7 @@
 .olap-op-title {
   font-size: 1.05rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-heading);
   margin: 0 0 6px 0;
 }
 
@@ -1922,7 +1934,7 @@
 .dm-model-title {
   font-size: 0.95rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-heading);
   letter-spacing: -0.01em;
   margin: 0;
   display: flex;
@@ -1989,7 +2001,7 @@
 .dm-card-title {
   font-size: 0.95rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-heading);
   margin: 0 0 2px 0;
   letter-spacing: -0.01em;
 }
@@ -2199,7 +2211,7 @@
 .dm-step-title {
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--color-heading);
 }
 
 .dm-step-desc {
@@ -2300,7 +2312,7 @@
 .ra-card-title {
   font-size: 0.95rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-heading);
   margin: 0 0 2px 0;
   letter-spacing: -0.01em;
 }
@@ -2430,7 +2442,7 @@
 .ra-finding-title {
   font-size: 0.78rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-heading);
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
@@ -2469,7 +2481,7 @@
 .ra-outcome-title {
   font-size: 0.8rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-heading);
   letter-spacing: 0.04em;
 }
 
@@ -2591,6 +2603,705 @@
   }
 }
 
+/* ==========================================================================
+   PHASE 4: INTERACTIVE DATA MINING & TRAFFIC CLASSIFICATION
+   ========================================================================== */
 
+/* Confusion Matrix Interactive Cell Styles */
+.dm-cm-cell.is-interactive {
+  cursor: pointer;
+  position: relative;
+}
 
+.dm-cm-cell.is-interactive:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.dm-cm-cell.is-selected {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 1px;
+}
+
+.dm-cm-detail-panel {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Feature Importance Controls & Detail Card */
+.dm-fi-toggle-btn {
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-elevated);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dm-fi-toggle-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-main);
+}
+
+.dm-fi-toggle-btn.is-active {
+  background: rgba(0, 217, 255, 0.12);
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+}
+
+.dm-fi-detail-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* CSV Upload File Metadata & Validation Box */
+.dm-file-metadata-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.dm-validation-box {
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.78rem;
+  margin: 12px 0;
+}
+
+.dm-validation-box.valid {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #10B981;
+}
+
+.dm-validation-box.invalid {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #EF4444;
+}
+
+/* Prediction Results Filter Bar */
+.dm-results-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 12px;
+}
+
+/* Record Detail Feature Groups Grid */
+.dm-record-group-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dm-feature-kv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.dm-feature-kv-item {
+  background: var(--surface-card);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dm-feature-kv-name {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dm-feature-kv-val {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Pagination Controls */
+.dm-pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 4px 4px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@media (max-width: 768px) {
+  .dm-file-metadata-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dm-results-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button {
+    display: none !important;
+  }
+
+  .ra-card,
+  .ra-result-card,
+  .ra-summary-tile,
+  .ra-key-finding-item,
+  .ra-outcome-card {
+    border: 1px solid #CCCCCC !important;
+    background: #FAFAFA !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ==========================================================================
+   PHASE 4: INTERACTIVE DATA MINING & TRAFFIC CLASSIFICATION
+   ========================================================================== */
+
+/* Confusion Matrix Interactive Cell Styles */
+.dm-cm-cell.is-interactive {
+  cursor: pointer;
+  position: relative;
+}
+
+.dm-cm-cell.is-interactive:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.dm-cm-cell.is-selected {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 1px;
+}
+
+.dm-cm-detail-panel {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Feature Importance Controls & Detail Card */
+.dm-fi-toggle-btn {
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-elevated);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dm-fi-toggle-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-main);
+}
+
+.dm-fi-toggle-btn.is-active {
+  background: rgba(0, 217, 255, 0.12);
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+}
+
+.dm-fi-detail-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* CSV Upload File Metadata & Validation Box */
+.dm-file-metadata-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.dm-validation-box {
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.78rem;
+  margin: 12px 0;
+}
+
+.dm-validation-box.valid {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #10B981;
+}
+
+.dm-validation-box.invalid {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #EF4444;
+}
+
+/* Prediction Results Filter Bar */
+.dm-results-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 12px;
+}
+
+/* Record Detail Feature Groups Grid */
+.dm-record-group-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dm-feature-kv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.dm-feature-kv-item {
+  background: var(--surface-card);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dm-feature-kv-name {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dm-feature-kv-val {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Pagination Controls */
+.dm-pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 4px 4px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@media (max-width: 768px) {
+  .dm-file-metadata-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dm-results-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dm-feature-kv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .dm-file-metadata-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   PHASE 5 — ANALYTICAL REPORT ADVANCED WORKSPACE STYLES
+   ========================================================================== */
+
+/* Quick-Jump Section Navigation Bar */
+.ra-quicknav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 12px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  scrollbar-width: thin;
+}
+
+.ra-quicknav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ra-quicknav-btn:hover {
+  color: var(--color-cyan);
+  border-color: rgba(0, 217, 255, 0.35);
+  background: rgba(0, 217, 255, 0.06);
+}
+
+.ra-section {
+  scroll-margin-top: 80px;
+}
+
+/* Star Schema Visual Diagram */
+.ra-star-schema {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+  background: radial-gradient(circle at center, rgba(2, 132, 199, 0.04) 0%, #FFFFFF 100%), var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.ra-schema-node {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 170px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+.ra-schema-node.fact {
+  border-color: var(--color-cyan);
+  background: linear-gradient(180deg, rgba(2, 132, 199, 0.07) 0%, #FFFFFF 100%);
+  min-width: 220px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 16px rgba(2, 132, 199, 0.12);
+}
+
+.ra-schema-node.dim-date {
+  border-color: rgba(124, 58, 237, 0.4);
+}
+
+.ra-schema-node.dim-network {
+  border-color: rgba(217, 119, 6, 0.4);
+}
+
+.ra-schema-node.dim-class {
+  border-color: rgba(5, 150, 105, 0.4);
+}
+
+.ra-schema-connector-v {
+  width: 2px;
+  height: 28px;
+  background: linear-gradient(180deg, rgba(168, 85, 247, 0.6), var(--color-cyan));
+  margin: 2px 0;
+}
+
+.ra-schema-middle-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 760px;
+}
+
+.ra-schema-connector-h {
+  flex: 1;
+  height: 2px;
+  background: var(--border-subtle);
+  position: relative;
+}
+
+.ra-schema-connector-h.left {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.5), var(--color-cyan));
+}
+
+.ra-schema-connector-h.right {
+  background: linear-gradient(90deg, var(--color-cyan), rgba(16, 185, 129, 0.5));
+}
+
+/* Preprocessing Flow Stepper */
+.ra-stepper-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 12px 6px;
+  scrollbar-width: thin;
+}
+
+.ra-step-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  min-width: 105px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.ra-step-chip.start {
+  border-color: rgba(148, 163, 184, 0.5);
+}
+
+.ra-step-chip.end {
+  border-color: var(--color-cyan);
+  background: rgba(0, 217, 255, 0.06);
+}
+
+.ra-step-arrow {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* OLAP 4 Cards */
+.ra-olap-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.ra-olap-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ra-olap-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-cyan);
+}
+
+.ra-olap-card.active {
+  border-color: var(--color-cyan);
+  background: linear-gradient(180deg, rgba(0, 217, 255, 0.07) 0%, var(--surface-elevated) 100%);
+  box-shadow: 0 0 14px rgba(0, 217, 255, 0.12);
+}
+
+/* Key Findings 6 Grid */
+.ra-findings-6-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* Limitations 6 List */
+.ra-limitations-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.ra-limitation-item {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid #F59E0B;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Responsive Media Queries for Analytical Report */
+@media (max-width: 1024px) {
+  .ra-olap-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ra-findings-6-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ra-schema-middle-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ra-schema-connector-h {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ra-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ra-result-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ra-split-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ra-olap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ra-findings-6-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ra-limitations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ra-outcomes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .ra-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ra-result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ra-outcomes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ra-quicknav {
+    display: none;
+  }
+}
+
+/* Simplified Analytical Report Grid Responsiveness */
+@media (max-width: 960px) {
+  .ra-olap-four-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .ra-mining-specs-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .ra-mining-metrics-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .ra-mining-cm-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .ra-olap-four-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .ra-mining-specs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .ra-mining-metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .ra-mining-cm-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
 

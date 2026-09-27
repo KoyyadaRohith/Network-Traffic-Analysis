@@ -5,9 +5,37 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
 
+def _resolve_model_paths():
+    env_dir = os.getenv("MODELS_DIR")
+    if env_dir:
+        env_p = Path(env_dir)
+        m_p = env_p / "random_forest_model.joblib"
+        f_p = env_p / "model_features.txt"
+        if m_p.exists() and f_p.exists():
+            return m_p, f_p
+
+    repo_root = Path(__file__).resolve().parent.parent
+    m_p = repo_root / "models" / "random_forest_model.joblib"
+    f_p = repo_root / "models" / "model_features.txt"
+    if m_p.exists() and f_p.exists():
+        return m_p, f_p
+
+    cwd_p = Path.cwd() / "models"
+    m_p = cwd_p / "random_forest_model.joblib"
+    f_p = cwd_p / "model_features.txt"
+    if m_p.exists() and f_p.exists():
+        return m_p, f_p
+
+    sib_p = Path(__file__).resolve().parent / "models"
+    m_p = sib_p / "random_forest_model.joblib"
+    f_p = sib_p / "model_features.txt"
+    if m_p.exists() and f_p.exists():
+        return m_p, f_p
+
+    return repo_root / "models" / "random_forest_model.joblib", repo_root / "models" / "model_features.txt"
+
+MODEL_PATH, FEATURES_PATH = _resolve_model_paths()
 BASE_DIR = Path(__file__).resolve().parent.parent
-MODEL_PATH = BASE_DIR / "models" / "random_forest_model.joblib"
-FEATURES_PATH = BASE_DIR / "models" / "model_features.txt"
 X_TEST_PATH = BASE_DIR / "data" / "processed" / "X_test.csv"
 Y_TEST_PATH = BASE_DIR / "data" / "processed" / "y_test.csv"
 

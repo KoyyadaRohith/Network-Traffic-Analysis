@@ -74,9 +74,9 @@ def get_status_comparison():
 
 
 @router.get("/rollup", response_model=DWDMRollupResponse)
-def get_rollup():
+def get_rollup(group_by: str = Query(default="date_status")):
     try:
-        return dwdm_analysis.get_rollup_analysis()
+        return dwdm_analysis.get_rollup_analysis(group_by=group_by)
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

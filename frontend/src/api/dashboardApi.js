@@ -3,10 +3,9 @@
  * Communicates with FastAPI backend for network traffic analytics
  */
 
-const API_ENDPOINTS = [
-  '/api/dashboard',
-  'http://127.0.0.1:8000/api/dashboard'
-];
+import { getEndpoints } from './config';
+
+const API_ENDPOINTS = getEndpoints('/api/dashboard');
 
 export async function fetchDashboardData() {
   let lastError = null;

@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from 'recharts';
 
-export default function NetworkTrafficDistribution({ portsData, loading }) {
+export default function NetworkTrafficDistribution({ portsData, loading, onSelectPort }) {
   const [activeSeries, setActiveSeries] = useState(null);
 
   if (loading) {
@@ -57,24 +57,13 @@ export default function NetworkTrafficDistribution({ portsData, loading }) {
     .sort((a, b) => b.total - a.total)
     .slice(0, 8)
     .map((item) => ({
+      port: item.port,
       name: SERVICE_NAMES[item.port] || `Port ${item.port}`,
       shortName: `P${item.port}`,
       normal: item.normal,
       suspicious: item.suspicious,
       total: item.total,
     }));
-
-  // Fallback if empty
-  const displayData = chartData.length > 0 ? chartData : [
-    { name: 'Port 80 (HTTP)', shortName: 'P80', normal: 8549, suspicious: 128013 },
-    { name: 'Port 53 (DNS)', shortName: 'P53', normal: 30302, suspicious: 0 },
-    { name: 'Port 443 (HTTPS)', shortName: 'P443', normal: 13114, suspicious: 0 },
-    { name: 'Port 8080 (Alt)', shortName: 'P8080', normal: 510, suspicious: 0 },
-    { name: 'Port 123 (NTP)', shortName: 'P123', normal: 361, suspicious: 0 },
-    { name: 'Port 22 (SSH)', shortName: 'P22', normal: 317, suspicious: 0 },
-    { name: 'Port 389 (LDAP)', shortName: 'P389', normal: 258, suspicious: 0 },
-    { name: 'Port 88 (Auth)', shortName: 'P88', normal: 170, suspicious: 0 },
-  ];
 
   const formatK = (val) => {
     if (val >= 1000000) return `${(val / 1000000).toFixed(1)}M`;
@@ -122,12 +111,23 @@ export default function NetworkTrafficDistribution({ portsData, loading }) {
       </div>
 
       {/* Chart Canvas */}
-      <div style={{ width: '100%', height: '270px', marginTop: '10px' }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={displayData}
-            margin={{ top: 12, right: 12, left: -14, bottom: 4 }}
-          >
+      {chartData.length === 0 ? (
+        <div style={{ height: '270px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: '0.84rem' }}>
+          No traffic distribution records match the current filter selection.
+        </div>
+      ) : (
+        <div style={{ width: '100%', height: '270px', marginTop: '10px' }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={chartData}
+              margin={{ top: 12, right: 12, left: -14, bottom: 4 }}
+              style={{ cursor: onSelectPort ? 'pointer' : 'default' }}
+              onClick={(e) => {
+                if (e && e.activePayload && e.activePayload[0] && e.activePayload[0].payload.port) {
+                  onSelectPort?.(e.activePayload[0].payload.port);
+                }
+              }}
+            >
             <defs>
               <linearGradient id="normalAreaGrad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#22C55E" stopOpacity={activeSeries === 'suspicious' ? 0.05 : 0.22} />
@@ -211,6 +211,7 @@ export default function NetworkTrafficDistribution({ portsData, loading }) {
           </AreaChart>
         </ResponsiveContainer>
       </div>
+      )}
     </div>
   );
 }

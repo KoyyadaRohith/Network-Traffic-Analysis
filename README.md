@@ -1,4 +1,4 @@
-# CyberFlow Intelligence — Network Traffic Analysis
+# Network Traffic Analysis
 
 <div align="center">
 
@@ -42,7 +42,7 @@ Modern enterprise networks generate millions of transmission flows per hour. Ana
 - **Relational Inefficiency**: Running transactional ad-hoc analytical queries on unindexed raw tables locks transaction processing systems and causes massive query latencies.
 - **Operational Silos**: Network engineering teams frequently lack integrated toolsets bridging **historical aggregation** (Data Warehousing), **multidimensional drill-downs** (OLAP), and **automated anomaly detection** (Data Mining).
 
-**CyberFlow Intelligence** solves this dilemma by presenting an end-to-end, reproducible pipeline:
+**Network Traffic Analysis** solves this dilemma by presenting an end-to-end, reproducible pipeline:
 1. Ingests and cleans flow records from the **CICIDS2017** benchmark dataset.
 2. Structures them into a **MySQL 8.0 Enterprise Star Schema Data Warehouse** (1 Fact table, 3 Dimension tables).
 3. Provides a zero-lag **OLAP engine** executing **Slice, Dice, Roll-Up, and Drill-Down** operations.
@@ -53,7 +53,7 @@ Modern enterprise networks generate millions of transmission flows per hour. Ana
 
 ## 🏛 System Architecture
 
-CyberFlow Intelligence operates across a decoupled, three-tier architecture:
+Network Traffic Analysis operates across a decoupled, three-tier architecture:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -242,7 +242,7 @@ LIMIT 10;
 
 ## 🤖 Data Mining & Random Forest Model
 
-CyberFlow Intelligence trains an ensemble **Random Forest Classifier** to distinguish between benign network traffic and security anomalies.
+Network Traffic Analysis trains an ensemble **Random Forest Classifier** to distinguish between benign network traffic and security anomalies.
 
 ### Model Parameters
 - **Algorithm**: `RandomForestClassifier` (scikit-learn)
@@ -475,7 +475,7 @@ Network Traffic Analysis/
 
 ## 🧪 Live CSV Inference & Prediction
 
-CyberFlow Intelligence provides real-time model inference for external flow captures:
+Network Traffic Analysis provides real-time model inference for external flow captures:
 
 1. Navigate to **Data Mining** → **Live Flow Prediction** (or open the batch predictor modal).
 2. Prepare a `.csv` file containing network flow records matching the 62 engineered feature headers. *(A sample test file is located at `data/processed/X_test.csv`)*.

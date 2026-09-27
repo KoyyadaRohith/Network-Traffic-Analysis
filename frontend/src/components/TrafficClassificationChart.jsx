@@ -1,7 +1,7 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
-export default function TrafficClassificationChart({ summary, loading }) {
+export default function TrafficClassificationChart({ summary, loading, onSelectStatus }) {
   if (loading) {
     return (
       <div className="analytical-card" style={{ height: '360px', display: 'flex', flexDirection: 'column' }}>
@@ -12,11 +12,11 @@ export default function TrafficClassificationChart({ summary, loading }) {
     );
   }
 
-  const normalCount = summary?.normal_records ?? 95096;
-  const suspCount = summary?.suspicious_records ?? 128016;
-  const normalPct = summary?.normal_percentage ?? 42.62;
-  const suspPct = summary?.suspicious_percentage ?? 57.38;
-  const totalRecords = summary?.total_records ?? 223112;
+  const normalCount = summary?.normal_records ?? 0;
+  const suspCount = summary?.suspicious_records ?? 0;
+  const normalPct = summary?.normal_percentage ?? 0;
+  const suspPct = summary?.suspicious_percentage ?? 0;
+  const totalRecords = summary?.total_records ?? 0;
 
   const chartData = [
     {
@@ -31,7 +31,7 @@ export default function TrafficClassificationChart({ summary, loading }) {
       percentage: suspPct,
       color: '#EF4444',
     },
-  ];
+  ].filter((d) => d.value > 0);
 
   return (
     <div className="analytical-card traffic-comp-card">
@@ -88,6 +88,10 @@ export default function TrafficClassificationChart({ summary, loading }) {
               dataKey="value"
               stroke="var(--surface-card)"
               strokeWidth={2}
+              style={{ cursor: onSelectStatus ? 'pointer' : 'default' }}
+              onClick={(entry) => {
+                if (entry && entry.name) onSelectStatus?.(entry.name);
+              }}
             >
               {chartData.map((entry) => (
                 <Cell key={entry.name} fill={entry.color} />
@@ -107,7 +111,7 @@ export default function TrafficClassificationChart({ summary, loading }) {
             pointerEvents: 'none',
           }}
         >
-          <div style={{ fontSize: '1.25rem', fontWeight: '800', color: '#F5F7FA', lineHeight: 1.1 }}>
+          <div style={{ fontSize: '1.25rem', fontWeight: '800', color: 'var(--text-primary)', lineHeight: 1.1 }}>
             {Number(totalRecords).toLocaleString()}
           </div>
           <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)', letterSpacing: '0.04em', textTransform: 'uppercase', marginTop: '2px' }}>
@@ -119,41 +123,49 @@ export default function TrafficClassificationChart({ summary, loading }) {
       {/* Bottom Segment Legend Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginTop: '4px' }}>
         <div
+          onClick={() => onSelectStatus?.('NORMAL')}
           style={{
-            background: 'rgba(34, 197, 94, 0.05)',
-            border: '1px solid rgba(34, 197, 94, 0.2)',
+            background: 'rgba(34, 197, 94, 0.08)',
+            border: '1px solid rgba(34, 197, 94, 0.25)',
             borderRadius: 'var(--radius-sm)',
             padding: '8px 10px',
+            cursor: onSelectStatus ? 'pointer' : 'default',
+            transition: 'background 0.15s ease',
           }}
+          title={onSelectStatus ? 'Click to select NORMAL status' : undefined}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#22C55E' }} />
-            <span style={{ fontSize: '0.68rem', fontWeight: '700', color: '#22C55E' }}>NORMAL</span>
+            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#16A34A' }} />
+            <span style={{ fontSize: '0.68rem', fontWeight: '700', color: '#16A34A' }}>NORMAL</span>
           </div>
-          <div style={{ fontSize: '0.9rem', fontWeight: '800', color: '#F5F7FA', marginTop: '3px' }}>
+          <div style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--text-primary)', marginTop: '3px' }}>
             {Number(normalCount).toLocaleString()}
           </div>
-          <div style={{ fontSize: '0.66rem', color: '#86EFAC' }}>
+          <div style={{ fontSize: '0.66rem', color: '#16A34A', fontWeight: 600 }}>
             {normalPct}%
           </div>
         </div>
 
         <div
+          onClick={() => onSelectStatus?.('SUSPICIOUS')}
           style={{
-            background: 'rgba(239, 68, 68, 0.05)',
-            border: '1px solid rgba(239, 68, 68, 0.2)',
+            background: 'rgba(239, 68, 68, 0.08)',
+            border: '1px solid rgba(239, 68, 68, 0.25)',
             borderRadius: 'var(--radius-sm)',
             padding: '8px 10px',
+            cursor: onSelectStatus ? 'pointer' : 'default',
+            transition: 'background 0.15s ease',
           }}
+          title={onSelectStatus ? 'Click to select SUSPICIOUS status' : undefined}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
-            <span style={{ fontSize: '0.68rem', fontWeight: '700', color: '#EF4444' }}>SUSPICIOUS</span>
+            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#DC2626' }} />
+            <span style={{ fontSize: '0.68rem', fontWeight: '700', color: '#DC2626' }}>SUSPICIOUS</span>
           </div>
-          <div style={{ fontSize: '0.9rem', fontWeight: '800', color: '#F5F7FA', marginTop: '3px' }}>
+          <div style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--text-primary)', marginTop: '3px' }}>
             {Number(suspCount).toLocaleString()}
           </div>
-          <div style={{ fontSize: '0.66rem', color: '#FCA5A5' }}>
+          <div style={{ fontSize: '0.66rem', color: '#DC2626', fontWeight: 600 }}>
             {suspPct}%
           </div>
         </div>

@@ -12,6 +12,8 @@ import {
   Sparkles,
 } from 'lucide-react';
 
+import { predictTraffic } from '../api/predictionApi';
+
 export default function ReportPreview({ report: propReport }) {
   const [report, setReport] = useState(propReport || null);
 
@@ -31,15 +33,10 @@ export default function ReportPreview({ report: propReport }) {
     try {
       const res = await fetch('/sample_traffic_test.csv');
       const blob = await res.blob();
-      const formData = new FormData();
-      formData.append('file', new File([blob], 'sample_traffic_test.csv', { type: 'text/csv' }));
-
-      const apiRes = await fetch('/api/predict', { method: 'POST', body: formData });
-      if (apiRes.ok) {
-        const json = await apiRes.json();
-        if (json.report) {
-          setReport(json.report);
-        }
+      const file = new File([blob], 'sample_traffic_test.csv', { type: 'text/csv' });
+      const json = await predictTraffic(file);
+      if (json && json.report) {
+        setReport(json.report);
       }
     } catch (err) {
       console.error('Failed to load demo report:', err);

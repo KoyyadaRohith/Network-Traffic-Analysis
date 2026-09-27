@@ -10,6 +10,7 @@ try:
         DateSummaryResponse,
         TrafficAnalyticsResponse,
         PortDrillDownDetail,
+        FactTrafficRecord,
     )
     import analytics
 except ImportError:
@@ -22,6 +23,7 @@ except ImportError:
         DateSummaryResponse,
         TrafficAnalyticsResponse,
         PortDrillDownDetail,
+        FactTrafficRecord,
     )
     from backend import analytics
 
@@ -103,18 +105,47 @@ def get_analytics_date_summary():
 def get_analytics_traffic(
     status: str = None,
     destination_port: int = None,
-    date: str = None
+    date: str = None,
+    page: int = None,
+    page_size: int = 25,
+    search: str = None,
+    sort_by: str = None,
+    sort_order: str = "asc",
 ):
     try:
         return analytics.get_filtered_traffic_analytics(
             status=status,
             destination_port=destination_port,
-            date=date
+            date=date,
+            page=page,
+            page_size=page_size,
+            search=search,
+            sort_by=sort_by,
+            sort_order=sort_order,
         )
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Filtered traffic analytics query failed"
+        )
+
+
+@router.get("/traffic/record/{traffic_id}", response_model=FactTrafficRecord)
+def get_traffic_record(traffic_id: int):
+    try:
+        rec = analytics.get_traffic_record_by_id(traffic_id)
+        if not rec:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Traffic record {traffic_id} not found"
+            )
+        return rec
+    except HTTPException:
+        raise
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to query traffic record {traffic_id}"
         )
 
 

@@ -1,18 +1,23 @@
 import React from 'react';
 import { Database, CheckCircle2, AlertTriangle, Cpu } from 'lucide-react';
 
-export default function KpiCard({ summary, loading }) {
-  const total = summary ? Number(summary.total_records).toLocaleString() : '223,112';
-  const normal = summary ? Number(summary.normal_records).toLocaleString() : '95,096';
-  const suspicious = summary ? Number(summary.suspicious_records).toLocaleString() : '128,016';
-  const normalPct = summary ? `${summary.normal_percentage}% of total` : '42.62% of total';
-  const suspPct = summary ? `${summary.suspicious_percentage}% of total` : '57.38% of total';
+export default function KpiCard({ summary, statistics, loading }) {
+  const total = summary?.total_records != null ? Number(summary.total_records).toLocaleString() : '—';
+  const normal = summary?.normal_records != null ? Number(summary.normal_records).toLocaleString() : '—';
+  const suspicious = summary?.suspicious_records != null ? Number(summary.suspicious_records).toLocaleString() : '—';
+  const normalPct = summary?.normal_percentage != null ? `${summary.normal_percentage}% of total` : '';
+  const suspPct = summary?.suspicious_percentage != null ? `${summary.suspicious_percentage}% of total` : '';
+  const avgPacketLen = statistics?.average_packet_length != null
+    ? `${Number(statistics.average_packet_length).toFixed(2)} B`
+    : summary?.average_packet_length != null
+    ? `${Number(summary.average_packet_length).toFixed(2)} B`
+    : '—';
 
   const cards = [
     {
       title: 'TOTAL RECORDS',
       value: total,
-      supporting: 'Flow records in warehouse',
+      supporting: summary ? 'Flow records matching filter' : 'Flow records in warehouse',
       icon: Database,
       accent: 'var(--color-cyan)',
       badgeBg: 'rgba(0, 217, 255, 0.08)',
@@ -23,7 +28,7 @@ export default function KpiCard({ summary, loading }) {
     {
       title: 'NORMAL TRAFFIC',
       value: normal,
-      supporting: normalPct,
+      supporting: normalPct || 'BENIGN flows',
       icon: CheckCircle2,
       accent: '#22C55E',
       badgeBg: 'rgba(34, 197, 94, 0.08)',
@@ -34,7 +39,7 @@ export default function KpiCard({ summary, loading }) {
     {
       title: 'SUSPICIOUS TRAFFIC',
       value: suspicious,
-      supporting: suspPct,
+      supporting: suspPct || 'DDoS attack flows',
       icon: AlertTriangle,
       accent: '#EF4444',
       badgeBg: 'rgba(239, 68, 68, 0.08)',
@@ -43,15 +48,15 @@ export default function KpiCard({ summary, loading }) {
       sparklinePoints: '0,18 15,22 30,16 45,20 60,14 75,17 90,11 105,15 120,8 135,12 150,5',
     },
     {
-      title: 'MODEL FEATURES',
-      value: '62',
-      supporting: '62 network flow features',
+      title: 'AVG PACKET LENGTH',
+      value: avgPacketLen,
+      supporting: 'Mean flow packet size',
       icon: Cpu,
       accent: '#A855F7',
       badgeBg: 'rgba(168, 85, 247, 0.08)',
       badgeBorder: 'rgba(168, 85, 247, 0.25)',
       sparklineColor: '#A855F7',
-      sparklinePoints: '0,14 15,14 30,14 45,14 60,14 75,14 90,14 105,14 120,14 135,14 150,14',
+      sparklinePoints: '0,14 15,16 30,12 45,18 60,10 75,15 90,9 105,13 120,8 135,11 150,7',
     },
   ];
 

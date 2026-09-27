@@ -3,7 +3,10 @@
  * Connects to real MySQL star schema warehouse endpoints for OLAP operations
  */
 
-async function fetchFromEndpoints(paths) {
+import { getEndpoints } from './config';
+
+async function fetchFromEndpoints(pathOrPaths) {
+  const paths = Array.isArray(pathOrPaths) ? pathOrPaths : getEndpoints(pathOrPaths);
   let lastError = null;
   for (const p of paths) {
     try {
@@ -22,52 +25,31 @@ async function fetchFromEndpoints(paths) {
 }
 
 export async function fetchDWDMOverview() {
-  return fetchFromEndpoints([
-    '/api/dwdm/overview',
-    'http://127.0.0.1:8000/api/dwdm/overview',
-  ]);
+  return fetchFromEndpoints('/api/dwdm/overview');
 }
 
 export async function fetchDWDMClassificationSummary() {
-  return fetchFromEndpoints([
-    '/api/dwdm/classification-summary',
-    'http://127.0.0.1:8000/api/dwdm/classification-summary',
-  ]);
+  return fetchFromEndpoints('/api/dwdm/classification-summary');
 }
 
 export async function fetchDWDMPortAnalysis(limit = 15) {
-  return fetchFromEndpoints([
-    `/api/dwdm/port-analysis?limit=${limit}`,
-    `http://127.0.0.1:8000/api/dwdm/port-analysis?limit=${limit}`,
-  ]);
+  return fetchFromEndpoints(`/api/dwdm/port-analysis?limit=${limit}`);
 }
 
 export async function fetchDWDMStatusComparison() {
-  return fetchFromEndpoints([
-    '/api/dwdm/status-comparison',
-    'http://127.0.0.1:8000/api/dwdm/status-comparison',
-  ]);
+  return fetchFromEndpoints('/api/dwdm/status-comparison');
 }
 
-export async function fetchDWDMRollup() {
-  return fetchFromEndpoints([
-    '/api/dwdm/rollup',
-    'http://127.0.0.1:8000/api/dwdm/rollup',
-  ]);
+export async function fetchDWDMRollup(groupBy = 'date_status') {
+  return fetchFromEndpoints(`/api/dwdm/rollup?group_by=${groupBy}`);
 }
 
 export async function fetchDWDMDrilldown(port = 80) {
-  return fetchFromEndpoints([
-    `/api/dwdm/drilldown/${port}`,
-    `http://127.0.0.1:8000/api/dwdm/drilldown/${port}`,
-  ]);
+  return fetchFromEndpoints(`/api/dwdm/drilldown/${port}`);
 }
 
 export async function fetchDWDMQueries() {
-  return fetchFromEndpoints([
-    '/api/dwdm/queries',
-    'http://127.0.0.1:8000/api/dwdm/queries',
-  ]);
+  return fetchFromEndpoints('/api/dwdm/queries');
 }
 
 export async function fetchSliceDiceResults(status = 'ALL', port = 'ALL') {
@@ -76,8 +58,5 @@ export async function fetchSliceDiceResults(status = 'ALL', port = 'ALL') {
   if (port && port !== 'ALL') params.append('destination_port', port);
   const qStr = params.toString() ? `?${params.toString()}` : '';
 
-  return fetchFromEndpoints([
-    `/api/analytics/traffic${qStr}`,
-    `http://127.0.0.1:8000/api/analytics/traffic${qStr}`,
-  ]);
+  return fetchFromEndpoints(`/api/analytics/traffic${qStr}`);
 }

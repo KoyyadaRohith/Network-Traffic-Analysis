@@ -3,11 +3,10 @@
  * Retrieves real model performance metrics, confusion matrix, and feature importances
  */
 
+import { getEndpoints } from './config';
+
 export async function fetchModelEvaluation() {
-  const endpoints = [
-    '/api/model/evaluation',
-    'http://127.0.0.1:8000/api/model/evaluation'
-  ];
+  const endpoints = getEndpoints('/api/model/evaluation');
 
   let lastError = null;
   for (const ep of endpoints) {
@@ -28,10 +27,7 @@ export async function fetchModelEvaluation() {
 }
 
 export async function fetchFeatureImportance() {
-  const endpoints = [
-    '/api/model/feature-importance',
-    'http://127.0.0.1:8000/api/model/feature-importance'
-  ];
+  const endpoints = getEndpoints('/api/model/feature-importance');
 
   let lastError = null;
   for (const ep of endpoints) {

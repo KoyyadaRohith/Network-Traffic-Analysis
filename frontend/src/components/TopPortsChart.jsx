@@ -24,7 +24,7 @@ const COMMON_PORTS = {
   465: 'SMTPS',
 };
 
-export default function TopPortsChart({ portsData, loading, onViewDetails }) {
+export default function TopPortsChart({ portsData, loading, onViewDetails, onSelectPort }) {
   if (loading) {
     return (
       <div className="analytical-card bottom-grid-card" style={{ height: '320px', display: 'flex', flexDirection: 'column' }}>
@@ -48,12 +48,7 @@ export default function TopPortsChart({ portsData, loading, onViewDetails }) {
     });
   }
 
-  // Ensure verified 10th destination port from database aggregation is included if grouped status query returned 9 unique ports
-  if (Object.keys(portMap).length === 9 && !portMap[137]) {
-    portMap[137] = { port: 137, total: 136 };
-  }
-
-  let chartData = Object.values(portMap)
+  const chartData = Object.values(portMap)
     .sort((a, b) => b.total - a.total)
     .slice(0, 10)
     .map((item) => {
@@ -65,22 +60,6 @@ export default function TopPortsChart({ portsData, loading, onViewDetails }) {
         total: item.total,
       };
     });
-
-  // Verified fallback of the exact top 10 destination ports from database aggregation
-  if (chartData.length === 0) {
-    chartData = [
-      { port: 80, displayName: '80 (HTTP)', service: 'HTTP', total: 136562 },
-      { port: 53, displayName: '53 (DNS)', service: 'DNS', total: 30302 },
-      { port: 443, displayName: '443 (HTTPS)', service: 'HTTPS', total: 13114 },
-      { port: 8080, displayName: '8080 (HTTP-Alt)', service: 'HTTP-Alt', total: 510 },
-      { port: 123, displayName: '123 (NTP)', service: 'NTP', total: 361 },
-      { port: 22, displayName: '22 (SSH)', service: 'SSH', total: 317 },
-      { port: 389, displayName: '389 (LDAP)', service: 'LDAP', total: 258 },
-      { port: 88, displayName: '88 (Kerberos)', service: 'Kerberos', total: 170 },
-      { port: 21, displayName: '21 (FTP)', service: 'FTP', total: 143 },
-      { port: 137, displayName: '137 (NetBIOS)', service: 'NetBIOS', total: 136 },
-    ];
-  }
 
   const formatCount = (val) => {
     if (val >= 1000000) return `${(val / 1000000).toFixed(1)}M`;
@@ -137,67 +116,85 @@ export default function TopPortsChart({ portsData, loading, onViewDetails }) {
         )}
       </div>
 
-      <div style={{ width: '100%', height: '230px' }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            layout="vertical"
-            data={chartData}
-            margin={{ top: 2, right: 16, left: 18, bottom: 2 }}
-          >
-            <XAxis
-              type="number"
-              stroke="var(--border-subtle)"
-              tickFormatter={formatCount}
-              tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
-              tickLine={false}
-            />
-            <YAxis
-              type="category"
-              dataKey="displayName"
-              width={90}
-              stroke="var(--border-subtle)"
-              tick={{ fill: 'var(--text-secondary)', fontSize: 10 }}
-              tickLine={false}
-            />
-            <Tooltip
-              content={({ active, payload }) => {
-                if (active && payload && payload.length) {
-                  const d = payload[0].payload;
-                  return (
-                    <div
-                      style={{
-                        backgroundColor: 'var(--surface-card)',
-                        border: '1px solid var(--border-subtle)',
-                        borderRadius: '6px',
-                        padding: '8px 12px',
-                        fontSize: '0.78rem',
-                        boxShadow: 'var(--shadow-elevated)',
-                      }}
-                    >
-                      <div style={{ fontWeight: '700', color: '#F59E0B' }}>
-                        Port {d.port} ({d.service})
+      {chartData.length === 0 ? (
+        <div style={{ height: '230px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: '0.84rem' }}>
+          No destination ports match the current filter selection.
+        </div>
+      ) : (
+        <div style={{ width: '100%', height: '230px' }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              layout="vertical"
+              data={chartData}
+              margin={{ top: 2, right: 16, left: 18, bottom: 2 }}
+            >
+              <XAxis
+                type="number"
+                stroke="var(--border-subtle)"
+                tickFormatter={formatCount}
+                tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
+                tickLine={false}
+              />
+              <YAxis
+                type="category"
+                dataKey="displayName"
+                width={90}
+                stroke="var(--border-subtle)"
+                tick={{ fill: 'var(--text-secondary)', fontSize: 10 }}
+                tickLine={false}
+              />
+              <Tooltip
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    const d = payload[0].payload;
+                    return (
+                      <div
+                        style={{
+                          backgroundColor: 'var(--surface-card)',
+                          border: '1px solid var(--border-subtle)',
+                          borderRadius: '6px',
+                          padding: '8px 12px',
+                          fontSize: '0.78rem',
+                          boxShadow: 'var(--shadow-elevated)',
+                        }}
+                      >
+                        <div style={{ fontWeight: '700', color: '#F59E0B' }}>
+                          Port {d.port} ({d.service})
+                        </div>
+                        <div style={{ fontSize: '0.92rem', fontWeight: '800', color: 'var(--text-primary)', marginTop: '2px' }}>
+                          {d.total.toLocaleString()} records
+                        </div>
+                        {onSelectPort && (
+                          <div style={{ fontSize: '0.7rem', color: 'var(--color-cyan)', marginTop: '4px' }}>
+                            Click to select Port {d.port}
+                          </div>
+                        )}
                       </div>
-                      <div style={{ fontSize: '0.92rem', fontWeight: '800', color: 'var(--text-primary)', marginTop: '2px' }}>
-                        {d.total.toLocaleString()} records
-                      </div>
-                    </div>
-                  );
-                }
-                return null;
-              }}
-            />
-            <Bar dataKey="total" radius={[0, 4, 4, 0]}>
-              {chartData.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={index === 0 ? '#F59E0B' : index < 3 ? '#FB923C' : '#D97706'}
-                  opacity={0.9}
-                />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <Bar
+                dataKey="total"
+                radius={[0, 4, 4, 0]}
+                style={{ cursor: onSelectPort ? 'pointer' : 'default' }}
+                onClick={(entry) => {
+                  if (entry && entry.port) onSelectPort?.(entry.port);
+                }}
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={index === 0 ? '#F59E0B' : index < 3 ? '#FB923C' : '#D97706'}
+                    opacity={0.9}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      )}
     </div>
   );
 }
