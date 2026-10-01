@@ -6,7 +6,6 @@ import {
   Server,
   BarChart3,
   BrainCircuit,
-  FileSpreadsheet,
   ArrowRight,
 } from 'lucide-react';
 
@@ -65,15 +64,6 @@ export default function DWDMPipeline() {
       accent: 'var(--color-cyan)',
       borderAccent: 'rgba(0, 217, 255, 0.25)',
       badgeBg: 'rgba(0, 217, 255, 0.08)',
-    },
-    {
-      num: '07',
-      title: 'Report Analysis',
-      desc: 'Analytical evaluation report',
-      icon: FileSpreadsheet,
-      accent: '#00C8E8',
-      borderAccent: 'rgba(0, 200, 232, 0.25)',
-      badgeBg: 'rgba(0, 200, 232, 0.08)',
     },
   ];
 

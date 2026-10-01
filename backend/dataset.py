@@ -1,6 +1,9 @@
 import os
 import logging
-from database import get_db_connection
+try:
+    from database import get_db_connection
+except ImportError:
+    from backend.database import get_db_connection
 
 logger = logging.getLogger(__name__)
 

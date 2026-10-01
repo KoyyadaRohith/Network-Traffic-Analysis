@@ -1,5 +1,8 @@
 import logging
-from database import get_db_connection
+try:
+    from database import get_db_connection
+except ImportError:
+    from backend.database import get_db_connection
 
 logger = logging.getLogger(__name__)
 
@@ -120,7 +123,7 @@ def get_top_ports(limit: int = 10):
             JOIN dim_classification c ON f.classification_id = c.classification_id
             GROUP BY n.destination_port, c.traffic_status
             ORDER BY total_records DESC
-            LIMIT %s;
+            LIMIT ?;
         """
         cursor.execute(query, (limit,))
         rows = cursor.fetchall()
@@ -465,7 +468,7 @@ def get_traffic_record_by_id(traffic_id: int):
             JOIN dim_classification c ON f.classification_id = c.classification_id
             JOIN dim_network n ON f.network_id = n.network_id
             JOIN dim_date d ON f.date_id = d.date_id
-            WHERE f.traffic_id = %s
+            WHERE f.traffic_id = ?
             LIMIT 1;
         """
         cursor.execute(query, (int(traffic_id),))
@@ -507,22 +510,22 @@ def get_filtered_traffic_analytics(
         if status:
             cleaned_status = status.strip().upper()
             if cleaned_status in ("NORMAL", "SUSPICIOUS"):
-                where_clauses.append("c.traffic_status = %s")
+                where_clauses.append("c.traffic_status = ?")
                 params.append(cleaned_status)
 
         if destination_port is not None:
-            where_clauses.append("n.destination_port = %s")
+            where_clauses.append("n.destination_port = ?")
             params.append(int(destination_port))
 
         if date:
-            where_clauses.append("d.full_date = %s")
+            where_clauses.append("d.full_date = ?")
             params.append(date.strip())
 
         if search:
             search_str = search.strip()
             if search_str:
                 if search_str.isdigit():
-                    where_clauses.append("(f.traffic_id = %s OR n.destination_port = %s)")
+                    where_clauses.append("(f.traffic_id = ? OR n.destination_port = ?)")
                     params.extend([int(search_str), int(search_str)])
                 else:
                     search_upper = search_str.upper()
@@ -531,7 +534,7 @@ def get_filtered_traffic_analytics(
                     elif "NORM" in search_upper or "BENIGN" in search_upper:
                         where_clauses.append("c.traffic_status = 'NORMAL'")
                     else:
-                        where_clauses.append("(c.traffic_status LIKE %s OR c.original_label LIKE %s)")
+                        where_clauses.append("(c.traffic_status LIKE ? OR c.original_label LIKE ?)")
                         params.extend([f"%{search_str}%", f"%{search_str}%"])
 
         where_sql = ("WHERE " + " AND ".join(where_clauses)) if where_clauses else ""
@@ -687,7 +690,7 @@ def get_filtered_traffic_analytics(
                 JOIN dim_date d ON f.date_id = d.date_id
                 {where_sql}
                 ORDER BY {order_col} {order_dir}
-                LIMIT %s OFFSET %s;
+                LIMIT ? OFFSET ?;
             """
             cursor.execute(records_query, tuple(params + [p_size, offset]))
             raw_records = cursor.fetchall()
@@ -765,7 +768,7 @@ def get_port_drilldown(port: int):
             FROM fact_network_traffic f
             JOIN dim_classification c ON f.classification_id = c.classification_id
             JOIN dim_network n ON f.network_id = n.network_id
-            WHERE n.destination_port = %s;
+            WHERE n.destination_port = ?;
         """
         cursor.execute(query, (port,))
         row = cursor.fetchone()

@@ -1,4 +1,10 @@
 {
+  "outputDirectory": "frontend/dist",
+  "functions": {
+    "api/**/*.py": {
+      "includeFiles": "database/network_traffic_dw.sqlite.gz,models/**"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",

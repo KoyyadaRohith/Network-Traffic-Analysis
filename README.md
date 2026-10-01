@@ -371,7 +371,6 @@ Network Traffic Analysis/
 │   │   │   ├── DataWarehouse.jsx   # Star Schema & Warehouse Architecture
 │   │   │   ├── DWDMAnalysis.jsx    # Complete Academic Pipeline Flow
 │   │   │   ├── OLAPAnalysis.jsx    # Slice, Dice, Roll-Up, Drill-Down View
-│   │   │   ├── ReportAnalysis.jsx  # Printable Academic Summary & Findings
 │   │   │   └── TrafficAnalytics.jsx
 │   │   ├── App.css                 # Component & Layout Styles
 │   │   ├── App.jsx                 # Main Application Layout & Routing

@@ -58,4 +58,8 @@ data/processed/y_test.csv
 coverage/
 .pytest_cache/
 
+# SQLite analytical database (bundle compressed .sqlite.gz for deployment)
+database/*.sqlite
+!database/*.sqlite.gz
+
 

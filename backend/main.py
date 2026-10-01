@@ -1,6 +1,9 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from database import get_db_connection
+try:
+    from database import get_db_connection
+except ImportError:
+    from backend.database import get_db_connection
 
 try:
     from routers.analytics import router as analytics_router
@@ -27,7 +30,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

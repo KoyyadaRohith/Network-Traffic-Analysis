@@ -24,15 +24,17 @@ export function getEndpoints(path) {
   // Same-domain relative path (crucial for unified Vercel monorepo deployment)
   endpoints.push(cleanPath);
 
-  // Local development direct fallbacks
-  const localEndpoint = `http://localhost:8000${cleanPath}`;
-  if (!endpoints.includes(localEndpoint)) {
-    endpoints.push(localEndpoint);
-  }
+  // Local development direct fallbacks (active only during local dev)
+  if (import.meta.env.DEV) {
+    const localEndpoint = `http://localhost:8000${cleanPath}`;
+    if (!endpoints.includes(localEndpoint)) {
+      endpoints.push(localEndpoint);
+    }
 
-  const local127 = `http://127.0.0.1:8000${cleanPath}`;
-  if (!endpoints.includes(local127)) {
-    endpoints.push(local127);
+    const local127 = `http://127.0.0.1:8000${cleanPath}`;
+    if (!endpoints.includes(local127)) {
+      endpoints.push(local127);
+    }
   }
 
   return [...new Set(endpoints)];

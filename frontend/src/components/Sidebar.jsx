@@ -5,7 +5,6 @@ import {
   Database,
   BarChart3,
   BrainCircuit,
-  FileText,
   X,
   Network,
   Disc,
@@ -31,12 +30,6 @@ export default function Sidebar({ isOpen, onClose, activeTab = 'Dashboard', onSe
       group: 'DATA MINING',
       items: [
         { name: 'Data Mining', route: '/mining', icon: BrainCircuit },
-      ],
-    },
-    {
-      group: 'RESULTS',
-      items: [
-        { name: 'Analytical Report', route: '/report', icon: FileText },
       ],
     },
   ];
@@ -104,7 +97,7 @@ export default function Sidebar({ isOpen, onClose, activeTab = 'Dashboard', onSe
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
                   {section.items.map((item) => {
                     const Icon = item.icon;
-                    const isActive = activeTab === item.name || (item.name === 'Analytical Report' && activeTab === 'Report Analysis');
+                    const isActive = activeTab === item.name;
 
                     return (
                       <button

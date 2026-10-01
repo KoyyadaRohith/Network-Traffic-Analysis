@@ -987,7 +987,7 @@ export default function DataMining() {
                 dataKey="name"
                 width={200}
                 stroke="#1E3B4D"
-                tick={{ fill: '#E2E8F0', fontSize: 11, fontFamily: 'JetBrains Mono' }}
+                tick={{ fill: 'var(--text-primary)', fontSize: 11, fontFamily: 'JetBrains Mono' }}
               />
               <RechartsTooltip
                 content={({ active, payload }) => {

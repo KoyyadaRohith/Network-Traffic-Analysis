@@ -14,7 +14,6 @@ import TrafficExplorer from './pages/TrafficExplorer';
 import DataWarehouse from './pages/DataWarehouse';
 import OLAPAnalysis from './pages/OLAPAnalysis';
 import DataMining from './pages/DataMining';
-import ReportAnalysis from './pages/ReportAnalysis';
 
 function AppContent() {
   const {
@@ -61,8 +60,6 @@ function AppContent() {
         <OLAPAnalysis />
       ) : activeTab === 'Data Mining' ? (
         <DataMining />
-      ) : activeTab === 'Analytical Report' || activeTab === 'Report Analysis' ? (
-        <ReportAnalysis />
       ) : (
         <Dashboard />
       )}

@@ -12,9 +12,6 @@ export const PATH_TO_TAB = {
   '/olap-analysis': 'OLAP Analysis',
   '/mining': 'Data Mining',
   '/data-mining': 'Data Mining',
-  '/report': 'Analytical Report',
-  '/reports': 'Analytical Report',
-  '/report-analysis': 'Analytical Report',
 };
 
 export const TAB_TO_PATH = {
@@ -23,8 +20,6 @@ export const TAB_TO_PATH = {
   'Data Warehouse': '/warehouse',
   'OLAP Analysis': '/olap',
   'Data Mining': '/mining',
-  'Analytical Report': '/report',
-  'Report Analysis': '/report',
 };
 
 export const DEFAULT_FILTERS = {

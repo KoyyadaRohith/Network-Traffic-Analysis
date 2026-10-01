@@ -170,7 +170,7 @@ def get_port_analysis(limit: int = 15) -> Dict[str, Any]:
         JOIN dim_classification dc ON ft.classification_id = dc.classification_id
         GROUP BY dn.destination_port
         ORDER BY total_records DESC
-        LIMIT %s
+        LIMIT ?
         """
         cursor.execute(query, (limit,))
         rows = cursor.fetchall()
@@ -272,18 +272,29 @@ def get_rollup_analysis(group_by: str = "date_status") -> Dict[str, Any]:
     try:
         if group_by == "port":
             query = """
+            SELECT * FROM (
+                SELECT 
+                    CAST(dn.destination_port AS TEXT) AS group_key,
+                    dn.destination_port,
+                    COUNT(*) AS record_count,
+                    ROUND(AVG(ft.flow_duration), 2) AS avg_flow_duration,
+                    ROUND(AVG(ft.packet_length_mean), 2) AS avg_packet_length,
+                    0 AS is_rollup
+                FROM fact_network_traffic ft
+                JOIN dim_network dn ON ft.network_id = dn.network_id
+                GROUP BY dn.destination_port
+                ORDER BY record_count DESC
+                LIMIT 15
+            )
+            UNION ALL
             SELECT 
-                COALESCE(CAST(dn.destination_port AS CHAR), 'GRAND TOTAL') AS group_key,
-                dn.destination_port,
+                'GRAND TOTAL' AS group_key,
+                NULL AS destination_port,
                 COUNT(*) AS record_count,
                 ROUND(AVG(ft.flow_duration), 2) AS avg_flow_duration,
                 ROUND(AVG(ft.packet_length_mean), 2) AS avg_packet_length,
-                GROUPING(dn.destination_port) AS is_rollup
-            FROM fact_network_traffic ft
-            JOIN dim_network dn ON ft.network_id = dn.network_id
-            GROUP BY dn.destination_port WITH ROLLUP
-            ORDER BY is_rollup ASC, record_count DESC
-            LIMIT 16;
+                1 AS is_rollup
+            FROM fact_network_traffic ft;
             """
             cursor.execute(query)
             rows = cursor.fetchall()
@@ -310,16 +321,24 @@ def get_rollup_analysis(group_by: str = "date_status") -> Dict[str, Any]:
         elif group_by == "status":
             query = """
             SELECT 
-                COALESCE(dc.traffic_status, 'GRAND TOTAL') AS group_key,
+                dc.traffic_status AS group_key,
                 dc.traffic_status,
                 COUNT(*) AS record_count,
                 ROUND(AVG(ft.flow_duration), 2) AS avg_flow_duration,
                 ROUND(AVG(ft.packet_length_mean), 2) AS avg_packet_length,
-                GROUPING(dc.traffic_status) AS is_rollup
+                0 AS is_rollup
             FROM fact_network_traffic ft
             JOIN dim_classification dc ON ft.classification_id = dc.classification_id
-            GROUP BY dc.traffic_status WITH ROLLUP
-            ORDER BY is_rollup ASC, record_count DESC;
+            GROUP BY dc.traffic_status
+            UNION ALL
+            SELECT 
+                'GRAND TOTAL' AS group_key,
+                'GRAND TOTAL' AS traffic_status,
+                COUNT(*) AS record_count,
+                ROUND(AVG(ft.flow_duration), 2) AS avg_flow_duration,
+                ROUND(AVG(ft.packet_length_mean), 2) AS avg_packet_length,
+                1 AS is_rollup
+            FROM fact_network_traffic ft;
             """
             cursor.execute(query)
             rows = cursor.fetchall()
@@ -346,17 +365,39 @@ def get_rollup_analysis(group_by: str = "date_status") -> Dict[str, Any]:
         else:
             query = """
             SELECT 
-                COALESCE(CAST(dd.full_date AS CHAR), 'GRAND TOTAL') AS capture_date,
-                COALESCE(dc.traffic_status, 'ALL STATUSES') AS traffic_status,
+                CAST(dd.full_date AS TEXT) AS capture_date,
+                dc.traffic_status AS traffic_status,
                 COUNT(*) AS record_count,
                 ROUND(AVG(ft.flow_duration), 2) AS avg_flow_duration,
                 ROUND(AVG(ft.packet_length_mean), 2) AS avg_packet_length,
-                GROUPING(dd.full_date) AS is_date_rollup,
-                GROUPING(dc.traffic_status) AS is_status_rollup
+                0 AS is_date_rollup,
+                0 AS is_status_rollup
             FROM fact_network_traffic ft
             JOIN dim_date dd ON ft.date_id = dd.date_id
             JOIN dim_classification dc ON ft.classification_id = dc.classification_id
-            GROUP BY dd.full_date, dc.traffic_status WITH ROLLUP
+            GROUP BY dd.full_date, dc.traffic_status
+            UNION ALL
+            SELECT 
+                CAST(dd.full_date AS TEXT) AS capture_date,
+                'ALL STATUSES' AS traffic_status,
+                COUNT(*) AS record_count,
+                ROUND(AVG(ft.flow_duration), 2) AS avg_flow_duration,
+                ROUND(AVG(ft.packet_length_mean), 2) AS avg_packet_length,
+                0 AS is_date_rollup,
+                1 AS is_status_rollup
+            FROM fact_network_traffic ft
+            JOIN dim_date dd ON ft.date_id = dd.date_id
+            GROUP BY dd.full_date
+            UNION ALL
+            SELECT 
+                'GRAND TOTAL' AS capture_date,
+                'ALL STATUSES' AS traffic_status,
+                COUNT(*) AS record_count,
+                ROUND(AVG(ft.flow_duration), 2) AS avg_flow_duration,
+                ROUND(AVG(ft.packet_length_mean), 2) AS avg_packet_length,
+                1 AS is_date_rollup,
+                1 AS is_status_rollup
+            FROM fact_network_traffic ft;
             """
             cursor.execute(query)
             rows = cursor.fetchall()
@@ -424,7 +465,7 @@ def get_port_drilldown(port: int) -> Dict[str, Any]:
         FROM fact_network_traffic ft
         JOIN dim_network dn ON ft.network_id = dn.network_id
         JOIN dim_classification dc ON ft.classification_id = dc.classification_id
-        WHERE dn.destination_port = %s
+        WHERE dn.destination_port = ?
         GROUP BY dn.destination_port
         """
         cursor.execute(query, (port,))

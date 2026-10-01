@@ -2280,7 +2280,7 @@
 }
 
 /* ==========================================================================
-   PHASE 6 — REPORT ANALYSIS STYLES
+  PHASE 6 — LEGACY PAGE STYLES
    ========================================================================== */
 
 .ra-container {
@@ -2989,7 +2989,7 @@
 }
 
 /* ==========================================================================
-   PHASE 5 — ANALYTICAL REPORT ADVANCED WORKSPACE STYLES
+  PHASE 5 — LEGACY WORKSPACE STYLES
    ========================================================================== */
 
 /* Quick-Jump Section Navigation Bar */
@@ -3206,7 +3206,7 @@
   color: var(--text-secondary);
 }
 
-/* Responsive Media Queries for Analytical Report */
+/* Responsive Media Queries for Legacy Workspace */
 @media (max-width: 1024px) {
   .ra-olap-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -3274,7 +3274,7 @@
   }
 }
 
-/* Simplified Analytical Report Grid Responsiveness */
+/* Simplified Legacy Grid Responsiveness */
 @media (max-width: 960px) {
   .ra-olap-four-grid {
     grid-template-columns: repeat(2, 1fr) !important;

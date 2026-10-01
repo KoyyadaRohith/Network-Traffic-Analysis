@@ -1,5 +1,5 @@
 import React from 'react';
-import { Database, BarChart3, BrainCircuit, FileSpreadsheet } from 'lucide-react';
+import { Database, BarChart3, BrainCircuit } from 'lucide-react';
 
 export default function ProjectImpactCard() {
   const impacts = [
@@ -23,13 +23,6 @@ export default function ProjectImpactCard() {
       icon: BrainCircuit,
       accent: 'var(--color-cyan)',
       badgeBg: 'rgba(0, 217, 255, 0.08)',
-    },
-    {
-      title: 'Analytical Reporting',
-      desc: 'Summary of warehouse and model results',
-      icon: FileSpreadsheet,
-      accent: '#00C8E8',
-      badgeBg: 'rgba(0, 200, 232, 0.08)',
     },
   ];
 
